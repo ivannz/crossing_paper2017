@@ -1,0 +1,490 @@
+
+\section{the Crossing tree} % (fold)
+\label{sec:the_crossing_tree}
+
+Brief history in the literature. Cite the original papers \cite{jones2004}
+and \cite{jonesshen2005}.
+
+\subsection{Definition} % (fold)
+\label{sub:definition}
+
+Consider a path of real-valued continuous process $(X_t)_{t\in T}$ on $T = [0,+\infty)$.
+Let $(G_n)_{n\geq0}$ be a collection of increasingly coarser uniformly spaced grids
+on $\Real$ centred at $x_0\in \Real$ given by $G_n = x_0 + \delta 2^n \mathbb{Z}$
+for any $n\geq 0$ and some base grid spacing $\delta>0$.\footnotemark
+Each element of this family of nested grids represents the ``resolution'' through
+which sample paths of $X_t$ are studied.
+\footnotetext{ The addition $x_0+A$, for $A$ in an affine space such as $\Real$
+represents shifting of every element of the set $A$ by a common value $x_0$.}
+
+At the heart of the crossing tree lie crossing times of each particular grid $G_n$
+properly aligned by $x_0$. The crossing times $T_k^n$ of process $X_t$ of grid $n\geq 0$
+are its first passage times across a line of grid $G_n$ centred at $x_0$ that is
+different from a previously crossed line of the same grid. Formally $T_k^n$ are
+defined as follows: let $T_0^n=0$ and for $k\geq 0$ put
+\[
+T_{k+1}^n
+= \inf \Bigl\{ t \geq T^n_k : \bigr | X(t) - X(T^n_k) \bigr | \geq \delta 2^n \Bigr\}
+\]
+The forcing of the zero-th crossing time to $0$ automatically aligns the grid $G_n$
+with the process, so in effect, without loss of generality one may consider processes
+$X_t$, which start at the origin $X(0) = 0$.
+
+%%%% Discuss subcrossings
+%%%% More or less relevant
+By construction, for a binary crossing grid, $N^l_k$, the number of subcrossings in
+any complete crossing between $T^l_k$ and $T^l_{k+1}$ is always an even number. This
+is due to the fact, that each crossing is registered as soon as two unidirectional
+subcrossings are encountered, as seen by the following.
+
+Suppose $T^{n+1}_k$ and $T^n_m$ are aligned so that $T^{n+1}_k=T^n_m$ and
+$T^{n+1}_{k+1}<+\infty$, i.e. the $k$-th crossing of the $n+1$ grid is complete.
+First of all, $T^n_{m+1}, T^n_{m+2} \leq T^{n+1}_{k+1}$, since otherwise the process
+would have left the $\pm \delta 2^n$ band before it left the $\pm \delta 2^{n+1}$
+band, which is twice as wide.
+
+The process is continuous at $T^n_{m+1}$ which means that almost surely for any
+$\epsilon>0$ there is $\eta>0$ such that for any $t$ with $\bigl|t - T^n_{m+1}\bigr| < \eta$
+it holds that $\bigl|X_{T^n_{m+1}} - X_t \bigl| < \epsilon$. Also for every $t \in \bigl[ T^n_k, T^n_{k+1} \bigr)$
+it cannot be otherwise but $\big | X_t - X_{T^n_k} \big | < \delta 2^n$.  In particular,
+for $\epsilon = \frac{1}{2}\delta 2^n$ it means that for a small while after $T^n_{m+1}$
+the process is almost surely still within the $\pm \delta 2^{n+1}$ band. Therefore
+\[ T^n_{m+1} < T^{n+1}_{k+1} \]
+and a crossing of a finer grid occurs almost surely before the crossing of a coarser
+grid. Thus it is true that 
+\[ 1 \leq \biggl| \frac{1}{\delta 2^n} \bigl( X_{T^n_{m+1}} - X_{T^n_m} \bigr) \biggr| < 2 \]
+
+\noindent The next crossing of $\pm\delta 2^n$ takes place at $T^n_{m+2}$ and there
+are two possibilities:
+\begin{enumerate}
+	\item the process crossed a new $\pm\delta 2^{n+1}$ line of $n+1$-st grid: 
+	\[ \big|X_{T^n_{m+2}} - X_{T^n_m}\big|\geq 2\cdot\delta 2^n\] in which case
+	$T^{n+1}_{k+1}\leq T^n_{m+2}$ and there are \emph{two} subcrosings in a crossing
+	of grid $n+1$.
+	\item the process moved back to the level $X_{T^n_m}$, which does not incur a
+	crossing of $\pm\delta 2^{n+1}$ grid line, yet is registered by the $\pm\delta 2^n$
+	grid. In this case $T^n_{m+2} < T^{n+1}_{k+1}$ and $X_{T^n_{m+2}} = X_{T^{n+1}_{k+1}}$,
+	which brings one back to the beginning of this argument.
+\end{enumerate}
+
+Since the crossing is complete, $T^{n+1}_{k+1} < +\infty$ implies that sooner or later
+a crossing of $\pm\delta 2^{n+1}$ grid occurs, in which case $T^{n+1}_{k+1} = T^n_{m+2p}$,
+meaning that there were exactly $2p$ subcrossings in a crossing of grid $n+1$.
+
+%%%% Given this relationship between the crossing times of neighbouring grid
+%%%% contruct a crossing tree.
+The exposed relationship between the crossing times enables a natural construction
+of a crossing tree: each crossing of grig $n$ is a child of a grander crossing of
+grid $n+1$, during which it took place.
+
+%%%% Rewrite, as it is irrelevant
+The parameter $\delta$ is the spacing of the finest grid, with respect to which
+the leaves of the crossing tree are computed. Parent nodes of these leaves represent
+crossings of a coarser grid, namely $2\delta$. The choice of $\delta$ affects the tree
+in the following way in the case of a sampled process:
+\begin{itemize}
+	\item the grid with too low a value of $\delta$ would be crossed by straight
+	line segments between each pair of consecutive sample observations. This could
+	poison the distribution with some unfavourable yet unknown mixture and leads
+	to excessive number of seemingly meaningless crossings.
+	\item Too large $\delta$ leads to a very poor and under sampled crossing tree.
+\end{itemize}
+
+
+
+
+\noindent \textbf{A model of the offspring distribution} \hfill \\
+
+Let's test the hypothesis that the number of subcrossings follows a distribution
+similar to geometric. Recall that $G$ is a geometrically distributed random variable,
+$G\sim \text{Geom}(\theta)$, if $\mathbb{P}(G=k) = {(1-\theta)}^{k-1}\theta$ for all
+$k\geq1$. Other properties of geometrically distributed random variables include
+\begin{itemize}
+	\item Complimentary CDF $\mathbb{P}(G\geq k) = (1-\theta)^{k-1}$ for any $k\geq1$;
+	\item Expectation $\mathbb{E}(G) = \theta^{-1}$;
+	\item Memorylessness: for $m\geq 0$
+	\begin{align*}
+		\pr\bigl( G \geq n + m \bigr\rvert\bigl. G \geq n \bigr)
+		&= \frac{\pr(G \geq n+m)}{\pr(G \geq n)} = \frac{(1-\theta)^{n+m-1}}{(1-\theta)^{n-1}} \\
+		& = (1-\theta)^{m-1} = \pr(G \geq m)
+	\end{align*}
+\end{itemize}
+
+The number of offspring of any $\delta 2^n$-grid crossing is the number of subcrossings
+of a finer grid with spacing $\delta 2^{n-1}$ during a typical crossing.
+
+Our hypothesis is that $N$, the number of offspring, follows a geometric distribution
+on the even numbers, i.e. $\frac{1}{2}N \sim \text{Geom}(\theta)$. To test it we
+utilize a truncated geometric distribution with a fixed threshold $\bar{k}$, because
+this approach naturally and easily handles unbounded random variables. Truncating the
+data effectively means that two kinds of observations are registered:
+\begin{itemize}
+	\item a value less than $\bar{k}$;
+	\item an event $\big\{N\geq \bar{k}\big\}$, indicating that the value has not
+	been less than $\bar{k}$.
+\end{itemize}
+Basically such truncated random variable behaves like a typical geometric one on
+the values $\bigl\{ 2m \bigr\rvert \bigl. 2m < \bar{k}\bigr\}$, but happens to have
+an unusual concentration of probability at the upper truncation level $\bar{k}$.
+
+Therefore for even integers $k=2,4,\ldots\bar{k}$ the distribution of the number
+of offspring is given by
+\[
+\mathbb{P}(N=k)
+= (1-\theta)^{\frac{k}{2}-1} \theta 1_{k<\bar{k}}
++ (1-\theta)^{\frac{\bar{k}}{2}-1} 1_{k = \bar{k}}
+\]
+where $1_{(\cdot)}$ -- is the $0-1$ indicator.
+
+\noindent \textbf{Maximum Likelihood Estimation} \hfill \\
+Suppose ${(g_i)}_{i=1}^N$ a sample of independent geometric random variables, with
+distribution truncated by $\bar{k}$. Due to truncation there is a finite number of
+distinct values that are observed in any given sample. Therefore it is convenient to
+represent every sample in an equivalent value-frequency form: ${\bigl(j, f_j\bigr)}$
+for even $j$ not greater than $\bar{k}$ and 
+$f_j = \Bigl| \bigl\{ i\bigr\rvert \bigl.g_i = j\bigr\}\Bigr|$ -- the number of
+observations with the specified value. Without the loss of generality, $f_j$ can
+be set to zero for those $j$ that were not observed.
+
+The log-likelihood function is given by
+\[
+\ln\mathcal{L}
+= \sum_{j\neq \bar{k}} f_j \Bigl(\frac{j}{2}-1\Bigr) \ln(1-\theta)
++ \sum_{j\neq \bar{k}} f_j \ln \theta
++ f_{\bar{k}} \Bigl( \frac{\bar{k}}{2} - 1 \Bigr) \ln(1-\theta)
+\]
+where the summation is done over the all possible distinct values. The first-order
+condition on optimal $\theta$ is given by
+\[
+\frac{d}{d \theta} \ln\mathcal{L} \,:\quad
+-\sum_j f_j \Bigl(\frac{j}{2}-1\Bigr) \frac{1}{1-\theta} + \sum_{j\neq \bar{k}} f_j \frac{1}{\theta} = 0
+\]
+This is equivalent to $\frac{S-N}{1-\theta} = \frac{N-f_{\bar{k}}}{\theta}$, where
+$S = \sum_j \frac{j}{2} f_j$ and $N = \sum_j f_j$ because the frequencies sum up to
+the total number of observations. Therefore the desired ML estimator of the probability
+parameter $\theta$ is
+\[ \hat{\theta} = \frac{N-f_{\bar{k}}}{S-f_{\bar{k}}} \]
+
+I strongly suspect that the MLE of the truncated geometric distribution is biased. If so,
+this renders it useless for Monte-Carlo estimation purposes. Clearly the bias should depend
+on the truncation threshold, and $\hat{\theta}_T \to \hat{\theta}$ as $T\to \infty$.
+
+%%%%%%%%%%%%
+
+sampled at times $(t_i)_{i=0}^N$ with $t_0=0$ and $t_i<t_{i+1}$.
+
+Denote a sample path of a real-valued continuous process by ${(t_i, x_i)}_{k=0}^N$
+anchored $X_0 = 0$ with $t_0 = 0$ and $X_i = X(t_i)$.
+
+% subsection definition (end)
+
+\subsection{Practical construction} % (fold)
+\label{sub:practical_construction}
+
+% subsection practical_construction (end)
+
+% section the_crossing_tree (end)
+
+
+
+\section{Stochastic self-similarity} % (fold)
+\label{sec:stochastic_self_similarity}
+
+This section formally describes what an $H$-SSSI process is. For a broader, thorough
+and more exhaustive coverage of the topic the reader is encouraged to refer to
+\cite{embrechtsselfsimilar}%pp. 1-3
+and \cite{embrechts2000introduction}. %pp. 2-5, 19
+
+(Brief history) The notion of self-similarity has its roots in the works of Mandelbrot,
+and describes the phenomenon of scale-invariance observed in nature, seismology and
+finance.
+
+\subsection{Hurst self-similar stochastic processes with independent increments} % (fold)
+\label{sub:hurst_self_similar_stochastic_processes_with_independent_increments}
+
+A stochastic process $\bigl(X(t)\bigr)_{t\geq0}$ is called \textbf{S}elf-\textbf{S}imilar
+if for all $a>0$ there exists a constant $b>0$ such that
+\[ X(at) \overset{\Dcal}{=} b X(t) \]
+where $\overset{\Dcal}{=}$ is understood as the equality of all finite joint distributions.
+
+A stochastic process $\bigl(X(t)\bigr)_{t\geq0}$ is called \textbf{H}urst \textbf{S}elf
+-\textbf{S}imilar process, or $H$-SS, if for all $a>0$ and all $t\geq 0$
+\[ X(at) \overset{\Dcal}{=} a^H X(t) \]
+or equivalently $X(t)\overset{\Dcal}{=} a^{-H} X(at)$ for all $t\geq 0$ and $a>0$.
+Furthermore $H$-SS condition implies $ X(t) \overset{\Dcal}{=} t^H X(1) $.
+
+An $H$-SS process is a special case of an SS process, in that it must necessarily
+have $X(0) = 0$ almost surely and must be stochastically continuous. A process
+$\bigl(X(t)\bigr)_{t\geq0}$ is stochastically continuous at $t\geq 0$ if $X(t+h) = X(t) + o_p(h)$:
+for any $\epsilon>0$
+\[
+\lim_{h\to 0} \pr\Bigl( \bigl\lvert X(t+h) - X(t)\bigr\rvert > \epsilon \Bigr) = 0
+\]
+For example, one can say that an $H$-self-similar process is stochastically continuous at $0$.
+
+Indeed, for any $t>0$, $\epsilon>0$ and any sequence $\Delta_n\to 0$ as $n\to \infty$
+one has the following chain reasoning: $H$-self-similarity of $X(t)$ implies that
+the random variable $\lvert X(t) - X(t+h_n) \rvert$ has the same distribution as
+$|X(1)|\bigl\lvert t^H - (t+h_n)^H \bigr\rvert$, whence
+
+is equivalent to $\lvert X(t) - X(t+h_n) \rvert > \epsilon$
+\begin{enumerate}
+	\item 
+\end{enumerate}
+
+Indeed, for any $\epsilon>0$ $H$-self-similarity
+implies that $\pr\bigl( |X(0)|>\epsilon \bigr) = \pr\bigl( a^{-H} |X(0)|>\epsilon \bigr)$
+whence for any $n\geq 0$
+\[
+\pr\bigl( |X(0)|>\epsilon \bigr) = \pr\bigl( |X(0)| > a^{nH} \epsilon \bigr)
+\]
+Since the events $\Bigl\{|X(0)| > a^{nH} \epsilon\Bigr\}$ decrease monotonically
+toward $\emptyset$, it is therefore true that $\pr\bigl( |X(0)|>\epsilon \bigr) \downarrow 0$
+by monotonicity of probability measure $\pr$.
+
+
+A stochastic process $\bigl(X(t)\bigr)_{t\geq0}$ is said to have \textbf{s}tationary
+\textbf{i}ncrements if any finite-dimensional joint distribution of the increments of
+$X(t)$ defined as $U_s(t) = X(t+s)-X(t)$ is independent of $s\geq0$, i.e. invariant
+under time shifts. (\textbf{CHECK THIS!})
+
+The subject of this study, the $H$-SSSI process is a Hurst self-similar process
+$\bigl(X(t)\bigr)_{t\geq0}$ with stationary increments.
+
+
+
+For an $H$-self-similar process $\bigl(X(t)\bigr)_{t\geq 0}$ it must necessarily
+be true that $X(0) = 0$ almost surely. Hence $X(0) = 0$ almost surely.
+
+
+A random variable $Z$ is non-trivial if $\pr(|Z| > 0 ) > 0$ and a process $\bigl(X(t)\bigr)_{t\geq0}$
+is non-trivial if there exists $t\geq 0$ such that the random variable $X(t)$ is non-trivial.
+
+Consider some non-trivial random variable $Z$ in $\Real^d$. Suppose that for some
+$b_1,b_2>0$ it is true that $b_1 Z\overset{\Dcal}{\sim} b_2 Z$. Then for any $\epsilon>0$:
+\[
+\pr\bigl( |Z| > \epsilon \bigr)
+= \pr\bigl( b_1 |Z| > b_1 \epsilon \bigr)
+= \Bigl[ b_1 Z\overset{\Dcal}{\sim} b_2 Z \Bigr]
+= \pr\bigl( b_2 |Z| > b_1 \epsilon \bigr)
+\]
+from which it follows that for all $n\geq 0$
+\[
+\pr\bigl( |Z| > \epsilon \bigr) = \pr\biggl( |Z| > \frac{b_1^n}{b_2^n} \epsilon \biggr)
+\]
+Since $b_1>b_2$, the family of events $A_n = \bigl\{ |Z| > \sfrac{b_1^n}{b_2^n} \epsilon \bigr\}$
+is nested $A_{n+1}\subseteq A_n$ and $A_n \downarrow \emptyset$, which implies that
+$\pr(A_n) \downarrow 0$. Therefore $\pr(|Z|> \epsilon) = 0$ for all $\epsilon>0$,
+contradicting the non-triviality of $Z$. Therefore for a non-trivial random variable
+$Z$ if $b_1,b_2>0$ are such that $b_1 Z\overset{\Dcal}{\sim} b_2 Z$ then $b_1 = b_2$.
+
+Now suppose a process $\bigl(X(t)\bigr)_{t\geq0}$ is non-trivial, stochastically
+continuous at $t=0$ and self-similar. Then there is $H>0$ such that 
+
+\[ \ldots \]
+
+% subsection hurst_self_similar_stochastic_processes_with_independent_increments (end)
+
+\subsection{Examples of scale invariant processes} % (fold)
+\label{sub:examples_of_scale_invariant_processes}
+
+
+
+\subsubsection{FBM} % (fold)
+\label{ssub:fbm}
+
+One of the most prominent example of an $H$-SSSI process is the Brownian Motion
+defined as follows:
+
+-
+A stationary \textbf{f}ractional \textbf{G}aussian \textbf{N}oise is a sequence
+of random variables $(\xi_0)_{n\geq1}$ such that each $\xi_n$ is identically $\Ncal(0,\sigma^2)$
+distributed, but the autocorrelation function is
+\[
+\ex\Bigl( \xi_0 \xi_n\Bigr) = \frac{\sigma^2}{2} \Bigl( |n+1|^{2H} - 2|n|^{2H} + |n-1|^{2H} \Bigr)
+\]
+Usually the fGN is defined through first differences of a fractional Brownian motion.
+
+The most prominent example of an $H$\textbf{-SS} process is the famous Brownian Motion.
+
+
+
+For BM and FBM refer to \cite{embrechtsselfsimilar} pp. 4-5 and \cite{embrechts2000introduction} pp. 5-8
+
+In fact, fractional Brownian motion is an example of a broader class of self-similar processes known as
+the \textbf{Hermite} processes.
+
+A fractional Browninan Motion with can be written in the stochastic integral form
+\[ B^H(t) = \int_0^t K^H(t,s) dW_s \]
+where $(W_s)_{s\in[0,1]}$ is a standard Wiener process on $[0,1]$, $K^H(t,s)$
+-- is the integral kernel given for $t>s$ by
+\[
+K^H(t,s)
+= \bigl( \tfrac{ H(2H-1) }{\beta(2-2H, H-\tfrac{1}{2})} \bigr)^{\tfrac{1}{2}}
+\cdot s^{\frac{1}{2}-H} \int_s^t (u-s)^{H-\frac{1}{2}}u^{H-\frac{1}{2}}du \]
+with $\beta(,\cdot, \cdot)$ being the Beta function (see \cite{Chronopoulou:1114288}).
+
+% subsubsection fbm (end)
+
+\subsubsection{Hermite} % (fold)
+\label{ssub:hermite}
+
+Hermite processes inherit their name from the stochastic integral kernel used
+in their definition.
+
+A probabilistic Hermite polynomial of order $k\geq0$ is defined as 
+\[ H_k(x) = (-1)^k e^{-\frac{x^2}{2}} \frac{d^k}{dx^k} e^{-\frac{x^2}{2}} \]
+and is a solution to the following differential equation
+\[
+ \frac{d}{dx}\biggl( e^{-\frac{x^2}{2}} \frac{d}{dx} f\biggr) + \lambda e^{-\frac{x^2}{2}} f = 0
+\]
+These polynomials constitute an orthogonal basis of the Hilbert space $\Lcal^2(\Real, \mu)$
+with measure $\mu$ being the Lebesgue integral $\int e^{-\frac{x^2}{2}} dx$ and the inner
+product given by
+\[
+\langle f, g\rangle = \int_\Real f g d\mu = \int_\Real f g e^{-\frac{x^2}{2}} dx
+\]
+
+As opposed to the case of fBM, a Hermite process is defined though stochastic
+integral of a special kernel. The Hermite process of order $m$ with self-similarity
+parameter $H\in(\tfrac{1}{2},1)$, denoted by $(Z^{mH}(t))_{t\in[0,1]}$, is defined as 
+\[
+Z^{mH}(t) = \underset{\Real^m}{\int \cdots \int} \Biggl(
+\int^t_0 \prod_{k=1}^m (u-x_k)_+^{-\frac{1}{2}-\frac{1-H}{m}} du\Biggr) dW(x_1) \ldots dW(x_q)
+\]
+The Hermite process of order $1$ is fractional Brownian Motion, whereas higher order
+Hermite processes correspond to higher order Wiener-chaos (\cite{Bai20141710})
+
+\noindent\textbf{CHECK THIS}.
+The fundamental theorem of Lamperti (\cite{lamperti}) states that $H$-sssi process
+is the only limiting law of normalized partial sum of a stationary sequence.
+Formally, if $(X_i)_{i\geq1}$ is stationary and for some $a_n\to \infty$
+\[ \frac{1}{a_n} \sum_{i=1}^{[nt]} X_i \overset{\Dcal}{\rightarrow} y(t) \]
+where convergence is in all finite-dimensional distributions, then the process
+then there  exists $H>0$ such that $(Y_t)_{t\geq0}$ is $H$-SSSI and $a_n$ is regularly
+varying with exponent $H$.
+
+For example, if $(X_i)_{i\geq 1}$ is an iid sequence, or a \textbf{s}hort-\textbf{r}ange
+\textbf{d}ependent, then the limit of normed partial sums is the Brownian Motion,
+which is $\frac{1}{2}$-SSSI. In case if the stationary sequence $X_i$ is \textbf{l}ong-
+\textbf{r}ange \textbf{d}ependent, the limit $Y(t)$ is often $H$-SSSI with $H>\frac{1}{2}$.
+
+
+
+Consider a $(\xi_i)_{i\geq1}$ is a stationary fractional Gaussian Noise with
+autocorrelation $r_n = L(n) n^{2\frac{H-1}{m}}$ for some slowly varying function $L(n)$.
+
+It is known (non central limit theorem?) that if $H_m$ is a Hermite polynomial of
+order $m$, then for all $t\in [0,1]$ 
+\[ n^{-H} \sum_{i=1}^{[nt]} H_m(\xi_i) \overset{\Dcal}{\rightarrow} Z^{mH}(t) \]
+
+The construction of a Hermite process begins with a stationary Gaussian noise.
+
+A \textbf{Hermite} process borrows it name from the 
+
+% subsubsection hermite (end)
+
+\subsubsection{Weierstrass} % (fold)
+\label{ssub:weierstrass}
+
+% subsubsection weierstrass (end)
+
+% subsection examples_of_scale_invariant_processes (end)
+
+% section stochastic_self_similarity (end)
+
+\section{Fractional Brownian Motion} % (fold)
+\label{sec:fractional_brownian_motion}
+
+\subsection{Definiton} % (fold)
+\label{sub:definiton}
+Brief history, relation to H-SSSI processes.
+
+Mention that BM is fBM for $H=0.5$.
+
+\subsubsection{Sample paths} % (fold)
+\label{ssub:sample_paths}
+
+Reference the generation circulant embedding generation algorithm with complexity.
+
+% subsubsection sample_paths (end)
+
+% subsection definiton (end)
+
+% section fractional_brownian_motion (end)
+
+\section{Brownian Motion} % (fold)
+\label{sec:brownian_motion}
+
+\section{Literature review} % (fold)
+\label{sec:literature_review}
+Reviewed papers \cite{jones2004}, \cite{jonesshen2005} and \cite{decrouez2013}.
+
+% section literature_review (end)
+
+\subsection{Properties of the crossing tree} % (fold)
+\label{sub:properties_of_the_crossing_tree}
+
+% subsection properties_of_the_crossing_tree (end)
+
+\subsection{Simulation study} % (fold)
+\label{sub:simulation_study_bm}
+
+% subsection simulation_study_bm (end)
+
+% section brownian_motion (end)
+
+\section{Conjecture for FBM with $H\in (\sfrac{1}{2},1)$} % (fold)
+\label{sec:conjecture_for_fbm}
+
+\subsection{Statement} % (fold)
+\label{sub:statement}
+
+% subsection statement (end)
+
+\subsection{Simulation study} % (fold)
+\label{sub:simulation_study_fbm}
+
+See the paper by Owen Jones and Shen (2005) for the outline.
+
+Each MonteCarlo realisation generates a discretized sample path $(t_i, X_i)_{i=0}^N$ of
+a particular continuous stochastc process $X(t)$, where $X_i = X(t_i)$ and $(t_i)_{i=0}^N\in [0,1]$
+is a uniformly spaced mesh with
+\[0 = t_0 \geq \ldots \geq t_i < t_{i+1} \geq \ldots \geq t_N = 1\]
+
+Main plots: let $\Delta X_i = X_i - X_{i-1}$ for $i=1,\ldots, N$.
+\begin{itemize}
+	\item for $\delta = \text{std}\bigl(\Delta X_i \bigr)$, where $\text{std}(Y^n)$ is
+	the square root of the unbiased sample estimator of varaince of $Y$:
+	\[ \text{std}(Y^n) = \sqrt{ \frac{1}{n-1} \sum_{i=1}^n \bigl( Y_i - \bar{Y}_n \bigr)^2 }\]
+	and $\bar{Y}_n$ is tha sample mean: $\bar{Y}_n = \frac{1}{n}\sum_{i=1}^n Y_i$. 
+
+	\item for $\delta = \text{iqr}\bigl(\Delta X_i \bigr)$, where $\text{iqr}(Y^n)$ is
+	the \textbf{i}nter\textbf{q}uartile \textbf{r}ange of the sample $Y^n = (Y_i)_{i=1}^n$
+	defiend as the difference of the $75\%$ and the $25\%$ sample quartiles of the sample:
+	\[\text{iqr} = \hat{F}^{-1}_n\Bigl(\frac{3}{4}\Bigr) - \hat{F}^{-1}_n\Bigl(\frac{1}{4}\Bigr)\]
+	where $\hat{F}^{-1}_n(p)$ is the generalized inverse of the empirical CDF of the sample $Y^n$
+	given by
+	\[\hat{F}_n(y) = \frac{1}{n} \sum_{i=1}^n 1_{(-\infty,y]}(Y_i)\]
+	Ratinale for the IQR is that it is robust (this is poor!).
+	\item for $\delta = \hat{F}^{-1}_n\Bigl(\frac{3}{4}\Bigr)$ -- the $75\%$ empirical qauntile of
+	the process of increments $(\Delta_i)_{i=1}^N$.
+\end{itemize}
+
+Each group of plots should have: \begin{itemize}
+	\item a plot of subcrossing distribution averaged across the MC realisations with
+	the theoretical values;
+	\item add histograms of $\pr(Z_n = 2k)$ (separately for $k=1,2,\ldots$) with
+	superimposed theoretical $\theta = 2^{1-H^{-1}}$ and averaged values;
+	$Z\sim\text{Geom}$ with porbability given by
+	\[\pr(Z = 2k) = (1-\theta)^{k-1} \theta\]
+	for $k\geq 1$.
+	\item a table of excursion distribution averaged across the MC realisations;
+	\item add histograms of $\pr(+-|++)$ and $\pr(+-|--)$ with superimposed theoretical
+	and averaged values. Let $\mu = \ex Z$, which is $\frac{2}{\theta}$. Then the
+	hypothesized probability of an up-down excursion $\delta 2^n$ in an upcrossing
+	of resolution $\delta 2^{n+1}$ is $\frac{1}{\sqrt{\mu}}$.
+\end{itemize}
+
+% subsection simulation_study_fbm (end)
+

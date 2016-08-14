@@ -1,0 +1,123 @@
+\documentclass[a4paper]{extreport}
+\usepackage{geometry}
+
+\usepackage[utf8]{inputenc}
+\usepackage[russian, english]{babel}
+
+\usepackage{fullpage}
+% \linespread{1.5}
+
+\usepackage{graphicx, url}
+\usepackage{amsmath, amsfonts, xfrac}
+\usepackage{mathtools}
+
+\usepackage{multirow}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+% \usepackage{natbib}
+
+\usepackage{titlesec}
+
+\titleformat{\chapter}[block]
+  {\normalfont\huge\bfseries}{\thechapter.}{1em}{\Huge}
+\titlespacing*{\chapter}{0pt}{-19pt}{0pt}
+
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\Cplx}{\mathbb{C}}
+
+\newcommand{\pr}{\mathbb{P}}
+\newcommand{\ex}{\mathbb{E}}
+\newcommand{\var}{\text{var}}
+\newcommand{\Pcal}{\mathcal{P}}
+\newcommand{\Dcal}{\mathcal{D}}
+\newcommand{\Ncal}{\mathcal{N}}
+\newcommand{\Lcal}{\mathcal{L}}
+
+\newcommand{\defn}{\mathop{\overset{\Delta}{=}}\nolimits}
+\newcommand{\lpto}{\mathop{\overset{L^p}{\to}}\nolimits}
+
+\newcommand{\re}{\operatorname{Re}\nolimits}
+\newcommand{\im}{\operatorname{Im}\nolimits}
+
+\newcommand{\eng}[1]{\foreignlanguage{english}{#1}}
+
+\newcommand{\rus}[1]{\foreignlanguage{russian}{#1}}
+\selectlanguage{english}
+
+\title{Studying Self-similar Processes Using the Crossing Tree}
+\author{Nazarov Ivan, \rus{101мНОД(ИССА)}\\
+	{\small Supervised by: Decrouez Geoffrey Gerard}}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+The Crossing Tree is a recent tool, created to study scale invariance properties
+exhibited by network traffic, financial time-series, and natural phenomena in physics
+and biology, such as turbulence, earthquakes and heart beat. It provides an ad-hoc
+representation of the data across a wide range of resolutions and independent of
+its time scale. In this paper the theoretical and practical construction of the Crossing
+Tree is presented. This tool is applied to analyse self-similar signals of processes
+known as Hurst self-similar processes with stationary increments to gather evidence 
+of the common features of the constructed crossing trees in this class of processes.
+\end{abstract}
+\tableofcontents
+
+%% The project itself
+\chapter{Introduction} % (fold)
+\label{cha:introduction}
+
+Scale-invariance and self-similarity has been widely used lately to analyse a wide
+range of time series, from medicine, to seismology, and to financial data.
+Essentially, scale-invariance of some process implies that its dynamics is not
+characterized by well defined dominant time-scales. Instead their dynamics
+involve all time-scales. Analysing this kind of data should rely on identifying
+the mechanism relating the scales with one another. The crossing tree, described in
+section \ref{cha:the_crossing_tree} (p.~\pageref{cha:the_crossing_tree}), is
+a natural tool for analysing data at all scales simultaneously.
+
+The structure of this paper is as follows. The second chapter (p.~\pageref{cha:the_crossing_tree})
+of this study describes the crossing tree, its theoretical construction as well as practical
+computation. In the third chapter we review the definition and classical examples
+of self-similar processes with stationary increments (p.~\pageref{cha:h_sssi_processes}).
+The last chapter (p.~\pageref{cha:the_crossing_tree_and_h_sssi_processes}) discusses
+the results of a Monte-Carlo simulation of crossing trees constricted for samples paths
+of various $H$-sssi processes, and attempts verify whether these processes share
+common crossing tree statistical properties.
+
+% chapter introduction (end)
+
+%% Include the contents of the second chapter
+\clearpage
+\include{Chapter2}
+
+%% Include the contents of the third chapter
+\clearpage
+\include{Chapter3}
+
+%% The contents of the fourth chapter
+\clearpage
+\include{Chapter4}
+
+%% Include the conclusions
+\clearpage
+\include{conclusion}
+
+%% End of the report: lists of object and references
+% \clearpage \listoffigures
+% \clearpage \listoftables
+
+\clearpage
+
+\selectlanguage{english}
+
+% \bibliographystyle{amsplain}
+\bibliographystyle{ugost2008ls}
+\bibliography{literature}
+
+%% Supplementary material
+\selectlanguage{english}
+\include{appendix}
+
+\end{document}

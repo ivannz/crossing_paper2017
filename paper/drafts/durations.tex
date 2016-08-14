@@ -1,0 +1,47 @@
+\documentclass[a4paper]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{graphicx, url}
+
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{xfrac, mathptmx}
+
+\newcommand{\Real}{\mathbb{R}}
+\newcommand{\Cplx}{\mathbb{C}}
+\newcommand{\Pwr}{\mathcal{P}}
+\newcommand{\pr}{\mathbb{P}}
+\newcommand{\ex}{\mathbb{E}}
+
+\usepackage[english, russian]{babel}
+\newcommand{\eng}[1]{\foreignlanguage{english}{#1}}
+\newcommand{\rus}[1]{\foreignlanguage{russian}{#1}}
+
+\title{Intuition behind the scaling of durations}
+\author{Nazarov Ivan, \rus{101мНОД(ИССА)}\\the DataScience Collective}
+\begin{document}
+\maketitle
+
+\noindent Let $\{X(t)\}_{t\geq0}$ be a continuous $H$-sssi process. Define the crossing
+duration as
+\[ w_n(t) = \inf\bigl\{ s\geq t : |X(s) - X(t)| \geq 2^n \delta  \bigr\} - t\,, \]
+for some $\delta > 0$ and $t\geq 0$. By stationarity of increments and
+self-similarity of $\{X(t)\}$ for any $n\geq 0$:
+\[
+X(t + w_n) - X(t) \underset{\text{si}}{\overset{\mathcal{D}}{\sim}}
+X(w_n) \underset{\text{ss}}{\overset{\mathcal{D}}{\sim}}
+w_n^H X(1) \,.
+\]
+(\emph{do ss ans si generalise to stopping times?}).
+
+Since $\{X(t)\}$ is continuous
+\[ X(t+w_n)-X(t) = \delta 2^n \text{ a.s}\,,\]
+whence almost surely
+\[ \frac{1}{\delta 2^n}\bigl( X(t+w_n)-X(t)\bigr) = \frac{1}{\delta} \bigl( X(t+w_0) - X(t) \bigr)\,.\]
+Thus we get
+\[ \frac{1}{\delta} 2^{-n} w_n^H X(1) \overset{\mathcal{D}}{\sim} \frac{1}{\delta} w_0^H X(1) \,, \]
+which implies that (\emph{not sure here as well...})
+\[ 2^{-n} w_n^H \overset{\mathcal{D}}{\sim} w_0^H \] 
+and
+\[ w_0 \overset{\mathcal{D}}{\sim} 4^{-\frac{n}{2H}} w_n \] 
+
+\end{document}
