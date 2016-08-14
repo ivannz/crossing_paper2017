@@ -1,0 +1,477 @@
+% Template for EUSIPCO 2015 paper; to be used with:
+%          spconf.sty  - LaTeX style file, and
+%          IEEEbib.bst - IEEE bibliography style file.
+% --------------------------------------------------------------------------
+\documentclass[a4paper]{article}
+\usepackage{spconf,amsmath,amsfonts,amssymb,amsthm,graphicx}
+\usepackage{color}
+
+% Example definitions.
+% --------------------
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\calB}{\mathcal{B}}
+\newcommand{\calD}{\mathcal{D}}
+\newcommand{\calF}{\mathcal{F}}
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calM}{\mathcal{M}}
+\newcommand{\calP}{\mathcal{P}}
+\newcommand{\calS}{\mathcal{S}}
+\newcommand{\calT}{\mathcal{T}}
+\newcommand{\calV}{\mathcal{V}}
+\newcommand{\calW}{\mathcal{W}}
+\newcommand{\calX}{\mathcal{X}}
+\newcommand{\calY}{\mathcal{Y}}
+
+\newcommand{\al}{\alpha}
+\newcommand{\ga}{\gamma}
+\newcommand{\De}{\Delta}
+\newcommand{\ep}{\epsilon}
+\newcommand{\tha}{\theta}
+\newcommand{\ka}{\kappa}
+\newcommand{\la}{\lambda}
+\newcommand{\Om}{\Omega}
+\newcommand{\rh}{\rho}
+\newcommand{\Up}{\Upsilon}
+\newcommand{\dUp}{\partial\Upsilon}
+\newcommand{\ze}{\zeta}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\E}{\mathbf{ E}}
+\newcommand{\Ex}{\mathbf{ E}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\Lp}{\mathbb{L}_{p}}
+\newcommand{\Lt}{\mathbb{L}_{2}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Pb}{\mathbf{ P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\X}{\mathbb{X}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\W}{{\cal{W}}}
+
+\newcommand{\bfi}{\mathbf{i}}
+\newcommand{\bfj}{\mathbf{j}}
+\newcommand{\bfk}{\mathbf{k}}
+\newcommand{\bfu}{\mathbf{u}}
+\newcommand{\bfv}{\mathbf{v}}
+\newcommand{\bfx}{\mathbf{x}}
+
+\newcommand{\Mbar}{\,\overline{\!M}}
+\newcommand{\mbar}{\overline{m}}
+\newcommand{\Zbar}{\,\overline{\!Z}}
+
+
+
+% Example definitions.
+% --------------------
+\def\x{{\mathbf x}}
+\def\L{{\cal L}}
+
+
+% Title.
+% ------
+\title{Crossing-tree partition functions}
+%
+% Single address.
+% ---------------
+\name{Author(s) Name(s)\thanks{Thanks to XYZ agency for funding.}}
+\address{Author Affiliation(s)}
+%
+% For example:
+% ------------
+%\address{School\\
+%	Department\\
+%	Address}
+%
+% Two addresses (uncomment and modify for two-address case).
+% ----------------------------------------------------------
+\twoauthors
+  {Geoffrey Decrouez\sthanks{Thanks to the Centre for Advanced Studies for funding.}}
+	{National Research University\\
+	Higher School of Economics\\
+	Moscow, Russia}
+  {Pierre-Olivier Amblard}
+	{GIPSAlab/CNRS UMR 5283\\
+	Universit\'e de Grenoble\\
+	Grenoble, France}
+%
+% Multiple author/addresses combination (use only in particular cases).
+% ---------------------------------------------------------------------
+%\name{A. Author-one$^*$, B. Author-two$^*$$^\dagger$, C. Author-three$^\dagger$, D. Author-four$^\ddagger$ %
+%	\thanks{General thanks/acknowledgment}%
+%	\thanks{$^*$ Thanks/acknowledgments for authors marked with *}%
+%	\thanks{$^\dagger$ Thanks/acknowledgments for authors marked with $\dagger$}%
+%	\thanks{$^\ddagger$ Thanks/acknowledgments for authors marked with $\ddagger$}%
+%}
+%\address{%
+%    \tabular{c}
+%		$^*$ Institute ABC\\
+%		Group Group ABC\\
+%		Address ABC
+%	\endtabular
+%	\hskip 0.5in
+%    \tabular{c}
+%		$^\dagger$ School DEF\\
+%		Department DEF\\
+%		Address DEF
+%	\endtabular
+%	\hskip 0.5in
+%    \tabular{c}
+%		$^\ddagger$ Company GHI\\
+%		Department GHI\\
+%		Address GHI
+%	\endtabular
+%}
+%
+% The symbol order for multiple author combination is:
+%  $^*$, $^\dagger$, $^\ddagger$, $^\mathsection$, $^\mathparagraph$, $^\|$,
+%  $^{**}$, $^{\dagger\dagger}$, $^{\ddagger\ddagger}$, ...
+%
+%
+% Alternative multiple author/addresses combination (use only in particular cases).
+% ---------------------------------------------------------------------------------
+%\name{A. Author-one$^*$, B. Author-two$^*$$^\dagger$, C. Author-three$^\dagger$, D. Author-four$^\ddagger$ %
+%	\thanks{General thanks/acknowledgment}%
+%	\thanks{$^*$ Thanks/acknowledgments for authors marked with *}%
+%	\thanks{$^\dagger$ Thanks/acknowledgments for authors marked with $\dagger$}%
+%	\thanks{$^\ddagger$ Thanks/acknowledgments for authors marked with $\ddagger$}%
+%}
+%\address{%
+%	$^*$ Institute ABC, Group Group ABC, Address ABC\\
+%	$^\dagger$ School DEF, Department DEF, Address DEF\\
+%	$^\ddagger$ Company GHI, Department GHI, Address GHI\\
+%}
+%
+% The symbol order for multiple author combination is:
+%  $^*$, $^\dagger$, $^\ddagger$, $^\mathsection$, $^\mathparagraph$, $^\|$,
+%  $^{**}$, $^{\dagger\dagger}$, $^{\ddagger\ddagger}$, ...
+%
+\begin{document}
+
+%
+\maketitle
+%
+\begin{abstract}
+A new multifractal formalism based on the crossing-tree for $H$-sssi processes was recently introduced \cite{DecrAJ13, DecrA15}.
+The crossing-tree performs an ad-hoc decomposition of a signal based on its fluctuations, and thus represents a natural tool for the multifractal analysis of time series. 
+The estimation of the Hausdorff spectrum happens in the context of a multifractal formalism, where the spectrum is obtained from a transform of a partition function.
+In this contribution, we introduce a new crossing-tree partition function, which differs from the original one presented in \cite{DecrA15}.
+We show numerically that the new partition function improves the stability of the estimation in many cases, compared with the original crossing-tree partition function. 
+Estimation is further compared with state-of-the-art techniques, including wavelet and wavelet leaders.  
+\end{abstract}
+%
+\begin{keywords}
+$H$-sssi processes, crossing tree, multifractal formalism, adaptative decomposition, wavelets
+\end{keywords}
+%
+\section{Introduction}
+\label{sec:intro}
+
+
+{\bf Motivations.} Fractal and multifractal signals often occur in so-called complex systems (systems with a huge number of degrees of freedom in nonlinear interaction) as different as turbulent fluids, stock markets or the internet. An important concept underlying these signals is scale invariance: the laws that underpin the construction of the processes are the same at all scales. This has naturally led to the use of multiscale tools to analyse such signals, among which the wavelet machinary is the best known, and provide today's state-of-the art techniques for fractal and multifractal signal analysis.  
+
+In the wavelet paradigm, the notion of scale is introduced in the index set (time for signals, space for images). 
+The notion of scale can also be defined in the amplitude space of the signal. The crossing-tree decomposition then provides the corresponding multiscale decomposition: at  a given resolution, the amplitude set is cut into equal length intervals, the bound of which define the crossing levels. A crossing is defined as the path of the signal between two consecutive strictly different crossing levels. At a given resolution, the nodes of the tree contain the consecutive crossings. A multiscale representation is then provided by iterating the process on all crossings, by studying subcrossings at a finer resolution. To present the notation, we will formalize this later in this introduction. 
+A main difference between wavelet decomposition and the crossing tree is the fact that the latter is an adaptive technique.
+
+ The crossing tree was introduced to generalize the mid-point deplacement method to construct the standard Brownian motion. In \cite{JoneS04} it was applied to self-similar processes, to test for self-similarity and stationary increments, and to obtain an asymptotically consistent estimator of the H\"older exponent. In \cite{ArrJon06} the crossing tree was used to estimate a time-change of a self-similar process, and in \cite{JonRol}, it was used to characterise and test if a process is a continuous local martingale. Later, it has been the basis to construct a class of monofractal and multifractal processes, see \cite{DecrJ12, DecrHJ}. This lead us to invert the point of view and use the crossing tree as an analysis tool for fractal and multifractal signals. Indeed, the crossing tree is a very general concept  and can easily be computed on real data.
+
+In \cite{DecrAJ13,DecrA15} we showed how to use the crossing duration to estimate the H\"older exponent for several classes of monofractal signals. To do so we introduced a partition function using the crossing durations. A theoretical justification for it relies on  \cite{DecrJ12, DecrHJ} where multifractal formalism is proved for the so-called multifractal embedded branching processes (MEBP, processes that are constructed {\it via } the crossing tree). As many methods, the partition function suffers a lack of statistics for negative powers. {\em The aim of the present paper is to illustrate
+how an easy modification of the partition function allows better estimation for negative powers. }
+
+The remaining of the paper is organized as follows. We continue this introduction by presenting the crossing tree decomposition and the class of signals we study. Section 2 will present the partition functions we use to estimate the H\"older exponents, whereas section 3 will present the practical set up as well as simulations. One aim is to compare the crossing tree approach with the state-of-the-art provided by wavelet and wavelet leaders. 
+
+\medskip
+\noindent{\bf The crossing tree.}
+%\label{sec:xtree}
+We consider a process $X: \R^+\rightarrow\R$. Without loss of generality, we assume $X(0)=0$ almost surely (a.s.) and we further suppose it has continuous sample paths (a.s.).
+At a resolution $m\in \Z$, the vertical axis is cut into levels of size $2^m$, and a crossing at level $m$ is defined as the path between two successive different crossing levels. The first crossing starts at $t=0$ and is defined as the path betwen $t=0$ and the first time the signal crosses either $2^m$ or $-2^m$. Each crossing is characterized by two parameters: its duration and its direction.
+The level-$m$ crossing times $T_k^m$ are defined as 
+\[
+T_{k+1}^{m}= \inf\{t>T_{k}^{m}~|~X(t)\in  2^{m}\Z,~X(t)\not = X(T_{k}^{m}) \}\,,
+\]
+where  $T_0^m = 0$  and $2^{m}\Z=\{ x ~|~ x=2^m a \textrm{ for } a\in\Z\}$.
+Thus, the $k$-th level-$m$ (equivalently scale $2^m$) crossing $C_k^m:= \{ (t,X(t))\mid T_{k-1}^m\leqslant t < T_k^m\}$ is the bit of sample path from $T_{k-1}^{m}$ to $T_{k}^{m}$.
+Now the crossing tree is created by iterating the previous construction.
+ Each crossing of size $2^m$ is decomposed into a sequence of crossings of size $2^{m-1}$.
+The nodes of the crossing tree are crossings and the offspring of any given crossing is the corresponding set of subcrossings at the level below.
+An example of a crossing tree and the main notation  are given in Figure~1.
+The crossing-tree can easily be computed for irregularly time-sampled signals, and as such the formalism developed later is adapted to this kind of data.
+
+\begin{figure}[]
+
+\begin{minipage}[b]{0.4\linewidth}
+  \centering
+  \input descr-crossingtree.pdf_t
+ % \centerline{\includegraphics[width=6.5cm]{descr-crossingtree.pdf}}
+%  \vspace{2.0cm}
+%  \centerline{(a) Result 1}\medskip
+\end{minipage}
+
+\caption{Formation of the crossing tree from a sample path, and crossing tree notation. Variables are defined in the text.}
+\label{fig:ct}
+%
+\end{figure}
+
+To code nodes in the tree we use
+the address space $I = \cup_{k=0}^\infty \N^k$, where $\N^k$ is the set of words of $k$ integers and $\N^0=\emptyset$.
+For the sake of simplicity, the root of the tree and  first crossing is supposed to go from $0$ to $\pm 1$.
+It is labelled $\emptyset$ and its subcrossings (each of size $1/2$) are numbered from 1 to $Z_\emptyset$.
+The subcrossings of a crossing $\bfi = i_1 i_2 \cdots i_n\in\N^n$ are then labelled $\bfi 1, \ldots, \bfi Z_\bfi$, where $Z_\bfi$ is the number of subcrossings of $\bfi$ and $\bfi j = i_1 i_2 \cdots i_n j$. 
+It is easy to show that  $Z_\bfi$ is an even integer larger or equal to 2.
+We note as $N_n$ the size of generation $n$.
+The second main parameter of a crossing $\bfi$   is its type, either up or down, which we denote by $\sigma_\bfi$.
+The other parameter $W_\bfi$ is the duration of crossing $\bfi$. The sample path is completely described by $\{ (\sigma_\bfi, W_\bfi) \,:\, \bfi \in I \}$.
+
+
+
+\medskip
+
+\noindent{\bf Some scale invariant processes.} $X(t)$ is said to be a self-similar process if there exists an $H\in(0,\,1)$ such that  $X(ct)=c^H X(t)$ holds for all $c>0$ (in the finite-dimensional distribution sense). 
+If in addition the process $X(t)$ has stationary increments, then $X(t)$ is said to be $H$-sssi.
+
+The most-studied $H$-sssi processes are fractional Brownian motions (fBm), 
+the only self-similar Gaussian processes with stationary increments.
+Their sample paths are continuous (a.s.) but non differentiable (a.s.). However, they have a degree of regularity 
+and possess $H$ as  H\"older exponent almost everywhere. 
+A nonGaussian generalization of fBm is provided by Hermite processes.
+
+Let ${\cal B}(u)$ denote a Brownian motion.
+A Hermite process of order $k$ is defined as
+\begin{align*}
+{\cal H}^k_H(t) = \int_{\R^k}\int_0^t \left( \prod_{j=1}^k (s-u_i)_+^{-(1/2 + (1-H)/k)}\right)dsd{\cal B}({\bf u})\,,%&\\
+%& \hspace{-2.5cm}ds\, d{\cal B}(u_1)\hdots d{\cal B}(u_k)\,,
+\end{align*}
+where $d{\cal B}({\bf u})=d{\cal B}(u_1)\hdots d{\cal B}(u_k)$,
+for $k\geq 1$, with $H\in(1/2,\,1)$, and $x_+=\max(0,x)$.
+The case $k=1$ corresponds to the case of an fBm.
+${\cal H}^2_H(t)$ is usually referred to as the Rosenblatt process.
+
+The Weierstrass function is defined as
+\[
+{\cal W}_H(t)= \sum_{k\in \Z} \lambda_0^{-k H} \Big(\cos(\varphi_k)-\cos(2\pi \lambda_0^k t +\varphi_k) \Big)\,,
+\]
+where $H$ stands for the H\"older exponent and $\lambda_0$ is a fundamental harmonic. 
+The definition is made to impose ${\cal W}_H(0)=0$. 
+The Weierstrass function exhibits discrete scale invariance (DSI), with ${\cal W}_H(\lambda_0 t)=\lambda_0^H {\cal W}_H(t)$, in distribution.
+We consider here a stochastic version of this function, obtained by choosing the phases $\{\varphi_k\}_{k\in \Z}$ as a sequence of i.i.d. variables uniformly distributed over $[0,~2\pi]$. 
+
+
+
+
+\section{Partition functions}
+\label{sec:majhead}
+
+The estimation of the spectrum of singularities $D(h)$, defined as the Hausdorff dimension of the set of points with given H\"older regularity $h$, typically occurs in the context of the multifractal formalism.
+The formalism relates the spectrum to a partition function $\zeta(q)$ via the (Legendre) transform
+\[
+D(h) = \inf\limits_{q\in\R} \{ 1- \zeta(q) + hq \}\,.
+\]
+This section reviews wavelet-based partition functions first, before introducing crossing-tree partition functions.
+
+\subsection{Wavelet-based partition functions}
+\label{ssec:wavform}
+
+We first recall the wavelet decomposition of a signal $X(t)$.
+Let $\psi$ be the mother wavelet.
+Any square integrable signal can be decomposed as
+\[
+X(t)=\sum_{n,k\in\Z} c_{n,k}\psi(2^nt-k)\,,
+\] 
+where $$c_{n,k}=2^n\int X(t)\psi(2^nt-k)dt\,.$$ 
+We denote by $\lambda_{n,k}=[k2^{-n}, (k+1)2^{-n})$ a dyadic cube at scale $n$, with $k\in\Z$.
+The wavelet-based structure function of $X$ is defined from the $q$-th moment of the wavelet coefficients,
+$$S_{wc}(q,n) = 2^{-n} \sum_k \left| c_{n,k}  \right|^q\,,$$
+where the sum is taken over all dyadic cubes $\lambda_{n,k}$ with non vanishing coefficients.
+The wavelet partition function is then
+\vspace{-.2cm}
+\begin{equation}\label{partition_wav}
+\zeta_{wc}(q) = \liminf_{n\to+\infty} \left( \dfrac{\log S_{wc}(q,n)}{\log 2^{-n}} \right)\,, \quad q\in\R \,,
+\end{equation}
+which leads to the multifractal formalism \cite{ParisiF85}
+\begin{equation}\label{spectrum_wav}
+D_X(h) = \inf\limits_{q\in\R} \{ 1- \zeta_{wc}(q) + hq \}\,.
+\end{equation}
+The wavelet-based partition function (\ref{partition_wav}) is known to be unstable for negative exponents, corresponding to $q<0$. 
+Indeed, wavelet coefficients can be arbitrary small, and a small error in their estimation can be multiplied when raised to a negative power.
+
+To address this issue (amongst others), the wavelet leaders formalism was introduced \cite{JaffLA06}.
+Put $3\lambda_{n,k}= \lambda_{n,k-1}\cup \lambda_{n,k}\cup \lambda_{n,k+1}$, which corresponds to the cube centered around $\lambda_{n,k}$, three times wider. 
+The wavelet leaders $d_{n,k}$ of a bounded function $X(t)$ are defined as
+\vspace{-.2cm}
+\[
+d_{n,k} = \sup\limits_{\{m,i\,|\, \lambda_{m,i} \subset 3\lambda_{n,k}\}}|c_{m,i}|\,.
+\]
+It is then natural to introduce the wavelet leader structure function $$S_{wl}(q,n) = 2^{-n} \sum_k \left| d_{n,k}  \right|^q\,,$$ where the sum is taken over all non vanishing wavelet leader coefficients.
+The scaling function is
+\vspace{-.2cm}
+\begin{equation}\label{partition_wl}
+\zeta_{wl}(q) = \liminf_{n\to+\infty} \left( \dfrac{\log S_{wl}(q,n)}{\log 2^{-n}} \right)\,, \quad q\in\R \,,
+\end{equation}
+which leads to the multifractal formalism
+\begin{equation}\label{spectrum_wl}
+D_X(h) = \inf\limits_{q\in\R} \{ 1- \zeta_{wl}(q) + hq \}\,.
+\end{equation}
+
+
+\subsection{Crossing-tree partition functions}
+\label{ssec:ctform}
+
+A new formalism for the study of $H$-sssi processes was recently introduced \cite{DecrAJ13, DecrA15}. 
+The formalism relates the spectrum of singularities to a partition function computed from multi resolution quantities obtained from the crossing-tree of a signal.
+
+Given $t$, let $\bfi \in \N^\infty$ be such that for each $n$, the size $2^{-n}$ crossing that contains $t$ is $\bfi|n$.
+Then, our analogue of the multiresolution quantity is the crossing duration $W_{\bfi|n}$.
+We say that the process $X(t)$ possesses scaling properties if time averages of the crossing durations follow a power law behaviour,
+\begin{equation}\label{structure_ct}
+S_{ct}(n,q) = \frac{1}{N_n}\sum\limits_{\bfi|n} |W_{\bfi|n}|^q \sim C_q' 2^{-n\zeta_{ct}(q)}\,,
+\end{equation}
+as $n\to \infty$,
+where the sum is taken over all crossings of size $2^{-n}$.
+We call $S_{ct}(n,q)$ the structure function and $\zeta_{ct}$ the crossing tree partition function.
+The partition function can be obtained from the structure function as a limit,  
+\begin{equation}\label{partition_ct}
+\zeta_{ct}(q) = \liminf_{n\to \infty}\frac{\log S_{ct}(n,q)}{-n \log 2}\,.
+\end{equation}
+
+The crossing-tree partition function (\ref{partition_ct}) was first introduced to obtain a theoretical expression of the Hausdorff spectrum of a class of processes called Multifractal Embedded Branching Processes (MEBP), see \cite{DecrJ12, DecrHJ}.
+An MEBP process $X$ can be represented as the composition of a process $Y$ with constant modulus of continuity, and the inverse of an increasing process $\calM$, so that it can be written as $X = Y \circ \calM^{-1}$.
+The increasing process $\calM$ is the integral of a multiplicative cascade defined on the boundary of the crossing tree of $Y$.
+The multifractal analysis of $\calM$ requires deducing the local H\"older exponent at every point of its support from a discretised version of it. To do so, the support of a multifractal measure is typical divided into dyadic cubes, and a structure function is defined from the empirical $q$-th moments of measures
+of cubes 3 times wider than the original partition, see e.g. Section 2 in \cite{JaffLA06}. This methodology was adapted in \cite{DecrHJ} to perform the multifractal analysis of $\calM$. 
+The analysis performed there requires the introduction of a novel partition function constructed on a random grid adapted to the process. The new partition function is defined in terms of the $q$-th moment of the sum of 3 consecutive crossing durations (instead of 3 consecutive dyadic cubes), and constitutes the starting point of the present study.
+
+Let $\bfi|n-$ and $\bfi|n+$ denote respectively the left and right neighbours of $\bfi|n$. The corresponding crossing durations are denoted $W_{\bfi|n-}$ and $W_{\bfi|n+}$. 
+The discussion above motivates the definition of a new crossing-tree structure function, 
+\begin{equation}\label{structure_ct2}
+{\cal S}_{ct}(n,q) = \frac{1}{N_n}\sum\limits_{\bfi|n} |W_{\bfi|n-}+ W_{\bfi|n}+W_{\bfi|n+}|^q \,,
+\end{equation}
+and its associated partition function
+\begin{equation}\label{partition_ct2}
+\eta_{ct}(q) = \liminf_{n\to \infty}\frac{\log {\cal S}_{ct}(n,q)}{-n \log 2}\,.
+\end{equation}
+The introduction of the right and left neighbours in the definition of ${\cal S}_{ct}(n,q)$ takes cares of problems that may arise when the local H\"older exponent is discretised at time $t$, when $t$ is a crossing time, since $t$ corresponds in that case to one of the endpoints of the crossing durations.
+
+Wavelet leaders were introduced to address the flaws of a multifractal analysis based directly on wavelet coefficients. In particular, wavelet leaders are known to estimate the spectrum of singularities with greater accuracy for $q<0$. They are defined from the supremum of wavelet coefficients over dyadic cubes 3 times larger than the original dyadic partition, which is the key to their success. 
+We thus expect that defining a structure function from of the $q$-th moments of statistics defined on 3 consecutive intervals will also improve the stability properties of the structure function for $q<0$, compared to the original $S_{ct}(n,q)$. 
+The numerical work presented in the next section supports this claim.
+
+Heuristic arguments presented in \cite{DecrA15} lead to conjecture that for self-similar processes, the multifractal spectrum is related to the crossing-tree partition function via the transform
+\begin{equation}\label{ct_multifractal}
+\zeta_{ct}(q) = \inf_h\{ (q+1)/h -D(h)/h \}\,.
+\end{equation}
+For monofractal processes with H\"older exponent $H$, one gets $\zeta_{ct}(q)=q/H$. 
+A similar reasoning yields $\eta_{ct}(q)=q/H$ for this class of processes. 
+This conjecture, proved for the Brownian motion, remains open. 
+The numerical work presented in the next section supports this conjecture.
+The expression of the crossing-tree partition functions for monofractal processes should be compared with wavelet-based techniques, where we directly get from (\ref{spectrum_wav}) and (\ref{spectrum_wl}) that $\zeta_{wc}(q)=\zeta_{wl}(q)=qH$.
+The partition function is still linear in $q$, but the slope is inverted. 
+
+
+\section{Numerical work}
+\label{ssec:numwork}
+
+For each process defined in the introduction, we compare the performance of the two crossing-tree partition functions. 
+Estimation based on wavelet coefficients is also presented.
+The partition functions are estimated from an average of 1000 realizations of $2^{15}$ sample points each. 
+The wavelet partitions functions are estimated using Daubechies' wavelets with 3 vanishing moments, from scale $2^3$ to $2^{12}$ using Matlab routines from \cite{WendtSPM2007, WendtICASSP2008}.
+The crossing tree partition function is estimated from scale $2^2$ to $2^5$.
+The  range of scales differs for wavelet methods and the crossing tree, since they are calculated differently: the scales chosen to analyse the crossing tree are computed from the spatial fluctuations of the signal.
+  
+We focus our attention to the estimation of the negative moments, which is the main objective of the present contribution.
+Figure \ref{fig:partition1} and \ref{fig:partition2} display the estimation of $\zeta_{ct}(q)$, $\eta_{ct}(q)$ and $\zeta_{wc}(q)$, $\zeta_{wl}(q)$ for $q$ varying between -10 and 0.
+It is clear from Figure \ref{fig:partition2} that the partition function based on wavelet coefficients fails to work for negative $q$s, while the three other methods return stable results. 
+In particular, it can be seen from Figure \ref{fig:partition1} that an estimation based on the crossing tree returns a good estimation for negative $q$s, and the estimation bias is further reduced when considering $\eta_{ct}(q)$ instead of $\zeta_{ct}(q)$.
+In most cases, the bias almost vanishes, while wavelet leaders return a small bias in some cases.
+The estimation was repeated for other values of $H> 0.5$, and the modified formalism systematically improves the estimation compared to the original crossing-tree partition function.
+Estimation for processes with $H< 0.5$ remains however challenging with the crossing tree, since the estimation of the crossing tree is all the more difficult as the process is rough (crossings are missed).
+
+Following the seminal work of Castaing \cite{Cast93}, we considered in \cite{DecrA15} a polynomial expansion of the partition function, and we defined an estimator of $H$ from the first coefficient in the expansion, estimated from the cumulant of the crossing durations. We repeated the same procedure for $\eta_{ct}(q)$, and we found that the performances of the estimators based on $\eta_{ct}(q)$ and $\zeta_{ct}(q)$ are comparable in most cases.
+
+\begin{figure}
+
+\begin{minipage}[b]{.48\linewidth}
+  \centering
+  \centerline{\includegraphics[scale=.3]{max_fbm}}
+  \vspace{.12cm}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.48\linewidth}
+  \centering
+  \centerline{\includegraphics[scale=.3]{max_rosenblatt}}
+  \vspace{.12cm}
+\end{minipage}
+%
+\begin{minipage}[b]{.48\linewidth}
+  \centering
+  \centerline{\includegraphics[scale=.3]{max_hermitte}}
+  \vspace{-.12cm}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.48\linewidth}
+  \centering
+  \centerline{\includegraphics[scale=.3]{max_weierstrass}}
+  \vspace{-.12cm}
+\end{minipage}
+%
+\caption{Estimation of the partition function for $q$ varying between -10 and 0 using $\zeta_{ct}(q)$ ($\circ$) and $\eta_{ct}(q)$ ($\Box$). 
+The dashed line is the theoretical line $q/H$. 
+From top to bottom, left to right, fractional Brownian motion, Hermite with $k=2$ and 3, and Weierstrass function, with $H=0.6$.}
+\label{fig:partition1}
+
+\end{figure}
+
+
+
+\begin{figure}
+
+\begin{minipage}[b]{.48\linewidth}
+  \centering
+  \centerline{\includegraphics[scale=.3]{leader_fbm}}
+  \vspace{.12cm}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.48\linewidth}
+  \centering
+  \centerline{\includegraphics[scale=.3]{leader_rosenblatt}}
+  \vspace{.12cm}
+\end{minipage}
+%
+\begin{minipage}[b]{.48\linewidth}
+  \centering
+  \centerline{\includegraphics[scale=.3]{leader_hermite}}
+  \vspace{-.12cm}
+\end{minipage}
+\hfill
+\begin{minipage}[b]{0.48\linewidth}
+  \centering
+  \centerline{\includegraphics[scale=.3]{leader_weierstrass}}
+  \vspace{-.12cm}
+\end{minipage}
+%
+\caption{Estimation of the partition function using wavelet leaders ($\circ$) and wavelet coefficients ($\Box$).}
+\label{fig:partition2}
+
+\end{figure}
+
+
+\section{Concluding remarks}
+\label{ssec:numwork}
+
+The present contribution extends earlier work on the crossing-tree, by introducing a novel crossing-tree partition function. 
+We showed numerically that a simple modification of the crossing-tree partition function presented in \cite{DecrAJ13, DecrA15} allows a more stable estimation for negative powers.
+
+This work further raises many challenges (both theoretically and numerically) and open conjectures.
+The first step being formally proving that $\eta_{ct}(q)=q/H$ for monofractal $H$-sssi processes, before proving (\ref{ct_multifractal}) in all generality.
+Estimation for rougher processes ($H<0.5$) should also be further investigated, since the estimation of the crossing tree is deteriorated in this case. 
+Finally, the crossing tree is defined so far only for one-dimensional processes. 
+Extending its definition to two-dimensional processes might lead to a new tool to analyse images, and in particular to perform their multifractal analysis. 
+
+
+% References should be produced using the bibtex program from suitable
+% BiBTeX files (here: strings, refs, manuals). The IEEEbib.bst bibliography
+% style file from IEEE produces unsorted bibliography list.
+% -------------------------------------------------------------------------
+\bibliographystyle{IEEEbib}
+\bibliography{strings,refs}
+
+\end{document}
