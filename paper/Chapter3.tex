@@ -1,5 +1,5 @@
-\chapter{$H$-sssi processes} % (fold)
-\label{cha:h_sssi_processes}
+\section{$H$-sssi processes} % (fold)
+\label{sec:h_sssi_processes}
 
 This section covers the basic definitions and properties of self-similar processes
 studied in this project. We consider a process $\bigl\{X(t)\bigr\}$ to be a continuous
@@ -8,8 +8,8 @@ of this section are quite general and are based on the following papers and text
 \cite{bulinskii2005teoriya2516755}, \cite{Bai20141710}, \cite{Chronopoulou:1114288}
 \cite{embrechts2000introduction} and \cite{embrechtsselfsimilar} to name but a few.
 
-\section{Definition} % (fold)
-\label{sec:definition}
+\subsection{Definition} % (fold)
+\label{sub:definition}
 
 Before proceeding with the definitions and properties, we clarify what is meant by
 stochastic equivalence of random processes. Processes $\bigl\{X(t)\bigr\}$ and
@@ -71,12 +71,12 @@ and $X(0)$ are jointly independent.
 To summarize a process $\bigl\{X(t)\bigr\}$ is $H$-sssi, if it is $H$-self-similar
 with Hurst exponent $H$ and has stationary increments.
 
-% section definition (end)
+% subsection definition (end)
 
-\section{Fractional Brownian motion} % (fold)
-\label{sec:fractional_brownian_motion}
+\subsection{Fractional Brownian motion} % (fold)
+\label{sub:fractional_brownian_motion}
 
-It was mentionend in section~\ref{sec:the_crossing_tree_of_brownian_motion} that Brownian
+It was mentionend in section~\ref{sub:the_crossing_tree_of_brownian_motion} that Brownian
 motion is an example of a self-similar process. In fact it is an $\sfrac{1}{2}$-sssi process.
 Indeed, let $a>0$ and consider the process $V(t) = \frac{1}{\sqrt{a}} B(at)$. Obviously
 $V(0) = 0$ almost surely, since $V(0) = \sfrac{1}{\sqrt{a}} B(a 0) = 0$. Furthermore
@@ -119,10 +119,10 @@ In fact, fractional Brownian motion is an example of a broader class of self-sim
 processes known as the \textbf{Hermite} processes. They exhibit non-Gaussianity and have
 strongly dependent increments.
 
-% section fractional_brownian_motion (end)
+% subsection fractional_brownian_motion (end)
 
-\section{Hermite processes} % (fold)
-\label{sec:hermite_processes}
+\subsection{Hermite processes} % (fold)
+\label{sub:hermite_processes}
 
 Hermite processes inherit their name from the stochastic integral kernel used in
 their definition, and are an extremely important example of processes, which have 
@@ -152,10 +152,10 @@ over independent realizations of Gaussain white noise $dB(x_j)$. The Hermite pro
 of order $1$ is fractional Brownian motion, whereas higher order Hermite processes
 correspond to non-Gaussian $H$-sssi, \cite{Bai20141710}.
 
-% section hermite_processes (end)
+% subsection hermite_processes (end)
 
-\section{Weierstrass function} % (fold)
-\label{sec:weierstrass_function}
+\subsection{Weierstrass function} % (fold)
+\label{sub:weierstrass_function}
 
 Yet another example of non-Gaussian self-similar process is the random Weierstrass
 function defined as the limiting random function of the sum of randomly phase shifted
@@ -194,6 +194,6 @@ all $t\geq0$:
 \end{align*}
 which makes it obvious that the Weierstrass function has self-similarity.
 
-% section weierstrass_function (end)
+% subsection weierstrass_function (end)
 
-% chapter h_sssi_processes (end)
+% section h_sssi_processes (end)

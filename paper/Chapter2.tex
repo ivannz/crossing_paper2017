@@ -1,5 +1,5 @@
-\chapter{The crossing tree} % (fold)
-\label{cha:the_crossing_tree}
+\section{The crossing tree} % (fold)
+\label{sec:the_crossing_tree}
 
 The crossing tree as a tool for analysing self-similarity goes back to the study
 of diffusion on fractal sets (see ~\cite{BarlowPerkins88}). It was later reintroduced
@@ -9,8 +9,8 @@ detecting structural changes, manifested in changes in local regularity of the t
 series. In this section I describe theoretical construction of the crossing tree
 and how it is recovered from the discrete time series data.
 
-\section{Crossing Times} % (fold)
-\label{sec:crossing_times}
+\subsection{Crossing Times} % (fold)
+\label{sub:crossing_times}
 
 Consider a path of real-valued continuous process $\{X(t)\}$ with time running through
 $[0,+\infty)$. Continuity is understood in the sense of the path of the process
@@ -106,10 +106,10 @@ Therefore, under the stated conditions $T_{k+2}^n\leq T_{m+1}^{n+1}$.
 
 %% A nice picture is due here!!!!
 
-% section crossing_times (end)
+% subsection crossing_times (end)
 
-\section{Tree Structure} % (fold)
-\label{sec:tree_structure}
+\subsection{Tree Structure} % (fold)
+\label{sub:tree_structure}
 
 Let's define the \emph{$n$-th level crossing} as the slice of the path of the process
 $\{X(t)\}$ over the time half-interval $[T_k^n,T_{k+1}^n)$ for some integer $k\geq 0$,
@@ -217,10 +217,10 @@ characterisation of the original continuous random process in terms of the base 
 and crossing times $(T_k^n)_{k\geq 0}$ and crossing orientations $(\alpha_k^n)_{k\geq 0}$,
 $n\in \mathbb{Z}$ (see~\cite{decrouez2013estimation} and~\cite{ECP1673}).
 
-% section tree_structure (end)
+% subsection tree_structure (end)
 
-\section{Crossing tree on time series data} % (fold)
-\label{sec:crossing_tree_on_time_series_data}
+\subsection{Crossing tree on time series data} % (fold)
+\label{sub:crossing_tree_on_time_series_data}
 
 In this section we briefly describe how the crossing tree is constructed for a sample
 path of some continuous process, given by time series data $(t_i, x_i)_{i=0}^N$.
@@ -254,10 +254,10 @@ series and measure either their standard deviation, or inter-quartile range, or
 compute the median of their absolute values. In fact the effect of the base scale
 decreases with the level of the tree, provided the tree is tall enough.
 
-% section crossing_tree_on_time_series_data (end)
+% subsection crossing_tree_on_time_series_data (end)
 
-\section{Analysis using the crossing tree} % (fold)
-\label{sec:analysis_using_the_crossing_tree}
+\subsection{Analysis using the crossing tree} % (fold)
+\label{sub:analysis_using_the_crossing_tree}
 
 Once a crossing tree has been constructed for a particular sample path of a continuous
 process $\{X(t)\}$ for a given base resolution $\delta>0$, it can be used to gauge
@@ -333,10 +333,10 @@ the finest grid $\delta \mathbb{Z}$. In practice, in order to improve the accura
 this estimate one attempts to pool sequences $Z^n$ across several consecutive levels
 of the tree, over which the hypothesis of common distribution cannot be rejected.
 
-% section analysis_using_the_crossing_tree (end)
+% subsection analysis_using_the_crossing_tree (end)
 
-\section{The crossing tree of Brownian motion} % (fold)
-\label{sec:the_crossing_tree_of_brownian_motion}
+\subsection{The crossing tree of Brownian motion} % (fold)
+\label{sub:the_crossing_tree_of_brownian_motion}
 
 One of most well studied processes is the Brownian motion. Usually it is axiomatically
 as a unique stochastic process $\bigl\{W(t)\bigr\}$ with the following four properties:
@@ -373,6 +373,6 @@ independent random variables. The characterisation of Brownian motion in terms o
 the properties of its crossing tree is based on ideas used in the construction of
 Brownian motion on a nested fractal (see~\cite{BarlowPerkins88}).
 
-% section the_crossing_tree_of_brownian_motion (end)
+% subsection the_crossing_tree_of_brownian_motion (end)
 
-% chapter the_crossing_tree (end)
+% section the_crossing_tree (end)

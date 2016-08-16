@@ -1,10 +1,11 @@
-\documentclass[a4paper]{extreport}
-\usepackage{geometry}
+\documentclass[a4paper]{article}
+\usepackage{spconf}
+%% \usepackage{geometry}
 
 \usepackage[utf8]{inputenc}
 \usepackage[russian, english]{babel}
 
-\usepackage{fullpage}
+% \usepackage{fullpage}
 % \linespread{1.5}
 
 \usepackage{graphicx, url}
@@ -17,12 +18,6 @@
 \usetikzlibrary{positioning}
 
 % \usepackage{natbib}
-
-\usepackage{titlesec}
-
-\titleformat{\chapter}[block]
-  {\normalfont\huge\bfseries}{\thechapter.}{1em}{\Huge}
-\titlespacing*{\chapter}{0pt}{-19pt}{0pt}
 
 \newcommand{\Real}{\mathbb{R}}
 \newcommand{\Cplx}{\mathbb{C}}
@@ -62,11 +57,11 @@ Tree is presented. This tool is applied to analyse self-similar signals of proce
 known as Hurst self-similar processes with stationary increments to gather evidence 
 of the common features of the constructed crossing trees in this class of processes.
 \end{abstract}
-\tableofcontents
+%% \tableofcontents
 
 %% The project itself
-\chapter{Introduction} % (fold)
-\label{cha:introduction}
+\section{Introduction} % (fold)
+\label{sec:introduction}
 
 Scale-invariance and self-similarity has been widely used lately to analyse a wide
 range of time series, from medicine, to seismology, and to financial data.
@@ -74,46 +69,47 @@ Essentially, scale-invariance of some process implies that its dynamics is not
 characterized by well defined dominant time-scales. Instead their dynamics
 involve all time-scales. Analysing this kind of data should rely on identifying
 the mechanism relating the scales with one another. The crossing tree, described in
-section \ref{cha:the_crossing_tree} (p.~\pageref{cha:the_crossing_tree}), is
+section \ref{sec:the_crossing_tree} (p.~\pageref{sec:the_crossing_tree}), is
 a natural tool for analysing data at all scales simultaneously.
 
-The structure of this paper is as follows. The second chapter (p.~\pageref{cha:the_crossing_tree})
+The structure of this paper is as follows. The second chapter (p.~\pageref{sec:the_crossing_tree})
 of this study describes the crossing tree, its theoretical construction as well
 as practical computation. In the third chapter we review the definition and classical
-examples of self-similar processes with stationary increments (p.~\pageref{cha:h_sssi_processes}).
-The last chapter (p.~\pageref{cha:the_crossing_tree_and_h_sssi_processes}) discusses
+examples of self-similar processes with stationary increments (p.~\pageref{sec:h_sssi_processes}).
+The last chapter (p.~\pageref{sec:the_crossing_tree_and_h_sssi_processes}) discusses
 the results of a Monte-Carlo simulation of crossing trees constricted for sample
 paths of various $H$-sssi processes, and attempts verify whether these processes
 share common crossing tree statistical properties.
 
-% chapter introduction (end)
+% section introduction (end)
 
 %% Include the contents of the second chapter
-\clearpage
+%% \clearpage
 \include{Chapter2}
 
 %% Include the contents of the third chapter
-\clearpage
+%% \clearpage
 \include{Chapter3}
 
 %% The contents of the fourth chapter
-\clearpage
+%% \clearpage
 \include{Chapter4}
 
 %% Include the conclusions
-\clearpage
+%% \clearpage
 \include{conclusion}
 
 %% End of the report: lists of object and references
 % \clearpage \listoffigures
 % \clearpage \listoftables
 
-\clearpage
+%% \clearpage
 
 \selectlanguage{english}
 
 % \bibliographystyle{amsplain}
-\bibliographystyle{ugost2008ls}
+% \bibliographystyle{ugost2008ls}
+\bibliographystyle{IEEEbib}
 \bibliography{literature}
 
 %% Supplementary material
