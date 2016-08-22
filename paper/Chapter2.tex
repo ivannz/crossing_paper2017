@@ -191,31 +191,32 @@ structure of crossings. If tree levels are enumerated from bottom up then \begin
 	the larger crossing. 
 \end{itemize}
 
-The crossing tree reveals patterns of subcrossings within a parent crossing, conditional
-on the direction of the latter. Denote the crossing orientations by
-\[ \alpha_k^n = \text{sign}\bigl( X(T_{k+1}^n) - X(T_k^n)\bigr)\,.\]
-Then, by construction of the crossing tree itself, subcrossing orientations of a complete
-crossing come in pairs by construction. The pairs of oppositely oriented crossings
-are \emph{excursions}. Thus orientations (signs) $-+$ and $+-$ correspond to down-up
-and up-down excursions, respectively, whereas excursions $--$ or $++$ -- to direct
-upward or downward crossings, respectively. Any complete parent crossing can be broken
-down into a series of excursions followed by a direct crossing, which actually concludes
-the parent crossing by passing over the next $\pm\delta 2^{n+1}$ grid line. Let $V_k^n$
-be $0$ if the $k$-th $n$-level excursion (movements within a finer $(n-1)$-st gird) is
-up-down (if $\alpha_{2k}^{n-1}\|\alpha_{2k+1}^{n-1} = +-$) and $1$ if it is down-up ($-+$).
+The crossing tree reveals patterns of subcrossings within a parent crossing,
+conditional on the direction of the latter. Denote the crossing orientations by
+\[ \alpha_k^n = \text{sign}\bigl( X(T_{k+1}^n) - X(T_k^n)\bigr) \,. \]
+Then subcrossing orientations of a complete crossing come in pairs by construction
+of the crossing tree itself. Pairs of oppositely oriented crossings are
+\emph{excursions}, and sign pairs ``$-+$'' and ``$+-$'' correspond to down-up
+and up-down excursions, respectively, whereas pairs ``$--$'' or ``$++$'' constitute
+direct upward and downward crossings, respectively. Any complete parent crossing
+can be broken down into a series of excursions followed by a direct crossing, which
+concludes the parent crossing by travsersing the next $\pm\delta 2^{n+1}$ grid line.
+Let $V_k^n$ be $0$ if the $k$-th $n$-level excursion (movements within a finer $(n-1)$-st
+gird) is up-down: if $\alpha_{2k}^{n-1} = +$ and $\alpha_{2k+1}^{n-1} = -$, --
+and $1$ if it is down-up (``$-+$'').
 
 The above exposition considered the crossing tree for successively coarser resolutions
-$\delta 2^n \mathbb{Z}$ for $n\geq0$. For example in~\cite{decrouez2013estimation} the
-crossing tree is defined for crossing times on this grid for any $n\in\mathbb{Z}$.
-The restriction to non-negative levels in this paper was motivated by the fact, that
-in practice, on real sample path of some supposedly continuous process it is never
-possible no meaningfully go beyond some basic finest resolution given by $\delta>0$.
-This has to do with the fact that processes are sampled at finite frequency or over
-regularly spaced but finitely many points in time. However, it is important to note
-that the crossing tree for resolutions finer than the base scale give a one-to-one
-characterisation of the original continuous random process in terms of the base scale,
-and crossing times $(T_k^n)_{k\geq 0}$ and crossing orientations $(\alpha_k^n)_{k\geq 0}$,
-$n\in \mathbb{Z}$ (see~\cite{decrouez2013estimation} and~\cite{ECP1673}).
+$\delta 2^n \mathbb{Z}$ for $n\geq0$. For example in~\cite{decrouez2013estimation}
+the crossing tree is defined for crossing times on this grid for any $n\in\mathbb{Z}$.
+The restriction to non-negative levels in this paper was motivated by the fact,
+that in practice, on real sample path of some supposedly continuous process it
+is never possible no meaningfully go beyond some basic finest resolution given
+by $\delta>0$. This has to do with the fact that processes are sampled at finite
+frequency or over regularly spaced but finitely many points in time. However, it
+is important to note that the crossing tree for resolutions finer than the base
+scale give a one-to-one characterisation of the original continuous random process
+in terms of the base scale, and crossing times $(T_k^n)_{k\geq 0}$ and crossing
+orientations $(\alpha_k^n)_{k\geq 0}$, $n\in \mathbb{Z}$ (see~\cite{decrouez2013estimation, ECP1673}).
 
 % subsection tree_structure (end)
 
