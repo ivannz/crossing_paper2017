@@ -17,7 +17,7 @@ np.import_array()
 ctypedef fused real:
     cython.floating
 
-def crossings(real[:] x, real[:] t, real origin, real scale):
+def crossings(real[:] x, real[:] t, real scale, real origin):
     """Compute crossings of an integer grid `scale`*Z with specified `origin`
     by the given sample path of the stochastic process (t, x).
     """
@@ -114,9 +114,8 @@ def _get_statistics(np.intp_t[:] index1, real[:] x0):
     # Compute the level statistics
     cdef np.intp_t n_samples = index1.shape[0]
 
-    cdef np.int_t[::1] ud = _np.empty(n_samples - 1, dtype=_np.int)
-    cdef np.int_t[::1] du = _np.empty(n_samples - 1, dtype=_np.int)
-    cdef np.int8_t[::1] direction = _np.empty(n_samples - 1, dtype=_np.int8)
+    # The format is [#/\, #\/, ±1]
+    cdef np.int_t[:, ::1] excursions = _np.empty((n_samples - 1, 3), dtype=_np.int)
 
     cdef np.intp_t ud_, du_, i1
     cdef np.intp_t i0 = index1[0] + 1
@@ -132,12 +131,12 @@ def _get_statistics(np.intp_t[:] index1, real[:] x0):
                 else:
                     ud_ += 1
                 i0 += 2
-            du[i1], ud[i1] = du_, ud_
+            excursions[i1, 0], excursions[i1, 1] = ud_, du_
 
             # Get the crossing direction
-            direction[i1] = +1 if x0[i0] > x0[i0-1] else -1
+            excursions[i1, 2] = +1 if x0[i0] > x0[i0-1] else -1
 
             # Advance to the next pair
             i0 += 2
 
-    return direction, ud, du
+    return excursions
