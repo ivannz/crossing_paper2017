@@ -26,7 +26,7 @@ def crossings(real[:] x, real[:] t, real origin, real scale):
     cdef real[::1] first = _np.empty(n_samples - 1, dtype=_np.float)
     
     cdef np.intp_t i
-    cdef real first_, last_, direction, prev_last = NAN
+    cdef double first_, last_, direction, prev_last = NAN
     cdef np.intp_t total = 0, size_
     with nogil:
         # Detect integer-level crossings, ignoring re-crossings of the same level
@@ -104,3 +104,40 @@ def _align_crossing_times(real[:] t0, real[:] t1):
             index[i1] = i0
             i0 += 1
     return index
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
+@cython.initializedcheck(False)
+@cython.nonecheck(False)
+def _get_statistics(np.intp_t[:] index1, real[:] x0):
+    # Compute the level statistics
+    cdef np.intp_t n_samples = index1.shape[0]
+
+    cdef np.int_t[::1] ud = _np.empty(n_samples - 1, dtype=_np.int)
+    cdef np.int_t[::1] du = _np.empty(n_samples - 1, dtype=_np.int)
+    cdef np.int8_t[::1] direction = _np.empty(n_samples - 1, dtype=_np.int8)
+
+    cdef np.intp_t ud_, du_, i1
+    cdef np.intp_t i0 = index1[0] + 1
+    with nogil:
+        for i1 in range(n_samples-1):
+            # Count \/ and /\ excursions
+            du_, ud_ = 0, 0
+            # All pairs up to the one before last are necessarily excursions.
+            while i0 < index1[i1+1] - 2:
+                # check the direction of the last traversal in the pair
+                if x0[i0] > x0[i0-1]:
+                    du_ += 1
+                else:
+                    ud_ += 1
+                i0 += 2
+            du[i1], ud[i1] = du_, ud_
+
+            # Get the crossing direction
+            direction[i1] = +1 if x0[i0] > x0[i0-1] else -1
+
+            # Advance to the next pair
+            i0 += 2
+
+    return direction, ud, du
