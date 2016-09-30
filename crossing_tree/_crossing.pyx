@@ -52,7 +52,7 @@ def crossings(real[:] x, real[:] t, real origin, real scale):
     cdef real[::1] ti = _np.empty(total, dtype=_np.float)
 
     cdef np.int_t k, j = 0
-    cdef real x_slope_, t_slope_, first_xi_, first_ti_
+    cdef double x_slope_, t_slope_, first_xi_, first_ti_
     with nogil:
         # Interpolate the crossing times and crossing levels
         for i in range(n_samples-1):
@@ -81,3 +81,26 @@ def crossings(real[:] x, real[:] t, real origin, real scale):
 #                     ti[j] = ti[j-1] + t_slope_ * x_slope_
 #                     j += 1
 #    return xi, ti
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
+@cython.initializedcheck(False)
+@cython.nonecheck(False)
+def _align_crossing_times(real[:] t0, real[:] t1):
+    # Find the alignment vector
+    cdef np.intp_t n_samples = t1.shape[0]
+    cdef np.intp_t[::1] index = _np.empty(n_samples, dtype=_np.int)
+    cdef np.intp_t i0 = 0, i1
+    with nogil:
+        for i1 in range(n_samples):
+            ## If i1-th hit exists then there must be the corresponding i0-th hit.
+            while t0[i0] < t1[i1]:
+                i0 += 1
+            ## Correct the index if we overshot due to numerical accuracy.
+            if i0 > 0:
+                if t0[i0] - t1[i1] > t1[i1] - t0[i0-1]:
+                    i0 -= 1
+            index[i1] = i0
+            i0 += 1
+    return index
