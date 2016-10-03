@@ -28,16 +28,22 @@ def crossings(real[:] x, real[:] t, real scale, real origin):
     cdef np.intp_t i
     cdef double first_, last_, direction, prev_last = NAN
     cdef np.intp_t total = 0, size_
+    cdef double xs0, xs1
     with nogil:
         # Detect integer-level crossings, ignoring re-crossings of the same level
+        xs1 = (x[0] - origin) / scale
         for i in range(n_samples - 1):
+            # Do not center-scale twice
+            xs0, xs1 = xs1, (x[i+1] - origin) / scale
+
             direction, size_ = 0.0, 0
             if x[i] < x[i+1]:
-                first_, last_ = ceil((x[i] - origin) / scale), floor((x[i+1] - origin) / scale)
+                first_, last_ = ceil(xs0), floor(xs1)
                 direction = +1.0
             elif x[i] > x[i+1]:
-                first_, last_ = floor((x[i] - origin) / scale), ceil((x[i+1] - origin) / scale)
+                first_, last_ = floor(xs0), ceil(xs1)
                 direction = -1.0
+
             if direction != 0.0:
                 size_ = <int>fabs(last_ + direction - first_)
                 if size_ > 0 and prev_last == first_:
