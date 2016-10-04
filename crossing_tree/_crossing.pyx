@@ -95,20 +95,39 @@ def crossings(real[:] x, real[:] t, real scale, real origin):
 @cython.nonecheck(False)
 def _align_crossing_times(real[:] t0, real[:] t1):
     # Find the alignment vector
-    cdef np.intp_t n_samples = t1.shape[0]
-    cdef np.intp_t[::1] index = _np.empty(n_samples, dtype=_np.int)
-    cdef np.intp_t i0 = 0, i1
+    cdef np.intp_t n_samples0 = t0.shape[0]
+    cdef np.intp_t n_samples1 = t1.shape[0]
+    cdef np.intp_t[::1] index = _np.empty(n_samples1, dtype=_np.int)
+    cdef np.intp_t i0 = 0, i1 = 0
     with nogil:
-        for i1 in range(n_samples):
-            ## If i1-th hit exists then there must be the corresponding i0-th hit.
+        while i1 < n_samples1 - 1:
+            # There must be the corresponding i0-th hit for each i1-st hit,
+            #  however due to finite numerical precision the hit times may
+            #  not be exactly equal. One thing for certain, the next i0-th
+            #  hit time after the corresponding i1-st hit is strictly later,
+            #  so there is no need to check the bounds of t0.
             while t0[i0] < t1[i1]:
                 i0 += 1
-            ## Correct the index if we overshot due to numerical accuracy.
             if i0 > 0:
                 if t0[i0] - t1[i1] > t1[i1] - t0[i0-1]:
                     i0 -= 1
             index[i1] = i0
             i0 += 1
+            i1 += 1
+
+        # Find the corresponding i0 hit for the last i1 hit.
+        if n_samples1 > 0:
+            # Here, on the otehr hand, we can overshoot the end of t0, and
+            #  thus a check is in order.
+            while t0[i0] < t1[i1] and i0 < n_samples0:
+                i0 += 1
+            if i0 == n_samples0:
+                i0 -= 1
+            elif i0 > 0:
+                if t0[i0] - t1[i1] > t1[i1] - t0[i0-1]:
+                    i0 -= 1
+            index[i1] = i0
+
     return index
 
 @cython.boundscheck(False)
@@ -126,7 +145,7 @@ def _get_statistics(np.intp_t[:] index1, real[:] x0):
     cdef np.intp_t ud_, du_, i1
     cdef np.intp_t i0 = index1[0] + 1
     with nogil:
-        for i1 in range(n_samples-1):
+        for i1 in range(n_samples - 1):
             # Count \/ and /\ excursions
             du_, ud_ = 0, 0
             # All pairs up to the one before last are necessarily excursions.
