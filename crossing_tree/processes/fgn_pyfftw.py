@@ -24,7 +24,7 @@ class fgn( object ) :
 		del self.__cache[:]
 
 ## A separate procedure for lazy initialization.
-	def initialize( self, numpy_random_state ) :
+	def initialize( self, numpy_random_state, threads = 1 ) :
 ## Reset the internal state and initialize the random number generator
 		self.reset( )
 		self.__np_rand = numpy_random_state
@@ -39,7 +39,7 @@ class fgn( object ) :
 ##  does some timining and measures of preformance of the various algorithms, and the
 ##  chooses the best one. Unfortunately, it takes about 2minutes for these measure, and
 ##  in general the speed up if insignificant.
-			threads = 1, direction = 'FFTW_FORWARD', flags = ( 'FFTW_DESTROY_INPUT', 'FFTW_ESTIMATE', ) )
+			threads = threads, direction = 'FFTW_FORWARD', flags = ( 'FFTW_DESTROY_INPUT', 'FFTW_ESTIMATE', ) )
 ## The autocorrelation structure for the fBM is constant provided the Hurst exponent
 ##  and the size sample are fixed. "Synthese de la covariance du fGn", Synthesise
 ##  the covariance of the fractional Gaussian noise. This autocorrelation function

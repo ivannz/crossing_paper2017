@@ -19,8 +19,8 @@ class fbm( fgn ) :
 	def reset( self ):
 		super( fbm, self ).reset( )
 
-	def initialize( self, numpy_random_state ) :
-		super( fbm, self ).initialize( numpy_random_state )
+	def initialize( self, numpy_random_state, **kwargs ) :
+		super( fbm, self ).initialize( numpy_random_state, **kwargs )
 
 	def __call__( self ) :
 		increments = super( fbm, self ).__call__( )
