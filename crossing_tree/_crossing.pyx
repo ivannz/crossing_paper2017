@@ -61,7 +61,7 @@ def crossings(real[:] x, real[:] t, real scale, real origin):
     cdef double x_slope_, t_slope_, first_xi_, first_ti_
     with nogil:
         # Interpolate the crossing times and crossing levels
-        for i in range(n_samples-1):
+        for i in range(n_samples - 1):
             size_ = size[i]
             if size_ > 0:
                 x_slope_ = +scale if x[i+1] > x[i] else -scale
