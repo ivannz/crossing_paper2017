@@ -88,11 +88,6 @@ def crossings(real[:] x, real[:] t, real scale, real origin):
 #                     j += 1
 #    return xi, ti
 
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-@cython.initializedcheck(False)
-@cython.nonecheck(False)
 def _align_crossing_times(real[:] t0, real[:] t1):
     # Find the alignment vector
     cdef np.intp_t n_samples0 = t0.shape[0]
@@ -130,11 +125,6 @@ def _align_crossing_times(real[:] t0, real[:] t1):
 
     return index
 
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-@cython.initializedcheck(False)
-@cython.nonecheck(False)
 def _get_statistics(np.intp_t[:] index1, real[:] x0):
     # Compute the level statistics
     cdef np.intp_t n_samples = index1.shape[0]
