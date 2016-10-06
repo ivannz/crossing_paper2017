@@ -491,7 +491,7 @@ the sequences of properly scaled crossing durations $2^{-n} W^n = (2^{-n} W_k^n)
 where $W_k^n$ is the duration of the $k$-th crossing of level $n$ and is defined
 as $W_{k+1}^n = T_{k+1}^n - T_k^n$.
 
-For $H$-sssi processes (see p.\pageref{def:hsssi}) one can use the crossing tree
+For $H$-sssi processes (see p.\pageref{eq:def_ss}) one can use the crossing tree
 to estimate the value of the Hurst index $H$ by the following formula:
 \[ \hat{H} = \frac{\log 2}{\log \hat{\mu}} \,,\]
 where $\hat{\mu} = \ex Z_k^n$. Intuitively, if we one scales the time of an $H$-sssi
@@ -549,175 +549,103 @@ Brownian motion on a nested fractal (see~\cite{BarlowPerkins88}).
 \section{$H$-sssi processes} % (fold)
 \label{sec:h_sssi_processes}
 
-This section covers the basic definitions and properties of self-similar processes
-studied in this project. We consider a process $\bigl\{X(t)\bigr\}$ to be a continuous
--time real-valued stochastic process defined for all $t\in [0,+\infty)$. The contents
-of this section are quite general and are based on the following papers and textbooks:
-\cite{bulinskii2005teoriya2516755}, \cite{Bai20141710}, \cite{Chronopoulou:1114288}
-\cite{embrechts2000introduction} and \cite{embrechtsselfsimilar} to name but a few.
+This section provides basic information on the $H$-sssi processs studied in this 
+paper. We consider continuous real-valued stochastic processes $(X(t))_{t\geq0}$
+defined on $[0,+\infty)$. First we define self-similarity and stationarity of increments,
+them discuss gaussian $H$-sssi processes.
 
-\subsection{Definition} % (fold)
-\label{sub:definition}
-
-Before proceeding with the definitions and properties, we clarify what is meant by
-stochastic equivalence of random processes. Processes $\bigl\{X(t)\bigr\}$ and
-$\bigl\{Y(t)\bigr\}$ are equivalent in finite-dimensional distributions, or symbolically
-$\{X(t)\} \overset{\Dcal}{=} \{Y(t)\}$, if for all $n\geq1$ and all $(t_k)_{k=1}^n\in [0,+\infty)$
-with $t_k<t_{k+1}$,
-\[ \bigl(X(t_k)\bigr)_{k=1}^n \overset{\Dcal}{\sim} \bigl(Y(t_k)\bigr)_{k=1}^n \text{ holds}\,,\]
-where $A\overset{\Dcal}{\sim} B$ denotes equality of distribution of random variables
-$A$ and $B$.
-
-A process $\bigl\{X(t)\bigr\}_{t\geq 0}$ is called \textbf{self-similar}, or \textbf{ss}
-for short, if for any $a>0$ there exists $b>0$ such that
-\[ \bigl\{X(at)\bigr\} \overset{\Dcal}{=} \bigl\{b X(t)\bigr\} \,,\]
-that is, their finite-dimensional distributions coincide.
-
-A process $\bigl\{X(t)\bigr\}$ is said to be stochastically continuous at $t\geq0$ if
-$\lim_{h\to 0} \pr\bigl\{ |X(t+h)-X(t)| \geq \epsilon \bigr\} = 0$ for arbitrary
-$\epsilon > 0$.
-
-It was shown by Lamperti in 1962 that whenever a self-similar process $\bigl\{X(t)\bigr\}$
-has non-degenerate point distributions (non-trivial), and is stochastically continuous
-at $t=0$, there (necessarily) exists a constant $H\geq 0$ such that any $a>0$ the constant
-$b$ in the definition of self-similarity is given by $b=a^H$, i.e
-\[ \bigl\{X(at)\bigr\} \overset{\Dcal}{=} \bigl\{a^H X(t)\bigr\} \,. \]
-Uniqueness of $H$ follows from the fact that $b_1 X\overset{\Dcal}{\sim} b_2 X$ implies
-$b_1=b_2$ for any non-degenerate random variable $X$.
-
-This theorem gives the definition of $H$-\textbf{s}elf-\textbf{s}imilarity: \label{def:hsssi}
-a process $\bigl\{X(t)\bigr\}$ is $H$-ss with Hurst exponent $H$ if for all $a>0$,
-\[ \bigl\{X(t)\bigr\} \overset{\Dcal}{=} \bigl\{a^{-H} X(at)\bigr\} \]
-
-%% bulinskii2005teoriya2516755 p.105
-A stochastic processes $\bigl\{X(t)\bigr\}$ is said to have \textbf{S}tationary
-\textbf{I}ncrements, or \textbf{si}, if all finite-dimensional distributions of
-the process $\bigl\{X(t+s) - X(t)\bigr\}_{s\geq0}$ are independent of $t$, which
-equivalently means that
-\[ \bigl\{X(t+s)-X(t)\bigr\} \overset{\Dcal}{=} \bigl\{X(s)-X(0)\bigr\} \,. \]
-
-A particularly nice corollary to the definition of an $H$-self-similar process is that
-if $\bigl\{X(t)\bigr\}$ is $H$-ss then $X(t)\overset{\Dcal}{\sim}t^H X(1)$. In turn,
-this allows, for example to show that all zero-mean stochastic processes with stationary
-increments share similar auto-correlation pattern for all $t\neq s$
-\[ \ex X(s) X(t) = \frac{1}{2}\Bigl( t^{2H} + s^{2H} - |t-s|^{2H}\Bigr) \ex|X(1)|^2 \,. \]
-Indeed, the identity $2 a b = a^2 + b^2 - (a-b)^2$ implies that\begin{align*}
-	\ex X(s) X(t)
-	&= \frac{1}{2}\biggl( \ex X(s)^2 + \ex X(t)^2 - \ex\bigl( X(s) - X(t) \bigr)^2 \biggr) \\
-	&= \frac{1}{2}\biggl( \ex X(s)^2 + \ex X(t)^2 - \ex X(|s-t|)^2 \biggr) \\
-	&= \frac{1}{2}\biggl( |s|^{2H} \ex X(1)^2 + |t|^{2H} \ex X(1)^2 - |s-t|^{2H} \ex X(1)^2 \biggr) \,,
+A stochastic process $(X(t))_{t\geq0}$ is $H$-self similar (or $H$-\textbf{ss}) if
+for all $a>0$ the processes 
+\begin{equation*}\label{eq:def_ss}
+    (X(at))_{t\geq0} \overset{\Dcal}{\sim} (a^H X(t))_{t\geq0} \,,
+\end{equation*}
+i.e. the processes have identical finite dimensional distributions. A stochastic
+process $(X(t))_{t\geq0}$ has stationary increments (\textbf{si}) if for any $s\geq 0$
+it is true that
+\begin{equation*}\label{eq:def_si}
+    (X(t)-X(s))_{t\geq0} \overset{\Dcal}{\sim} (X(t-s)-X(0))_{t\geq0} \,.
+\end{equation*}
+For $H$-self-similar processes it is true that $X(t) \overset{\Dcal}{\sim} t^H X(1)$
+for any $t>0$. If in addition $(X(t))_{t\geq1}$ is zero-mean with stationary increments,
+i.e. $X(t)$ is zero-mean $H$-sssi process, then its covariance function is given by
+\begin{align*}\label{eq:h_sssi_cov}
+    \ex X(t) X(s)
+        &= \frac{1}{2} \bigl(\ex X(s)^2 + \ex X(t)^2 - \ex(X(s) - X(t))^2 \bigr)\\
+        &= \frac{1}{2} \bigl( s^{2H} \ex X(1)^2 + t^{2H}\ex X(1)^2 - \ex(X(|s-t|))^2 \bigr)\\
+        &= \frac{1}{2} (s^{2H}  + t^{2H} - |s-t|^{2H}) \ex X(1)^2 \,.
 \end{align*}
-where the second and the third lines follow from the stationarity of the increments
-and the mentioned corollary, respectively.
+A stochastic process $(X(t))_{t\geq0}$ is Gaussian with mean $\mu(t)$ and covariance
+kernel $R(s,t)$ (positive definite function) if for any $n\geq 1$, $0 \leq t_i < t_{i+1}$
+with $i=1,\ldots,n$, the vector $(X(t_i))_{i=1}^n\in \Real^{n\times1}$ is $n$-dimensional
+Normal with mean $(\mu(t_i))_{i=1}^n$ and covariance matrix $(R(t_i, t_j))_{i,j=1}^n\in \Real^{n\times n}$.
 
-%% bulinskii2005teoriya2516755 p.47
-Lastly, recall that a process $\bigl\{X(t)\bigr\}$ is said to have \textbf{i}ndependent
-\textbf{i}ncrements if for any integer $n\geq1$ and every $(t_k)_{k=0}^n\in[0,\infty)$
-with $0=t_0$ and $t_k < t_{k+1}$ the random variables $\bigl(X(t_k) - X(t_{k-1})\bigr){k=1}^n$
-and $X(0)$ are jointly independent.
+\subsection{Browninan Motion} % (fold)
+\label{sub:browninan_motion}
 
-To summarize a process $\bigl\{X(t)\bigr\}$ is $H$-sssi, if it is $H$-self-similar
-with Hurst exponent $H$ and has stationary increments.
+The Brownian motion (BM) process $(W(t))_{t\geq0}$ is a zero-mean Gaussian process
+with $X(0)=0$ and almost surely continuous paths such that its covariance kernel
+is $R(s,t)=\min\{s, t\}$. Gaussianity and covariance structure imply that BM is an
+$\frac{1}{2}$-sssi process. Indeed, it has stationary increments, and for any $a>0$
+the process $(a^{-\frac{1}{2}} W_{at})_{t\geq0}$ is another version of the Browninan
+Motion.
 
-% subsection definition (end)
+A generalization of the BM to an $H$-sssi Gaussian process for $H \in (\frac{1}{2}, 1)$
+is fractional Brownian motion (fBM), introduced in \cite{doi:10.1137/1010093}. Formally,
+fBM, denoted by $(B_H(t))_{t\geq0}$, is a continuous zero-mean Gaussian process with
+stationary increments and the covariance kernel given by (\ref{eq:h_sssi_cov}). This
+class of processes exhausts all Gaussian $H$-sssi processes, \cite{embrechtsselfsimilar}.
+Fractional BM $(B_H(t))_{t\geq0}$ has the following time-domain integral representation,
+\cite{embrechtsselfsimilar}: for some normalisation constant $C(H)$
+\begin{equation}\label{eq:fbm_int_repr}
+    B_H(t) = C(H) \int_{[0,+\infty)} \biggl(
+            \int_0^t (u-s)^{H-\frac{3}{2}} du
+        \biggr) dW_x \,.
+\end{equation}
+In fact, fBM processes is a particular case of a \textbf{Hermite} processes, -- a broad
+class of non-Gaussian $H$-self similar processes with stationary increments, \cite{maejima2007}.
 
-\subsection{Fractional Brownian motion} % (fold)
-\label{sub:fractional_brownian_motion}
-
-It was mentionend in section~\ref{sub:the_crossing_tree_of_brownian_motion} that Brownian
-motion is an example of a self-similar process. In fact it is an $\frac{1}{2}$-sssi process.
-Indeed, let $a>0$ and consider the process $V(t) = \frac{1}{\sqrt{a}} B(at)$. Obviously
-$V(0) = 0$ almost surely, since $V(0) = \frac{1}{\sqrt{a}} B(a 0) = 0$. Furthermore
-this process inherits stationary increments from $B(t)$ : \begin{align*}
-	\{ V(t+s) - V(t) \} &= \biggl\{ \frac{1}{\sqrt{a}}( B(at+as) - B(at) ) \biggr\}\\
-	&\overset{\Dcal}{=} \biggl\{ \frac{1}{\sqrt{a}}( B(as) ) \biggr\} \\
-	&= \{ V(s) \} \,,
-\end{align*}
-and independence of increments as well: pick $(t_k)_{k=1}^n$ with $t_k<t_{k+1}$ and
-observe that $\bigl(V(t_{k+1}) - V(t_k)\bigr)_{k=1}^n$ are mutually independent since
-$\bigl(B(s_{k+1}) - B(s_k)\bigr)_{k=1}^n$ for $s_k = a t_k$ are. Path continuity follows
-from continuity of sample paths of $B(t)$ and the fact that $t\to a t$ is a continuous
-map.  Finally $\mathcal{N}(0, at) \sim \sqrt{a} \mathcal{N}(0,t)$ implies that $V(t)$
-is Brownian motion as well.
-
-Another example of an $H$-sssi process, which is frequently used as a reference for
-self-similarity and scale invariance studies is the \textbf{f}ractional \textbf{B}rownian
-\textbf{m}otion, or \textbf{fBm}. It is a generalisation of the $\tfrac{1}{2}$-ss
-Brownian motion to a general $H$-ss Gaussian process with $H\in (0, 1)$.
-
-Formally, fractional Brownian motion introduced in \cite{doi:10.1137/1010093} is a
-zero-mean Gaussian process $\bigl\{X(t)\bigr\}$, (its every finite-dimensional joint
-distributions are multivariate normal), with the covariance structure of a general
-zero-mean $H$-sssi stochastic process:
-\[ \ex X(s) X(t) = \frac{1}{2} \bigl(t^{2H} + s^{2H} - |t-s|^{2H}\bigr) \,. \]
-%% bulinskii2005teoriya2516755 p.51
-
-Theorem 1.3.3 on p.~6 of \cite{embrechtsselfsimilar} establishes that a fractional
-Brownian motion $\{B_h(t)\}_{t\geq 0}$ is an $H$-sssi process, for the following
-integral representation up to a multiplicative constant
-\[
-\int_{-\infty}^0 (t-s)^{H-\tfrac{1}{2}} - (-s)^{H-\tfrac{1}{2}} dB(s)
-+ \int_0^t |t-s|^{H-\tfrac{1}{2}} dB(s) \,.
-\]
-If $H = 1$ then the fractional Brownian motion degenerates to $B_1(t) = tB(1)$ (almost
-surely). The class of all fractional Brownian motions coincides with the class of all
-Gaussian self-similar processes with stationary increments, see \cite{embrechtsselfsimilar}. 
-
-In fact, fractional Brownian motion is an example of a broader class of self-similar
-processes known as the \textbf{Hermite} processes. They exhibit non-Gaussianity and have
-strongly dependent increments.
-
-% subsection fractional_brownian_motion (end)
+% subsection browninan_motion (end)
 
 \subsection{Hermite processes} % (fold)
 \label{sub:hermite_processes}
 
 Hermite processes inherit their name from the stochastic integral kernel used in
-their definition, and are an extremely important example of processes, which have 
-non-Gaussian finite-dimensional joint distributions.
-
-A probabilistic Hermite polynomial of order $k\geq0$ is defined as 
-\[ H_k(x) = (-1)^k e^{-\frac{x^2}{2}} \frac{d^k}{dx^k} e^{-\frac{x^2}{2}} \,,\]
-and is a solution to the following differential equation
-\[
- \frac{d}{dx}\biggl( e^{-\frac{x^2}{2}} \frac{d}{dx} f\biggr) + \lambda e^{-\frac{x^2}{2}} f = 0 \,.
-\]
-These polynomials constitute an orthogonal basis of the Hilbert space $\Lcal^2(\Real, \mu)$
-with measure $\mu$ being the Lebesgue integral $\int e^{-\frac{x^2}{2}} dx$ and the inner
-product given by
-\[
-\langle f, g\rangle = \int_\Real f g d\mu = \int_\Real f g e^{-\frac{x^2}{2}} dx \,.
-\]
-
-The Hermite process of order $m$ with self-similarity parameter $H\in(\tfrac{1}{2},1)$,
-denoted by $\bigl\{Z_H^p(t)\bigr\}_{t\geq 0}$, is defined via s multiple stochastic
-integral
-\[
-Z_H^p(t) = \underset{\Real^m}{\int \cdots \int} \Biggl(
-\int^t_0 \prod_{k=1}^m (u-x_k)_+^{-\frac{1}{2}-\frac{1-H}{m}} du\Biggr) dB(x_1) \ldots dB(x_q)
-\]
-over independent realizations of Gaussain white noise $dB(x_j)$. The Hermite process
-of order $1$ is fractional Brownian motion, whereas higher order Hermite processes
-correspond to non-Gaussian $H$-sssi, \cite{Bai20141710}.
+their definition, and are an extremely important example of non-Gaussian processes.
+The $H$-ss Hermite process $(Z_H^m(t))_{t\geq 0}$ of order $m$, $H \in (\tfrac{1}{2}, 1)$,
+is defined as multiple Wiener-It\^o intergral of order $m$ with respect to the 
+standard Browninan Motion $(W_t)_{t\geq0}$
+\begin{equation}\label{eq:def_hermite}
+    Z_H^m(t) = \int_{\Real^m}' \Biggl(
+            \int_0^t \prod_{k=1}^m (u - x_k)_+^{H_0-\frac{3}{2}} du
+        \Biggr) dW_{x_1} \ldots dW_{x_m}\,,
+\end{equation}
+where $\int_{\Real^m}'$ is an $m$-dimensional integral over $\Real^m$ excluding the
+diagonals. For $m=1$ the Hermite process becomes the fractional Brownian motion,
+but for $m\geq 1$ higher order Hermite processes correspond to non-Gaussian $H$-sssi,
+\cite{Bai20141710, maejima2007,Chronopoulou:1114288,embrechts2000introduction}.
 
 % subsection hermite_processes (end)
 
 \subsection{Weierstrass function} % (fold)
 \label{sub:weierstrass_function}
+To test the properties of the crossing tree for estimating
 
-Yet another example of non-Gaussian self-similar process is the random Weierstrass
-function defined as the limiting random function of the sum of randomly phase shifted
-and scaled cosines
-\[
-f_H(t)
-= \sum_{k\in \mathbb{Z}} \lambda_0^{-kH}\bigl\{ \cos(\phi_k)
-- \cos(2\pi \lambda_0^k t + \phi_k) \bigr\} \,,
-\]
-for $(\phi_k)_{k\in\mathbb{Z}}\sim \mathcal{U}(0,2\pi)$ iid -- the random phase
-shift of the $k$-th layer harmonics. The parameter $\lambda_0$ governs the base
-scale of the process and is knows as ``the fundamental harmonic'' (see~\cite{decrouez2013estimation}).
-The function $f_H(t)$ has continuous paths, yet is nowhere differentiable, even
-in the deterministic case when all phase shifts are identically zero. The Weierstrass
+we consider the random Weierstrass cascade, \cite{decrouez2013estimation}, which is the limiting random function of
+the sum of randomly scaled and shifted cosines
+\begin{equation}\label{eq:def_weir}
+    f_H(t) = \sum_{k\in \mathbb{Z}} \lambda_0^{-k H} \bigl\{
+            \cos \phi_k - \cos(2\pi \lambda_0^k t + \phi_k)
+        \bigr\} \,,
+\end{equation}
+where the random phase shifts $(\phi_k)_{k\in\mathbb{Z}}$ are iid $\mathcal{U}(0, 2\pi)$.
+
+As another example of a non-Gaussian $H$-self-similar ew consider the
+
+The parameter $\lambda_0$ governs the base scale of the process and is known as
+``the fundamental harmonic''. The function $f_H(t)$ has continuous paths, but is
+nowhere differentiable, even in the deterministic case of $\phi_k=0$.
+
+The Weierstrass
 function is not an $H$-sssi process, but it exhibits discrete self-similarity, which
 means that there exists $a_0>0$ such that self-similarity holds for values of $a$
 on a discrete grid $a_0\mathbb{N}$, that is for all $t\geq 0$
