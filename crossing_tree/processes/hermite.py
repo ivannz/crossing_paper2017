@@ -48,4 +48,4 @@ class HermiteProcess(FractionalGaussianNoise):
         increments = hermeval(super(FractionalBrownianMotion, self).draw(),
                               self.hermite_coef_)
         values_ = increments.cumsum()[self.n_downsample-1::self.n_downsample]
-        return np.linspace(0, 1, num=self.N+1), np.r_[0, values_]
+        return np.linspace(0, 1, num=self.N+1), values_
