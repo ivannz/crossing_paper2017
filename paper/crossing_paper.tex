@@ -546,8 +546,8 @@ Brownian motion on a nested fractal (see~\cite{BarlowPerkins88}).
 
 % section the_crossing_tree (end)
 
-\section{$H$-sssi processes} % (fold)
-\label{sec:h_sssi_processes}
+\subsection{$H$-sssi processes} % (fold)
+\label{sub:h_sssi_processes}
 
 This section provides basic information on the $H$-sssi processs studied in this 
 paper. We consider continuous real-valued stochastic processes $(X(t))_{t\geq0}$
@@ -579,9 +579,6 @@ kernel $R(s,t)$ (positive definite function) if for any $n\geq 1$, $0 \leq t_i <
 with $i=1,\ldots,n$, the vector $(X(t_i))_{i=1}^n\in \Real^{n\times1}$ is $n$-dimensional
 Normal with mean $(\mu(t_i))_{i=1}^n$ and covariance matrix $(R(t_i, t_j))_{i,j=1}^n\in \Real^{n\times n}$.
 
-\subsection{Browninan Motion} % (fold)
-\label{sub:browninan_motion}
-
 The Brownian motion (BM) process $(W(t))_{t\geq0}$ is a zero-mean Gaussian process
 with $X(0)=0$ and almost surely continuous paths such that its covariance kernel
 is $R(s,t)=\min\{s, t\}$. Gaussianity and covariance structure imply that BM is an
@@ -604,11 +601,6 @@ Fractional BM $(B_H(t))_{t\geq0}$ has the following time-domain integral represe
 In fact, fBM processes is a particular case of a \textbf{Hermite} processes, -- a broad
 class of non-Gaussian $H$-self similar processes with stationary increments, \cite{maejima2007}.
 
-% subsection browninan_motion (end)
-
-\subsection{Hermite processes} % (fold)
-\label{sub:hermite_processes}
-
 Hermite processes inherit their name from the stochastic integral kernel used in
 their definition, and are an extremely important example of non-Gaussian processes.
 The $H$-ss Hermite process $(Z_H^m(t))_{t\geq 0}$ of order $m$, $H \in (\tfrac{1}{2}, 1)$,
@@ -622,57 +614,52 @@ standard Browninan Motion $(W_t)_{t\geq0}$
 where $\int_{\Real^m}'$ is an $m$-dimensional integral over $\Real^m$ excluding the
 diagonals. For $m=1$ the Hermite process becomes the fractional Brownian motion,
 but for $m\geq 1$ higher order Hermite processes correspond to non-Gaussian $H$-sssi,
-\cite{Bai20141710, maejima2007,Chronopoulou:1114288,embrechts2000introduction}.
+\cite{Bai20141710,maejima2007,Chronopoulou:1114288,embrechts2000introduction}.
 
-% subsection hermite_processes (end)
+% subsection h_sssi_processes (end)
 
 \subsection{Weierstrass function} % (fold)
 \label{sub:weierstrass_function}
-To test the properties of the crossing tree for estimating
-
-we consider the random Weierstrass cascade, \cite{decrouez2013estimation}, which is the limiting random function of
-the sum of randomly scaled and shifted cosines
+We consider the Weierstrass function, \cite{decrouez2015,decrouez2013estimation}, which
+exhibits discrete self-similarity: there exists $a_0 > 0$ such that $f(at) = a^H f(t)$
+for all $a\in a_0\mathbb{N}$ and every $t\geq 0$. This process has continuous paths,
+but is nowhere differentiable, and is defined as the limit of the sum of randomly
+scaled and shifted cosines
 \begin{equation}\label{eq:def_weir}
-    f_H(t) = \sum_{k\in \mathbb{Z}} \lambda_0^{-k H} \bigl\{
+    f_H(t) = \sum_{k=0}^\infty \lambda_0^{-k H} \bigl\{
             \cos \phi_k - \cos(2\pi \lambda_0^k t + \phi_k)
         \bigr\} \,,
 \end{equation}
-where the random phase shifts $(\phi_k)_{k\in\mathbb{Z}}$ are iid $\mathcal{U}(0, 2\pi)$.
-
-As another example of a non-Gaussian $H$-self-similar ew consider the
-
-The parameter $\lambda_0$ governs the base scale of the process and is known as
-``the fundamental harmonic''. The function $f_H(t)$ has continuous paths, but is
-nowhere differentiable, even in the deterministic case of $\phi_k=0$.
-
-The Weierstrass
-function is not an $H$-sssi process, but it exhibits discrete self-similarity, which
-means that there exists $a_0>0$ such that self-similarity holds for values of $a$
-on a discrete grid $a_0\mathbb{N}$, that is for all $t\geq 0$
-\[ f_H(at) = a^H f(t)\,. \]
-
-The $H$ in the definition is in fact not the Hurst index, but a so called H\"older
-exponent, which means that for some $C\in[0,+\infty)$ it is true that for all $s,t\geq0$
-\[ \bigl\lvert f_H(s) - f_H(t) \bigr\rvert \leq C |s-t|^H \,. \]
-Functions, or random processes, for which there exists $H\geq0$ such that this
-condition is satisfied are known as \textbf{H\"older continuous}. This H\"older
-continuity implies scale-invariance of the Weierstrass function. Indeed, for any
-$a\in a_0\mathbb{N}$ the condition implies that
-\[ a^{-H}\bigl\lvert f_H(as) - f_H(at) \bigr\rvert \leq C |s-t|^H\,, \]
-for all $s,t\geq 0$. Furthermore, observe that by definition $f_H(0)=0$ and for
-all $t\geq0$:
-\begin{align*}
-	\bigl\lvert f_H(at) - a^H f_H(t) \bigr\rvert
-	&\leq \bigl\lvert f_H(at) - f_H(t) \bigr\rvert
-	+ \bigl\lvert a^H f_H(t) - f_H(t) \bigr\rvert \\
-	&\leq C |a - 1|^H |t|^H + |a^H - 1|\bigl\lvert f_H(t)\bigr\rvert\\
-	&\leq C \bigl( |a - 1|^H  + |a^H - 1| \bigr) |t|^H \,,
-\end{align*}
-which makes it obvious that the Weierstrass function has self-similarity.
+where the random phase shifts $(\phi_k)_{k\in\mathbb{Z}}$ are iid $\mathcal{U}[0, 2\pi]$.
+The parameter $\lambda_0 > 1$ governs the base scale of the process and is known as
+``the fundamental harmonic''. We restrict the domain of $f_H$ to $[0,1]$. This process
+is H\"older continuous with exponent $H>0$: there exists $C > 0$ such
+\begin{equation}\label{eq:def_holder}
+    \bigl| f_H(s) - f_H(t) \bigr| \leq C |s - t|^H \,,
+\end{equation}
+that for all $s,t\geq [0,1]$. Indeed, cosine trigonometric identities for angles
+$2\pi \lambda_0^k t + \phi_k + \pi \lambda_0^k \Delta$ and $\pi \lambda_0^k \Delta$
+imply that for any $\Delta$ we have
+\begin{equation*}
+    \bigl| f_H(t+\Delta) - f_H(t) \bigr|
+        \leq 2 \sum_{k \geq 0} \lambda_0^{-k H} |\sin(\pi \lambda_0^k \Delta)|
+        \leq \cdots \,.
+\end{equation*}
+and if $K$ is the least $k\geq 0$ such that $\lambda_0^k |\Delta| > 1$, then
+% $K = \lfloor-\frac{\log 2|\Delta|}{\log \lambda_0}\rfloor + 1$
+\begin{equation*}
+    \cdots 
+        \leq 2 \sum_{k=0}^{K-1} \lambda_0^{-k H} \pi \lambda_0^k |\Delta|
+            + 2 \sum_{k\geq K} \lambda_0^{-k H} \\
+        % &= 2 \pi |\Delta| \frac{\lambda_0^{(1-H) K}-1}{\lambda_0^{1-H}-1}
+            % + 2 \frac{\lambda_0^{-H K}}{\lambda_0^{-H}-1} \\
+        % &\leq 2 \pi |\Delta| \frac{\lambda_0^{-(H-1) K}}{\lambda_0^{1-H}-1}
+        %     + 2 \frac{\lambda_0^{-H K}}{\lambda_0^{-H}-1} \\
+        \leq C(\lambda_0, H) |\Delta|^H\,.
+\end{equation*}
+since $|\sin \theta|\leq |\theta|$ for $\theta\in[-\pi,\pi]$.
 
 % subsection weierstrass_function (end)
-
-% section h_sssi_processes (end)
 
 \section{the Crossing tree and $H$-sssi processes} % (fold)
 \label{sec:experiment_setup}
