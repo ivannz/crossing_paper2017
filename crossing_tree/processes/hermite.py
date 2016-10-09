@@ -45,7 +45,7 @@ class HermiteProcess(FractionalGaussianNoise):
         with the specified hurst index. Then apply the renorm-group transformation
         omitting the renormalisation factor :math: `n^{-H}`.
         """
-        increments = hermeval(super(FractionalBrownianMotion, self).draw(),
+        increments = hermeval(super(HermiteProcess, self).draw(),
                               self.hermite_coef_)
         values_ = increments.cumsum()[self.n_downsample-1::self.n_downsample]
         return np.linspace(0, 1, num=self.N+1), values_
