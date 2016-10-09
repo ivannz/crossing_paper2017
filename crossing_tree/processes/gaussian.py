@@ -4,10 +4,10 @@ from pyfftw import FFTW, empty_aligned
 
 from numpy.polynomial.hermite_e import hermeval
 
-from sklearn.base import BaseEstimator
+from sklearn.base import BaseEstimator as BaseGenerator
 from sklearn.utils import check_random_state
 
-class FractionalGaussianNoise(BaseEstimator):
+class FractionalGaussianNoise(BaseGenerator):
     """A class to generate fractional Gaussian process of fixed length using
     a circulant matrix embedding method suggested by Dietrich and Newsam (1997).
     For the best performance N-1 should be a power of two.
@@ -110,18 +110,38 @@ class FractionalGaussianNoise(BaseEstimator):
 ## Generate the next sample only if needed.
         return self.queue_.pop()
 
-class FractionalBrownianMotion(FractionalGaussianNoise):
+class FractionalBrownianMotion(BaseGenerator):
     """A derived class to produce sample paths of a Fractional Brownian Motion with
     a specified fractional integration parameter (the Hurst exponent). For the best
-    performance N-1 should be a power of two.
+    performance N should be a power of two.
+
+    Returns a process sampled on :math:`0.0=t_0<t_1<\\ldots<t_N=1.0` with equal spacing
+    given by :math:`N^{-1}`.
     """
-    def __init__(self, N, hurst=0.5, random_state=None, n_threads=1):
-        super(FractionalBrownianMotion, self).__init__(N=N,
-                                                       hurst=hurst,
-                                                       sigma=N ** -hurst,
-                                                       random_state=random_state,
-                                                       n_threads=n_threads)
+    def __init__(self, N, degree=2, n_downsample=16, hurst=0.5,
+                 random_state=None, n_threads=1):
+        self.random_state = random_state
+        self.n_threads = n_threads
+        self.N = N
+        self.hurst = hurst
+
+    def start(self):
+        if hasattr(self, "initialized_") and self.initialized_:
+            return
+        self.fgn_ = FractionalGaussianNoise(N=self.N + 1, hurst=self.hurst,
+                                            sigma=self.N ** -self.hurst,
+                                            random_state=self.random_state,
+                                            n_threads=self.n_threads)
+        self.fgn_.start()
+
+    def finish(self):
+        if hasattr(self, "initialized_") and self.initialized_:
+            self.initialized_ = False
+
+        self.fgn_.finish()
+        self.fgn_ = None
 
     def draw(self):
-        fgn = super(FractionalBrownianMotion, self).draw()
-        return np.linspace(0, 1, num=self.N+1), np.r_[0, fgn.cumsum()]
+        values_ = self.fgn_.draw()[:-1].cumsum()
+        return np.linspace(0, 1, num=self.N + 1), np.r_[0, values_]
+

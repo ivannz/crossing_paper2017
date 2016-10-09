@@ -2,10 +2,10 @@
 from math import log
 import numpy as np
 
-from sklearn.base import BaseEstimator
+from sklearn.base import BaseEstimator as BaseGenerator
 from sklearn.utils import check_random_state
 
-class WeierstrassFunction(BaseEstimator):
+class WeierstrassFunction(BaseGenerator):
     """A derived class to produce sample paths of a random Weierstrass function over
     :math:`[0,1]` with a specified Holder exponent.
     """
@@ -37,7 +37,7 @@ class WeierstrassFunction(BaseEstimator):
         :math:`H\\in (0, 1)`, is approximated with :math:`W_H(t) = \\sum_{k=0}^{M} \\lambda_0^{-k H} W_k(t)`,
         where 
         .. math ::
-            W_k(t) = \\cos\\phi_k - \\cos(2 \\pi \\lambda_0^k t + \\phi_k) \,,
+            W_k(t) = \\cos(2 \\pi \\lambda_0^k t + \\phi_k) \,,
         
         with :math:`M = \\bigl\\lfloor\\frac{\\log \\frac{1}{2} n}{\\log \\lambda_0} \\bigr\\rfloor + 1`,
         which governs the fidelity of the approximation, and is derived from the Nyquist
@@ -45,9 +45,13 @@ class WeierstrassFunction(BaseEstimator):
         random phase shifts of each layer of harmonics.
         """
         phi_k = self.random_state_.uniform(0, 2 * np.pi, size=self.n_layers_+1)
-        t = np.linspace(0, 1, num=self.N)
 
-        w = np.zeros(self.N, dtype=np.float)
+        t, w = np.linspace(0, 1, num=self.N + 1), np.zeros(self.N + 1, dtype=np.float)
+
+        lambda_k = 1.0
         for k in xrange(self.n_layers_ + 1):
-            w += (np.cos(phi_k[k]) - np.cos(2 * np.pi * (self.lambda_0 ** k) * t + phi_k[k])) * self.lambda_0 ** (-k * self.holder)
-        return t, w
+            w += np.cos(2 * np.pi * lambda_k * t + phi_k[k]) * (lambda_k ** -self.holder)
+            # spread (self.lambda_0 ** k) exponentiation across layers
+            lambda_k *= self.lambda_0
+
+        return t, w - w[0]
