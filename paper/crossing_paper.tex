@@ -508,13 +508,13 @@ of the tree, over which the hypothesis of common distribution cannot be rejected
 \label{sub:the_crossing_tree_of_brownian_motion}
 
 One of most well studied processes is the Brownian motion. Usually it is axiomatically
-as a unique stochastic process $\bigl\{W(t)\bigr\}$ with the following four properties:
+as a unique stochastic process $\bigl\{B(t)\bigr\}$ with the following four properties:
 \begin{itemize}
-    \item $W(t)$ is almost surely $0$ at $t=0$;
-    \item $\{W(t)\}$ has independent and stationary increments;
-    \item for all $t\geq 0$ the random variable $W(t)$ has Gaussian distribution with
+    \item $B(t)$ is almost surely $0$ at $t=0$;
+    \item $\{B(t)\}$ has independent and stationary increments;
+    \item for all $t\geq 0$ the random variable $B(t)$ has Gaussian distribution with
     parameters mean $0$ and variance $t$;
-    \item the sample paths of $\{W(t)\}$ are almost surely continuous functions.
+    \item the sample paths of $\{B(t)\}$ are almost surely continuous functions.
 \end{itemize}
 This process exhibits scale-invariance properties, or self-similarity, since for any
 $a>0$, the process $\bigl\{a^{-\tfrac{1}{2}} B(at)\bigr\}$ and $\{B(t)\}$ are stochastically
@@ -579,7 +579,7 @@ kernel $R(s,t)$ (positive definite function) if for any $n\geq 1$, $0 \leq t_i <
 with $i=1,\ldots,n$, the vector $(X(t_i))_{i=1}^n\in \Real^{n\times1}$ is $n$-dimensional
 Normal with mean $(\mu(t_i))_{i=1}^n$ and covariance matrix $(R(t_i, t_j))_{i,j=1}^n\in \Real^{n\times n}$.
 
-The Brownian motion (BM) process $(W(t))_{t\geq0}$ is a zero-mean Gaussian process
+The Brownian motion (BM) process $(B(t))_{t\geq0}$ is a zero-mean Gaussian process
 with $X(0)=0$ and almost surely continuous paths such that its covariance kernel
 is $R(s,t)=\min\{s, t\}$. Gaussianity and covariance structure imply that BM is an
 $\frac{1}{2}$-sssi process. Indeed, it has stationary increments, and for any $a>0$
@@ -615,39 +615,41 @@ where $\int_{\Real^m}'$ is an $m$-dimensional integral over $\Real^m$ excluding 
 diagonals. For $m=1$ the Hermite process becomes the fractional Brownian motion,
 but for $m\geq 1$ higher order Hermite processes correspond to non-Gaussian $H$-sssi,
 \cite{Bai20141710,maejima2007,Chronopoulou:1114288,embrechts2000introduction}.
+% http://samm.univ-paris1.fr/Sofwares-Logiciels
 
 % subsection h_sssi_processes (end)
 
 \subsection{Weierstrass function} % (fold)
 \label{sub:weierstrass_function}
-We consider the Weierstrass function, \cite{decrouez2015,decrouez2013estimation}, which
-exhibits discrete self-similarity: there exists $a_0 > 0$ such that $f(at) = a^H f(t)$
-for all $a\in a_0\mathbb{N}$ and every $t\geq 0$. This process has continuous paths,
-but is nowhere differentiable, and is defined as the limit of the sum of randomly
-scaled and shifted cosines
-\begin{equation}\label{eq:def_weir}
-    f_H(t) = \sum_{k=0}^\infty \lambda_0^{-k H} \bigl\{
-            \cos \phi_k - \cos(2\pi \lambda_0^k t + \phi_k)
-        \bigr\} \,,
+
+An example of a non $H$-sssi process, which has scale-invariance is the Weierstrass
+function, \cite{decrouez2015,decrouez2013estimation}. It exhibits discrete self-similarity:
+there exists $a_0 > 0$ such that $f(at) = a^H f(t)$ for all $a\in a_0\mathbb{N}$ and
+every $t\geq 0$. This process has continuous, nowhere differentiable paths, and is
+defined on $[0,1]$ as the limit of the sum of randomly scaled and shifted cosines
+\begin{equation} \label{eq:def_weir}
+    W_H(t) = \sum_{k=0}^\infty \lambda_0^{-k H} \bigl(
+            \cos(2\pi \lambda_0^k t + \phi_k) - \cos \phi_k
+        \bigr) \,,
 \end{equation}
 where the random phase shifts $(\phi_k)_{k\in\mathbb{Z}}$ are iid $\mathcal{U}[0, 2\pi]$.
-The parameter $\lambda_0 > 1$ governs the base scale of the process and is known as
-``the fundamental harmonic''. We restrict the domain of $f_H$ to $[0,1]$. This process
-is H\"older continuous with exponent $H>0$: there exists $C > 0$ such
-\begin{equation}\label{eq:def_holder}
-    \bigl| f_H(s) - f_H(t) \bigr| \leq C |s - t|^H \,,
+The parameter $\lambda_0 > 1$ governs the base scale of the process and is known
+as ``the fundamental harmonic''. This process is H\"older continuous with exponent
+$H>0$: there exists $C > 0$ such
+\begin{equation} \label{eq:def_holder}
+    \bigl| W_H(s) - W_H(t) \bigr| \leq C |s - t|^H \,,
 \end{equation}
-that for all $s,t\geq [0,1]$. Indeed, cosine trigonometric identities for angles
-$2\pi \lambda_0^k t + \phi_k + \pi \lambda_0^k \Delta$ and $\pi \lambda_0^k \Delta$
-imply that for any $\Delta$ we have
+that for all $s,t\geq [0,1]$. Indeed, a trigonometric identity for cosines involving
+angles $2\pi \lambda_0^k t + \phi_k + \pi \lambda_0^k \Delta$ and $\pi \lambda_0^k \Delta$
+implies that for any $\Delta$ we have
 \begin{equation*}
-    \bigl| f_H(t+\Delta) - f_H(t) \bigr|
-        \leq 2 \sum_{k \geq 0} \lambda_0^{-k H} |\sin(\pi \lambda_0^k \Delta)|
-        \leq \cdots \,.
+    \bigl| W_H(t+\Delta) - W_H(t) \bigr|
+        \leq 2 \sum_{k \geq 0} \lambda_0^{-k H} |\sin(\pi \lambda_0^k \Delta)| \,.
 \end{equation*}
-and if $K$ is the least $k\geq 0$ such that $\lambda_0^k |\Delta| > 1$, then
+Then, letting $K$ be the least $k\geq 0$ such that $\lambda_0^k |\Delta| > 1$, then
+right-hand series can be upper bounded by
 % $K = \lfloor-\frac{\log 2|\Delta|}{\log \lambda_0}\rfloor + 1$
-\begin{equation*}
+\begin{equation} \label{eq:wei_holder}
     \cdots 
         \leq 2 \sum_{k=0}^{K-1} \lambda_0^{-k H} \pi \lambda_0^k |\Delta|
             + 2 \sum_{k\geq K} \lambda_0^{-k H} \\
@@ -655,8 +657,8 @@ and if $K$ is the least $k\geq 0$ such that $\lambda_0^k |\Delta| > 1$, then
             % + 2 \frac{\lambda_0^{-H K}}{\lambda_0^{-H}-1} \\
         % &\leq 2 \pi |\Delta| \frac{\lambda_0^{-(H-1) K}}{\lambda_0^{1-H}-1}
         %     + 2 \frac{\lambda_0^{-H K}}{\lambda_0^{-H}-1} \\
-        \leq C(\lambda_0, H) |\Delta|^H\,.
-\end{equation*}
+        \leq C(\lambda_0, H) |\Delta|^H\,,
+\end{equation}
 since $|\sin \theta|\leq |\theta|$ for $\theta\in[-\pi,\pi]$.
 
 % subsection weierstrass_function (end)
@@ -698,9 +700,8 @@ extensive numerical study was in order. The Monte-Carlo simulation was performed
 on each of the processes mentioned in the previous chapter (p.~\pageref{sec:h_sssi_processes}).
 The software part of the experiment was implemented in Python in conjunction with
 Numpy and FFTW, a standalone open source library dedicated to efficiently computing
-Fast Fourier Transforms using .\footnote{The source code of the developed toolkit for crossing tree
-construction and analysis is publicly available online at
-\url{https://github.com/ivannz/study_notes/tree/master/year_14_15/course_project/release}}
+Fast Fourier Transforms using .\footnote{The source code of the experiment is available
+at \url{https://github.com/ivannz/crossing_paper2017}}
 
 \subsection{Generation of fBm, Hermite and Weierstrass processes} % (fold)
 \label{sub:generation_of_fbm_hermite_and_weierstrass_processes}
