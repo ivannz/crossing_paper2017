@@ -263,16 +263,19 @@ This implies that within the $(n+1)$-st level crossing there must be an even num
 of subcrossings of the $n$-th resolution grid. Indeed, if $T_k^n = T_m^{n+1}$ and
 $T_{m+1}^{n+1}<+\infty$, then there are two possibilities at $T_{k+2}^n$ (fig.~\ref{fig:xing_tree_structure}):
 \begin{enumerate}
-	\item the path returned to $X(T_k^n)$ level, in which case $X(T_{k+2}^n) = X(T_m^{n+1})$
-    and thus by the time $T_{k+2}^n$ no crossing of $(n+1)$-st resolution grid occurred;
-    \item at $T_{k+2}^n$ the path moved to a level other than $X(T_k^n)$, thereby
-    inducing a crossing of $2^{n+1} \delta$ resolution grid.
+    \item at $T_{k+2}^n$ the path crossed a level other than $X(T_k^n)$, thereby
+    inducing a crossing of $2^{n+1} \delta$ resolution grid;
+    \item the path returned to $X(T_k^n)$ level, in which case $X(T_{k+2}^n) = X(T_m^{n+1})$
+    and thus by the time $T_{k+2}^n$ no crossing of $(n+1)$-st resolution grid occurred.
 \end{enumerate}
-In the latter case $T_{m+1}^{n+1} \leq T_{k+2}^n$, and there are exactly \emph{two}
-subcrossings, while in the former case the ordering of crossing times entails
-\begin{equation*}\label{eq:subxing_order}
-  T_{k+2}^n < T_{k+3}^n < T_{k+4}^n \leq T_{m+1}^{n+1} \,.
-\end{equation*}
+In the former case $T_{m+1}^{n+1} \leq T_{k+2}^n$ and there are exactly \emph{two}
+subcrossings, while in the latter -- there are at least \emph{four}: along with
+(\ref{eq:duration_partition}) the ordering of crossing times entails
+\begin{equation}\label{eq:subxing_order}
+    \bigl[T_{k+2}^n, T_{k+3}^n\bigr) \cup \bigl[T_{k+3}^n, T_{k+4}^n\bigr)
+        \subseteq \bigl[T_m^{n+1}, T_{m+1}^{n+1}\bigr) \,.
+  % T_{k+2}^n < T_{k+3}^n < T_{k+4}^n \leq T_{m+1}^{n+1} \,.
+\end{equation}
 Since $T_{m+1}^{n+1}$ is finite iterative application of this argument implies that
 there are even number of $n$-th level subcrossings during an $(n+1)$-st level
 crossing.
