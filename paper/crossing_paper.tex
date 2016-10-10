@@ -65,24 +65,28 @@
 \maketitle
 
 \begin{abstract}
-The Crossing Tree is a recent tool, created to study scale invariance properties
-exhibited by network traffic, financial time-series, and natural phenomena in physics
-and biology, such as turbulence, earthquakes and heart beat. It provides an ad-hoc
-representation of the data across a wide range of resolutions and independent of
-its time scale. In this paper the theoretical and practical construction of the Crossing
-Tree is presented. This tool is applied to analyse self-similar signals of processes
-known as Hurst self-similar processes with stationary increments to gather evidence 
-of the common features of the constructed crossing trees in this class of processes.
+The crossing tree is a method for studying multi-resolution properties of time series,
+in particular scale invariance. It provides an ad-hoc representation of the signal
+independent of the time scale across a wide range of resolutions and. In this paper
+we conduct a numerical study of the statistical properties of the structure of the
+crossing tree for typical monofractal scale-invariant processes. We gather evidence
+supporting shared common features of across crossing trees of the processes of this
+class.
 \end{abstract}
 
+
+ a recent tool, created to study scale invariance properties
+exhibited by network traffic, financial time-series, and natural phenomena in physics
+and biology, such as turbulence, earthquakes and heart beat.
 
 \section{Introduction} % (fold)
 \label{sec:introduction}
 
 A process is self-similar (or scale-invariant) if its trajectories share similar
 characteristic dynamic patterns across multiple time-scales. Time series with this
-phenomenon have been observed in medicine, seismology, hydrodynamics, network traffic
-and finance. % references
+phenomenon have been observed in EEG and ECG traces, seismology, hydrodynamics,
+network traffic and high frequency finance, \cite{}.
+% references
 A typical approach to studying self-similar is to use wavelet-based coefficients
 to analyze and correlate dynamic patterns across different time resolutions of a
 process, \cite{Jaffard2007}. Wavelet-based multi-resolution analysis requires specifying
@@ -111,113 +115,108 @@ with sec.~\ref{sec:conlusion_and_further_work}.
 \section{The crossing tree} % (fold)
 \label{sec:the_crossing_tree}
 
-\subsection{Crossing Times} % (fold)
-\label{sub:crossing_times}
+In this section we construct a crossing tree of a real-valued process $(X(t))_{t\in[0, \infty)}$
+with almost surely continuous paths. The tree reveals scale invariance through hitting
+times of within lattices with increasingly coarser spatial resolution. If $\delta>0$
+is the resolution of the base lattice, then the crossing tree naturally arises from
+the succession of hitting times of adjacent uniformly spaced lattices $(x_0 + \delta 2^n \mathbb{Z})_{n\geq 0}$
+with a fixed origin $x_0\in \Real$.
 
-Consider a path of real-valued continuous process $\{X(t)\}$ with time running through
-$[0,+\infty)$. Continuity is understood in the sense of the path of the process
-being almost surely continuous, i.e. the set of discontinuous paths of $\{X(t)\}$
-is a subset of a set of probability zero. At the heart of the crossing tree lie
-crossing times of a uniformly spaced grid on $\Real$ given by $X(0) + 2^n\delta \mathbb{Z}$
-for some $n\geq 0$ and base grid spacing $\delta > 0$.\footnotemark Each $n\geq 0$
-represents the ``resolution'' through which sample paths of $\{X(t)\}$ are studied.
-\footnotetext{The addition $x_0+A$, for $A$ in an affine space such as $\Real$
-represents shifting of every element of the set $A$ by a common value $x_0$.}
-
-The crossing times $T_k^n$ of process $\{X(t)\}$ at resolution $n\geq 0$ are defined
-as follows: let $T_0^n = 0$ and for any $k\geq 0$ put
+The crossing times $(T_k^n)_{k\geq0}$ of the $\delta 2^n \mathbb{Z}$ lattice, the
+\emph{$n$-th level crossing time}, are defined iteratively: for any $k\geq 0$
 \begin{equation} \label{eq:xing_time}
-  T_{k+1}^n = \inf \bigl\{
-    t \geq T^n_k \,:\, |X(t) - X(T^n_k)| \geq 2^n\delta
+  T_{k+1}^n = \inf\bigl\{t\geq T_k^n\,:\,
+        X(t)\in x_0 + \delta 2^n \mathbb{Z}\,, X(t)\neq X(T^n_k)
     \bigr\} \,,
 \end{equation}
--- the first passage time of a path of $X(t)$ across a level of $2^n\delta \mathbb{Z}$
-different from the previousle crossed one. Fixing the zero-th crossing at $0$ aligns
-the grid with the process. Therefore, without the loss of generality, we can consider
-processes starting at the origin $X(0)=0$.
+with $T_0^n = 0$. Though in general $T_0^n$ is not a crossing time, without the
+loss of generality of the construction, we can consider processes starting at the
+origin $X(0)=x_0=0$. In this case for continuous processes this definition is equivalent
+to the first hitting time $t\geq T_k^n$ with $|X(t) - X(T^n_k)| \geq \delta 2^n$.
+Thus we define the \emph{$n$-th level crossing} as the slice of the process over
+the shortest interval $[T_k^n, T_{k+1}^n)$, $k\geq 0$, during which it moves at
+least $\pm \delta 2^n$.
 
-The crossing times of some fixed level $n\geq 0$ are non-decreasing by definition.
-To show that $T_k^n < T_{k+1}^n$ we proceed by contradiction. Indeed, by right-continuity
-of paths of $\{X(t)\}$ for $\delta 2^{n-1}$ there is $\eta>0$ with $|X(s)-X(T_k^n)| < \delta 2^{n-1}$
-for all $s\in [T_k^n, T_k^n + \eta)$. But by definition of $T_{k+1}^n$ in the $\eta$
-vicinity of $T_{k+1}^n$ there is $\hat{s}$ such that $|X(\hat{s})-X(T_k^n)|\geq 2^n\delta$.
-Therefore, if $T_k^n = T_{k+1}^n$, then $2^n\delta \leq \delta 2^{n-1}$, which is
-a contradiction.
+The $n$-th level crossing times are necessarily non-decreasing, but for continuous
+processes we have $T_k^n < T_{k+1}^n$. We proceed by contradiction. By continuity
+of $X(t)$ at $T_k^n$ there is $\epsilon>0$ with $|X(t) - X(T_k^n)| < \frac{1}{2}\delta 2^n$
+for all $t\in [T_k^n, T_k^n + \epsilon)$. But by definition in the right $\epsilon$
+vicinity of $T_{k+1}^n$ there is a $t$ with $|X(t) - X(T_k^n)|\geq \delta 2^n$. Therefore,
+if $T_k^n = T_{k+1}^n$, then there would be an $t$ for which $\delta 2^n < \frac{1}{2}\delta 2^n$,
+which is a contradiction.
 
-Another property is that $|X(T_{k+1}^n) - X(T_k^n)| = 2^n\delta$ when $T_{k+1}^n$
-is finite. Indeed, the function $t \mapsto |X(t) - X(T_k^n)|$ is continuous at least
-at $T_{k+1}^n$, whence $|X(T_{k+1}^n) - X(T_k^n)| \geq 2^n\delta$. We proceed by
-contradiction: if $|X(T_{k+1}^n) - X(T_k^n)| > 2^n\delta$ then by continuity there
-is $s\in [T_k^n, T_{k+1}^n)$ with $|X(s) - X(T_k^n)| > 2^n\delta$, which would
-imply that $T_{k+1}^n$ is not the greatest lower bound on all $s\geq T_k^n$ with
-$|X(s)-X(T_k^n)| \geq 2^n\delta$.
+Another property is that $|X(T_{k+1}^n) - X(T_k^n)| = \delta 2^n$ when $T_{k+1}^n$
+is finite. Indeed, the function $t \mapsto |X(t) - X(T_k^n)|$ is continuous at $T_{k+1}^n$,
+whence $|X(T_{k+1}^n) - X(T_k^n)| \geq \delta 2^n$. We proceed by contradiction:
+if $|X(T_{k+1}^n) - X(T_k^n)| > \delta 2^n$ then continuity implies that there is
+$t\in [T_k^n, T_{k+1}^n)$ with $|X(t) - X(T_k^n)| > \delta 2^n$, which contradicts
+the definition of $T_{k+1}^n$.
+% not the greatest lower bound on all $s\geq T_k^n$ with $|X(s)-X(T_k^n)| \geq \delta 2^n$.
 
-% The crossing times of an almost surely continuous process $\{X(t)\}$ are such, that
-% $T_k^n < T_{k+1}^n$ and $|X(T_{k+1}^n)-X(T_k^n)| = 2^n\delta$ for all $k\geq0$ with
-% $T_{k+1}^n<+\infty$ almost surely.
+To summarize, the crossing times of a continuous process are such, that $T_k^n < T_{k+1}^n$,
+$|X(T_{k+1}^n) - X(T_k^n)| = \delta 2^n$ for all $k\geq0$ with $T_{k+1}^n < +\infty$.
 
-The crossings of a continuous process have a natural tree structure when the times
-are considered at different power-of-two resolutions of the grid $\delta \mathbb{Z}$.
-To see this suppose that for some $k, m\geq 0$ we have $X(T_m^{n+1}) = X(T_k^n)$
-and $T_k^n \in [T_m^{n+1}, T_{m+1}^{n+1})$. The definition of $T_{k+1}^n$ implies
-that for all $s \in [T_k^n, T_{k+1}^n)$ we have
-\begin{equation}\label{eq:xing_resol}
-    |X(s) - X(T_m^{n+1})| = |X(s) - X(T_k^n)| < 2^n\delta \,,
-\end{equation}
-which implies $s \leq T_{m+1}^{n+1}$, since $T_{m+1}^{n+1}$ is the greatest lower bound.
-Therefore $T_{k+1}^n\leq T_{m+1}^{n+1}$.
-
-If the $(n+1)$-st crossing at resolution $m+1$ takes place, i.e. $T_{m+1}^{n+1} < +\infty$,
-we get $T_{k+1}^n \neq T_{m+1}^{n+1}$. Indeed, if this were otherwise, $X(T_m^{n+1}) = X(T_k^n)$
-and the continuity of sample paths would yield this contradiction:
-\begin{equation*} \label{eq:contrad_1}
-    2^n\delta = |X(T_{k+1}^n) - X(T_k^n)|
-    = |X(T_{m+1}^{n+1}) - X(T_m^{n+1})| = 2^{n+1} \delta\,.
+The tree-like structure in the crossing times emerges between the $n$-th and $n+1$-st
+level crossing times. Let $k, m\geq 0$ be such that $T_k^n \in [T_m^{n+1}, T_{m+1}^{n+1})$
+and $X(T_m^{n+1}) = X(T_k^n)$. Then for all $t \in [T_k^n, T_{k+1}^n)$ we have
+\begin{equation*}
+    |X(t) - X(T_m^{n+1})| = |X(t) - X(T_k^n)| < \delta 2^n < \delta 2^{n+1} \,,
+\end{equation*}
+which implies that $t \leq T_{m+1}^{n+1}$. Therefore $T_{k+1}^n \leq T_{m+1}^{n+1}$.
+Note that $T_{m+1}^{n+1} < +\infty$ implies $T_{k+1}^n < T_{m+1}^{n+1}$. Indeed,
+if this were otherwise, $X(T_m^{n+1}) = X(T_k^n)$, which with the path continuity
+would yield a contradiction:
+\begin{equation*}
+    \delta 2^n = |X(T_{k+1}^n) - X(T_k^n)|
+    = |X(T_{m+1}^{n+1}) - X(T_m^{n+1})| = \delta 2^{n+1}\,.
 \end{equation*}
 
-This assumption also implies that $T_{k+2}^n \leq T_{m+1}^{n+1}$. We proceed by
-contradiction: having $T_{m+1}^{n+1} < T_{k+2}^n$ would imply
-\begin{equation*} \label{eq:contrad_2}
-    |X(T_{m+1}^{n+1}) - X(T_{k+1}^n)| < 2^n\delta \,,
-\end{equation*}
-where we used $T_{k+1}^n \leq T_{m+1}^{n+1}$ and the definition of $T_{k+2}^n$.
-Finiteness of $T_{m+1}^{n+1}$ implies $|X(T_{k+1}^n) - X(T_k^n)| = 2^n \delta$
-and $|X(T_{m+1}^{n+1}) - X(T_m^{n+1})| = 2^{n+1} \delta$. This, the triangle inequality
-and $X(T_m^{n+1}) = X(T_k^n)$ imply
-\begin{align*} \label{eq:xing_triang}
-  |X(T_{m+1}^{n+1}) - X(T_m^{n+1})|
-  &\leq |X(T_{m+1}^{n+1}) - X(T_{k+1}^n)| \\
-    & + |X(T_{k+1}^n) - X(T_k^n)| \,,
+Now, if the $n+1$-st level crossing time takes place then $T_{k+2}^n \leq T_{m+1}^{n+1}$,
+which can be shown by contradiction. Indeed, the definition of $T_{k+2}^n$ implies
+that having $T_{m+1}^{n+1} < T_{k+2}^n$ would imply $|X(T_{m+1}^{n+1}) - X(T_{k+1}^n)| < \delta 2^n$.
+However finiteness of $T_{m+1}^{n+1}$ implies $|X(T_{k+1}^n) - X(T_k^n)| = \delta 2^n$
+and $|X(T_{m+1}^{n+1}) - X(T_m^{n+1})| = \delta 2^{n+1}$. Therefore, the triangle
+inequality and $X(T_m^{n+1}) = X(T_k^n)$ imply
+\begin{align*}
+    \delta 2^{n+1}
+    &\leq \bigl|X(T_{m+1}^{n+1}) - X(T_m^{n+1})\bigr| \\
+    &\leq \bigl|X(T_{m+1}^{n+1}) - X(T_{k+1}^n)\bigr|
+       + \bigl|X(T_{k+1}^n) - X(T_k^n)\bigr| \\
+    &< \delta 2^n + \delta 2^n \,.
 \end{align*}
-which leads to the following contradiction:
-\begin{equation*} \label{eq:contrad_3}
-  2^{n+1} \delta
-    \leq |X(T_{m+1}^{n+1}) - X(T_{k+1}^n)| + 2^n\delta
-    < 2^{n+1} \delta \,.
-\end{equation*}
-
-%% A nice picture is due here!!!!
-
-% subsection crossing_times (end)
-
-\subsection{Sub-crossing structure} % (fold)
-\label{sub:subxing_structure}
-
-Let's define the \emph{$n$-th level crossing} as the slice of the path of the process
-over the half-interval $[T_k^n, T_{k+1}^n)$, $k\geq 0$, during which it moves exactly
-$\pm 2^n\delta$. The properties of crossing times (sec.~\ref{sub:crossing_times})
-imply that if $X(T_m^{n+1}) = X(T_k^n)$, $T_{m+1}^{n+1} < +\infty$, and
-$T_k^n \in [T_m^{n+1}, T_{m+1}^{n+1})$ then
+To summarize, $n$-th and $n+1$-st level crossing times behave in such a way
 \begin{equation} \label{eq:duration_partition}
     \bigl[T_k^n, T_{k+1}^n\bigr) \cup \bigl[T_{k+1}^n, T_{k+2}^n\bigr)
         \subseteq \bigl[T_m^{n+1}, T_{m+1}^{n+1}\bigr)
-    \,.
+    \,,
 \end{equation}
-The condition $X(T_m^{n+1}) = X(T_k^n)$ aligns different resolutions of the grid,
-and $T_{m+1}^{n+1}<+\infty$ requires that the $(m+1)$-st crossing of the grid with
-$(n+1)$-st resolution indeed took place.
+provided $X(T_m^{n+1}) = X(T_k^n)$, $T_k^n \in [T_m^{n+1}, T_{m+1}^{n+1})$ -- the
+lattices of adjacent resolutions are aligned and the $(m+1)$-st $n+1$-st level crossing
+takes place.
 
-%% Draw a simple illustration of the movements within one crossing
+This key observation is that within any $(n+1)$-st level crossing there must be an
+even number of the \emph{$n$-th level subcrossings} -- crossings of the adjacent
+finer $n$-th lattice. Indeed, there are two possibilities whenever $T_k^n = T_m^{n+1}$
+and $T_{m+1}^{n+1}<+\infty$:
+\begin{enumerate}
+    \item at $T_{k+2}^n$ the path crossed a level other than $X(T_k^n)$, thereby
+    inducing a crossing of $2^{n+1} \delta$ resolution grid;
+    \item the path returned to $X(T_k^n)$ level, in which case $X(T_{k+2}^n) = X(T_m^{n+1})$
+    and thus by the time $T_{k+2}^n$ no crossing of $(n+1)$-st resolution grid occurred.
+\end{enumerate}
+In the former case $T_{m+1}^{n+1} \leq T_{k+2}^n$ and there are exactly \emph{two}
+subcrossings (fig.~\ref{fig:xing_tree_structure}), while in the latter -- there are
+at least \emph{four}: along with (\ref{eq:duration_partition}) the ordering of crossing
+times entails
+\begin{equation}\label{eq:subxing_order}
+    \bigl[T_{k+2}^n, T_{k+3}^n\bigr) \cup \bigl[T_{k+3}^n, T_{k+4}^n\bigr)
+        \subseteq \bigl[T_m^{n+1}, T_{m+1}^{n+1}\bigr) \,.
+  % T_{k+2}^n < T_{k+3}^n < T_{k+4}^n \leq T_{m+1}^{n+1} \,.
+\end{equation}
+Since $T_{m+1}^{n+1}$ is finite iterative application of this argument implies that
+there is an even number of $n$-th level crossings during an $(n+1)$-st level crossing.
+
+%% A simple illustration of the movements within one crossing
 \begin{figure}
     \centering
     \resizebox{\linewidth}{!}{
@@ -231,12 +230,14 @@ $(n+1)$-st resolution indeed took place.
             \node [bullet] (ud) [above right = 3em and 9em of d.west, anchor = west] {};
             \node [bullet] (dd) [below right = 3em and 9em of d.west, anchor = west] {};
     %% The anchor and labels
-            \node [draw=none] [left = 1em of o.west, anchor = east] {$X(T_k^n)$};
-            \node [draw=none] [right = 1em of ud.east, anchor = west] {$X(T_k^n)=X(T_{k+2}^n)$};
-            \node [draw=none] [right = 1em of uu.east, anchor = west] {$X(T_k^n)+2^{n+1} \delta$};
-            \node [draw=none] [right = 1em of dd.east, anchor = west] {$X(T_k^n)-2^{n+1} \delta$};
+            \node [draw=none] [left = 0em of o.west, anchor = east] {$X(T_k^n)$};
+            \node [draw=none] [right = 0em of ud.east, anchor = west] {$X(T_k^n) = X(T_{k+2}^n)$};
+            \node [draw=none] [right = 0em of uu.east, anchor = west] {$X(T_k^n) + \delta 2^{n+1}$};
+            \node [draw=none] [right = 0em of dd.east, anchor = west] {$X(T_k^n) - \delta 2^{n+1}$};
+            \node [draw=none] [left = 0em of u.west, anchor = south east] {$X(T_k^n) + \delta 2^n$};
+            \node [draw=none] [left = 0em of d.west, anchor = north east] {$X(T_k^n) - \delta 2^n$};
     %% Crossing times nodes at the bottom
-            \node [draw=none] (t2) [below =of dd.south, anchor = west] {$T_{k+2}^n$};
+            \node [draw=none] (t2) [below = 1.25em of dd.south, anchor = west] {$T_{k+2}^n$};
             \node [draw=none] (t1) [left = 9em of t2.west, anchor = west] {$T_{k+1}^n$};
             \node [draw=none] (t0) [left = 9em of t1.west, anchor = west] {$T_k^n$};
     %% Dumy nodes on the top level
@@ -245,12 +246,12 @@ $(n+1)$-st resolution indeed took place.
             \node [fill=none,draw=none] (dummy0) [left = 9em of dummy1.west, anchor = west] {};
     %% Paths to levels
             \path[thick,draw]
-                (o) edge node[above] {$+2^n\delta$} (u)
-                (o) edge node[below] {$-2^n\delta$} (d)
-                (u) edge node[above] {$+2^n\delta$} (uu)
-                (u) edge node[below] {$-2^n\delta$} (ud)
-                (d) edge node[above] {$+2^n\delta$} (ud)
-                (d) edge node[below] {$-2^n\delta$} (dd);
+                (o) edge node[above] {$+\delta 2^n$} (u)
+                (o) edge node[below] {$-\delta 2^n$} (d)
+                (u) edge node[above] {$+\delta 2^n$} (uu)
+                (u) edge node[below] {$-\delta 2^n$} (ud)
+                (d) edge node[above] {$+\delta 2^n$} (ud)
+                (d) edge node[below] {$-\delta 2^n$} (dd);
     %% Crossing times
             \draw[black, dashed] (dummy2.west -| t2.west) -- (t2.west -| t2.west) {};
             \draw[black, dashed] (dummy1.west -| t1.west) -- (t1.west -| t1.west) {};
@@ -258,37 +259,17 @@ $(n+1)$-st resolution indeed took place.
         \end{tikzpicture}
     }
     %% A very informative caption
-    \caption{Possible movements over the $\bigl[T_k^n, T_{k+2}^n\bigr]$ interval.}
+    \caption{Possible movements over the $\bigl[T_k^n, T_{k+2}^n\bigr)$ interval.}
     \label{fig:xing_tree_structure}
 \end{figure}
 
-This implies that within the $(n+1)$-st level crossing there must be an even number
-of subcrossings of the $n$-th resolution grid. Indeed, if $T_k^n = T_m^{n+1}$ and
-$T_{m+1}^{n+1}<+\infty$, then there are two possibilities at $T_{k+2}^n$ (fig.~\ref{fig:xing_tree_structure}):
-\begin{enumerate}
-    \item at $T_{k+2}^n$ the path crossed a level other than $X(T_k^n)$, thereby
-    inducing a crossing of $2^{n+1} \delta$ resolution grid;
-    \item the path returned to $X(T_k^n)$ level, in which case $X(T_{k+2}^n) = X(T_m^{n+1})$
-    and thus by the time $T_{k+2}^n$ no crossing of $(n+1)$-st resolution grid occurred.
-\end{enumerate}
-In the former case $T_{m+1}^{n+1} \leq T_{k+2}^n$ and there are exactly \emph{two}
-subcrossings, while in the latter -- there are at least \emph{four}: along with
-(\ref{eq:duration_partition}) the ordering of crossing times entails
-\begin{equation}\label{eq:subxing_order}
-    \bigl[T_{k+2}^n, T_{k+3}^n\bigr) \cup \bigl[T_{k+3}^n, T_{k+4}^n\bigr)
-        \subseteq \bigl[T_m^{n+1}, T_{m+1}^{n+1}\bigr) \,.
-  % T_{k+2}^n < T_{k+3}^n < T_{k+4}^n \leq T_{m+1}^{n+1} \,.
-\end{equation}
-Since $T_{m+1}^{n+1}$ is finite iterative application of this argument implies that
-there are even number of $n$-th level subcrossings during an $(n+1)$-st level
-crossing.
 
 Thus the properties of crossing times of a continuous process permit a natural tree
 structure of crossings. If tree levels are enumerated from bottom up then
 \begin{itemize}
 	\item a node at the $(n+1)$-st tree level represents a crossing of the $2^{n+1} \delta \mathbb{Z}$;
 	\item $n$-th level children (offspring) of an $(n+1)$-st level node represent the
-	multiple crossings of a finer gird $2^n\delta \mathbb{Z}$ that took place during
+	multiple crossings of a finer gird $\delta 2^n \mathbb{Z}$ that took place during
 	the larger crossing. 
 \end{itemize}
 
@@ -308,7 +289,7 @@ gird) is up-down: if $\alpha_{2k}^{n-1} = +$ and $\alpha_{2k+1}^{n-1} = -$, --
 and $1$ if it is down-up (``$-+$'').
 
 The above exposition considered the crossing tree for successively coarser resolutions
-$2^n\delta \mathbb{Z}$ for $n\geq0$. For example in~\cite{decrouez2013}
+$\delta 2^n \mathbb{Z}$ for $n\geq0$. For example in~\cite{decrouez2013}
 the crossing tree is defined for crossing times on this grid for any $n\in\mathbb{Z}$.
 The restriction to non-negative levels in this paper was motivated by the fact,
 that in practice, on real sample path of some supposedly continuous process it
@@ -357,8 +338,8 @@ $X(T_{k+1})^n = X(T_k^n) \pm\delta2^n$ if $T_{k+1}^n<\infty$.
 Once a crossing tree has been constructed for a particular sample path of a continuous
 process $\{X(t)\}$ for a given base resolution $\delta>0$, it can be used to gauge
 scale invariance of the given realisation. Recall that the nodes of level $n$ of
-the tree are crossings on the grid $2^n\delta$, and the offspring of each level
-$n+1$ node correspond to the subcrossings of a finer grid $2^n\delta$ that constitute
+the tree are crossings on the grid $\delta 2^n$, and the offspring of each level
+$n+1$ node correspond to the subcrossings of a finer grid $\delta 2^n$ that constitute
 the parent crossings. Typical crossing times and levels, and the corresponding crossing
 tree is depicted on fig.~\ref{fig:sample_tree}.
 
@@ -420,12 +401,12 @@ times and levels provided by the least finest resolution, which is still finer t
 the this one, in the same way the second pass functions: since the resolution is
 halved between successive tree levels, the crossing times estimated at resolution
 $2^{n+1} \delta$ are by construction a subset of crossing times of a finer grid
-$2^n\delta$. Indeed, if an increment $j$ passed a line $m 2^{n+1} \delta$ then
-this very same passed a line $2m 2^n\delta$ of the finer grid and the interpolation
+$\delta 2^n$. Indeed, if an increment $j$ passed a line $m 2^{n+1} \delta$ then
+this very same passed a line $2m \delta 2^n$ of the finer grid and the interpolation
 coefficient used to compute the crossing time is unchanged:
 \[
     \biggl( m - \frac{x_j - x_0}{2^{n+1} \delta} \biggr) \frac{x_{j+1} - x_j}{2^{n+1} \delta}
-    = \biggl( 2m - \frac{x_j - x_0}{2^n\delta} \biggr) \frac{x_{j+1} - x_j}{2^n\delta} \,.
+    = \biggl( 2m - \frac{x_j - x_0}{\delta 2^n} \biggr) \frac{x_{j+1} - x_j}{\delta 2^n} \,.
 \]
 Thus, since the same increment crossed the grid line, its time remains unchanged.
 
@@ -690,7 +671,7 @@ durations, the excursion and the offspring distributions in the following way:\\
 	are identically distributed with finite variance;
 \end{itemize}
 % The rationale behind the scaling in the crossing duration case is given below. By
-% definition, the duration of a crossing of grid $2^n\delta \mathbb{Z}$ (level-
+% definition, the duration of a crossing of grid $\delta 2^n \mathbb{Z}$ (level-
 % $n$ crossing duration, denoted here by $\tau_n$) is the time needed for the process
 % $\{X(t)\}$ to move from some value $X(t)$ to $X(t+\tau_n) = 2^n X(t)$. Therefore one
 % can use self-similarity for the following chain of thought:
