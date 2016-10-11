@@ -3,7 +3,7 @@ import numpy as np
 
 from ._crossing import crossings, _align_crossing_times, _get_statistics
 
-from .processes import fbm
+from .processes import FractionalBrownianMotion, HermiteProcess, WeierstrassFunction
 
 def crossing_tree(X, T, scale, origin=0):
     """Return the crossing tree for thr process :math:`(X_t)_{t\\in T}`, with

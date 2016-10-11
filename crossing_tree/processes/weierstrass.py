@@ -34,7 +34,8 @@ class WeierstrassFunction(BaseGenerator):
 
     One-sided approximations drops the negative index series altogether.
     """
-    def __init__(self, N, lambda_0=1.2, holder=0.5, random_state=None, one_sided=False):
+    def __init__(self, N, lambda_0=1.2, holder=0.5, one_sided=False,
+                 random_state=None):
         self.N = N
         self.lambda_0 = lambda_0
         self.holder = holder

@@ -1,4 +1,6 @@
 # -*- coding: UTF-8 -*-
+"""A module with the Hermite process generator.
+"""
 import numpy as np
 
 from numpy.polynomial.hermite_e import hermeval
@@ -21,7 +23,7 @@ class HermiteProcess(BaseGenerator):
     the process, converges in distribution to the Rosenblatt process or in general to
     a Hermite process. This stems from the `non-central limit theorem`:
     .. math :
-        Z^k(t) = \\frac{1}{n^\\alpha}\\sum_{j=1}^{\\lfloor kt\\rfloor} H(\\xi_j) \,,
+        Z^k(t) = \\frac{1}{n^\\alpha}\\sum_{j=1}^{\\lfloor kt\\rfloor} H(\\xi_j) \\,,
     converges to :math:`Z_\\frac{\\alpha}{2}(t)` -- a hermite process. Thus increasing
     `n_downsample` gives better approximation.
 
@@ -37,8 +39,11 @@ class HermiteProcess(BaseGenerator):
         self.n_downsample = n_downsample
 
     def start(self):
+        """Initialize the generator.
+        """
         if hasattr(self, "initialized_") and self.initialized_:
             return
+
         self.fgn_ = FractionalGaussianNoise(N=self.n_downsample * self.N + 1,
                                             hurst=1 - (1.0 - self.hurst) / self.degree,
                                             sigma=1.0, random_state=self.random_state,
@@ -48,8 +53,11 @@ class HermiteProcess(BaseGenerator):
         # Define the order of the Hermite polynomial
         self.hermite_coef_ = np.zeros(self.degree + 1, dtype=np.float)
         self.hermite_coef_[self.degree] = 1.
+        self.initialized_ = True
 
     def finish(self):
+        """Deinitialize the generator.
+        """
         if hasattr(self, "initialized_") and self.initialized_:
             self.initialized_ = False
 
@@ -58,9 +66,12 @@ class HermiteProcess(BaseGenerator):
 
     def draw(self):
         """Evaluate a hermite polynomial at the values of a fractional Gaussian Noise
-        with the specified hurst index. Then apply the renorm-group transformation
-        omitting the renormalisation factor :math: `n^{-H}`.
+        with the specified hurst index. Then apply the renorm-group transformation.
         """
+        if not(hasattr(self, "initialized_") and self.initialized_):
+            raise RuntimeError("""The generator has not been initialized properly. """
+                               """Please call `.start()` before calling `.draw()`.""")
+
         increments = hermeval(self.fgn_.draw(), self.hermite_coef_)
         if self.n_downsample > 1:
             values_ = increments.cumsum()[self.n_downsample-1::self.n_downsample]
