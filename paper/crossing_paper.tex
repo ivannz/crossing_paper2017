@@ -522,7 +522,7 @@ Brownian motion on a nested fractal (see~\cite{BarlowPerkins88}).
 
 % section the_crossing_tree (end)
 
-\section{Typical self similar processes} % (fold)
+\section{Typical self-similar processes} % (fold)
 \label{sec:self_sim_processes}
 
 In the experiment we study continuous monofractal real-valued stochastic processes:
@@ -599,15 +599,16 @@ An example of a non $H$-sssi process, which has scale invariance is the Weierstr
 function, \cite{decrouez2013}. This process $W_H:[0,1] \mapsto \Real$ has continuous,
 nowhere differentiable paths, and is defined as the trigonometric series:
 \begin{equation} \label{eq:def_weir}
-    W_H(t) = \sum_{k=0}^\infty \lambda_0^{-k H} \bigl(
+    W_H(t) = \sum_{k\in \mathbb{Z}} \lambda_0^{-k H} \bigl(
             \cos(2\pi \lambda_0^k t + \phi_k) - \cos \phi_k
         \bigr) \,,
 \end{equation}
-where $H>0$, the phase shifts $(\phi_k)_{k\in\mathbb{Z}}$ are iid uniformly random
-over $[0, 2\pi]$, and $\lambda_0 > 1$ is the \emph{fundamental harmonic}. This process
-has discrete scale invariance: $f(\lambda_0 t) \overset{\Dcal}{\sim} \lambda_0^H f(t)$
-for every $t\geq 0$, \cite{decrouez2015}. Furthermore, it is H\"older continuous
-with exponent $H$: there is $C > 0$ such
+where $H\in(0, 1)$, the phase shifts $(\phi_k)_{k\in\mathbb{Z}}$ are iid uniformly
+random over $[0, 2\pi]$, and $\lambda_0 > 1$ is the \emph{fundamental harmonic}.
+
+This process has discrete scale invariance ($W_H(\lambda_0 t) \overset{\Dcal}{\sim} \lambda_0^H W_H(t)$,
+\cite{decrouez2015}), and is H\"older continuous with exponent $H$: there is $C \geq 0$
+such that
 \begin{equation} \label{eq:def_holder}
     \bigl| W_H(s) - W_H(t) \bigr| \leq C |s - t|^H \,,
 \end{equation}
@@ -616,22 +617,13 @@ cosines involving angles $2\pi \lambda_0^k t + \phi_k + \pi \lambda_0^k \Delta$
 and $\pi \lambda_0^k \Delta$ implies that for any $\Delta$ we have
 \begin{equation*}
     \bigl| W_H(t+\Delta) - W_H(t) \bigr|
-        \leq 2 \sum_{k \geq 0} \lambda_0^{-k H} |\sin(\pi \lambda_0^k \Delta)| \,.
+        \leq 2 \sum_{k\in \mathbb{Z}} \lambda_0^{-k H} |\sin(\pi \lambda_0^k \Delta)| \,.
 \end{equation*}
-Thus, letting $K$ be the least $k\geq 0$ such that $\lambda_0^k |\Delta| > 1$, the
-right-hand series can be upper bounded by
-% $K = \lfloor-\frac{\log 2|\Delta|}{\log \lambda_0}\rfloor + 1$
-\begin{equation} \label{eq:wei_holder}
-    \cdots 
-        \leq 2 \sum_{k=0}^{K-1} \lambda_0^{-k H} \pi \lambda_0^k |\Delta|
-            + 2 \sum_{k\geq K} \lambda_0^{-k H} \\
-        % &= 2 \pi |\Delta| \frac{\lambda_0^{(1-H) K}-1}{\lambda_0^{1-H}-1}
-            % + 2 \frac{\lambda_0^{-H K}}{\lambda_0^{-H}-1} \\
-        % &\leq 2 \pi |\Delta| \frac{\lambda_0^{-(H-1) K}}{\lambda_0^{1-H}-1}
-        %     + 2 \frac{\lambda_0^{-H K}}{\lambda_0^{-H}-1} \\
-        \leq C(\lambda_0, H) |\Delta|^H\,,
-\end{equation}
-since $|\sin \theta|\leq |\theta|$ for $\theta\in[-\pi,\pi]$.
+If $K^+_\Delta = \inf\{k\geq 1\,:\, \lambda_0^k |\Delta| \geq 1\}$ and $K^-_\Delta$
+is the least $k\geq 1$ with $\lambda_0^{-k} |\Delta| \leq 1$, then by breaking up
+the right-hand series at indices $k\in\{-K^-_\Delta, 0, K^+_\Delta\}$, and using
+$|\sin \theta| \leq |\theta|$, it can be seen that the variation is upper bounded
+by $C(\lambda_0, H) |\Delta|^H$.
 
 % subsection weierstrass_function (end)
 
