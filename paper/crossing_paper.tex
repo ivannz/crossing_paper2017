@@ -53,13 +53,10 @@
 
 \title{Numerical study of the Crossing Tree for Self-similar Processes}
 \twoauthors
-  {Geoffrey Decrouez\sthanks{Thanks to the Centre for Advanced Studies for funding.}}
-    {National Research University\\
-    Higher School of Economics\\
-    Moscow, Russia}
+  {Geoffrey Decrouez}
+    {National Research University\\ Higher School of Economics\\ Moscow, Russia}
   {Ivan Nazarov}
-    {IITP RAS\\
-     Moscow, Russia}
+    {IITP RAS, Skoltech\\ Moscow, Russia}
 
 \begin{document}
 \maketitle
@@ -297,33 +294,53 @@ fig.~\ref{fig:sample_tree}.
 
 % here 
 
-The crossing tree reveals patterns of subcrossings within a parent crossing,
-conditional on the direction of the latter. Denote the crossing orientations by
-\[ \alpha_k^n = \text{sign}\bigl( X(T_{k+1}^n) - X(T_k^n)\bigr)
-    \,. \]
-Then subcrossing orientations of a complete crossing come in pairs by construction
-of the crossing tree itself. Pairs of oppositely oriented crossings are
-\emph{excursions}, and sign pairs ``$-+$'' and ``$+-$'' correspond to down-up
-and up-down excursions, respectively, whereas pairs ``$--$'' or ``$++$'' constitute
-direct upward and downward crossings, respectively. Any complete parent crossing
-can be broken down into a series of excursions followed by a direct crossing, which
-concludes the parent crossing by travsersing the next $\pm2^{n+1} \delta$ grid line.
+In this paper the crossing tree was constructed over increasingly coarser resolutions
+starting with the base lattice $\delta \mathbb{Z}$. In \cite{decrouez2013,ECP1673} the
+tree is defined for even finer resolutions $\delta 2^n \mathbb{Z}$ for $n \in \mathbb{Z}$,
+which gives a one-to-one characterisation of the continuous random process in terms
+of the base scale, the crossing times $(T_k^n)_{k\geq 0}$ and crossing orientations
+$(\alpha_k^n)_{k\geq 1}$ given by
+\begin{equation*} \label{eq:xing_orientations}
+    \alpha_{k+1}^n = \text{sign}\bigl( X(T_{k+1}^n) - X(T_k^n) \bigr) \,.
+\end{equation*}
+In practice, however the time series are sampled at finite frequency, and therefore
+going beyond the finest lattice $\delta \mathbb{Z}$ is unreasonable.
+
+By (\ref{eq:subcrossing_partition}) subcrossings of a complete parent crossing are
+paired, which is why it is possible to break up complete crossings into series of
+excursions, i.e. pairs of oppositely oriented subcrossings within $\pm\delta 2^n$
+levels, followed by a direct crossing, which concludes the parent crossing by hitting
+$\delta 2^{n+1} \mathbb{Z}$.
+
 Let $V_k^n$ be $0$ if the $k$-th $n$-level excursion (movements within a finer $(n-1)$-st
 gird) is up-down: if $\alpha_{2k}^{n-1} = +$ and $\alpha_{2k+1}^{n-1} = -$, --
 and $1$ if it is down-up (``$-+$'').
 
-The above exposition considered the crossing tree for successively coarser resolutions
-$\delta 2^n \mathbb{Z}$ for $n\geq0$. For example in~\cite{decrouez2013}
-the crossing tree is defined for crossing times on this grid for any $n\in\mathbb{Z}$.
-The restriction to non-negative levels in this paper was motivated by the fact,
-that in practice, on real sample path of some supposedly continuous process it
-is never possible no meaningfully go beyond some basic finest resolution given
-by $\delta>0$. This has to do with the fact that processes are sampled at finite
-frequency or over regularly spaced but finitely many points in time. However, it
-is important to note that the crossing tree for resolutions finer than the base
-scale give a one-to-one characterisation of the original continuous random process
-in terms of the base scale, and crossing times $(T_k^n)_{k\geq 0}$ and crossing
-orientations $(\alpha_k^n)_{k\geq 0}$, $n\in \mathbb{Z}$, \cite{decrouez2013, ECP1673}.
+The crossing tree reveals patterns of subcrossings within a parent crossing,
+conditional on the direction of the latter.
+
+Pairs of oppositely oriented crossings are
+\emph{excursions}, and sign pairs ``$-+$'' and ``$+-$'' correspond to down-up
+and up-down excursions, respectively, whereas pairs ``$--$'' or ``$++$'' constitute
+direct upward and downward crossings, respectively.
+
+The choice of $\delta$ is extremely important as it affects the estimates of the
+crossing times and levels in the following way, reminiscent of the bias-variance
+trade-off:
+\begin{itemize}
+    \item the grid with too small value of $\delta$ would make the resolution so
+    fine as to regard the studied process as a continuous piecewise linear function.
+    Each increment would be very likely to produce long consecutive unidirectional
+    streaks of crossed levels, which would overestimate the number of crossings
+    with only 2 subcrossings by introducing excess number of artificial crossings
+    events.
+    \item A too large $\delta$ leads to a tree with fewer crossings and offspring,
+    which is insufficient for reliable estimates of tree features.
+\end{itemize}
+One approach to selection of $\delta$ is to consider the increments of the time
+series and measure either their standard deviation, or inter-quartile range, or
+compute the median of their absolute values. In fact the effect of the base scale
+decreases with the level of the tree, provided the tree is tall enough.
 
 % subsection tree_structure (end)
 
@@ -417,24 +434,6 @@ coefficient used to compute the crossing time is unchanged:
     = \biggl( 2m - \frac{x_j - x_0}{\delta 2^n} \biggr) \frac{x_{j+1} - x_j}{\delta 2^n} \,.
 \]
 Thus, since the same increment crossed the grid line, its time remains unchanged.
-
-The choice of $\delta$ is extremely important as it affects the estimates of the
-crossing times and levels in the following way, reminiscent of the bias-variance
-trade-off:
-\begin{itemize}
-    \item the grid with too small value of $\delta$ would make the resolution so
-    fine as to regard the studied process as a continuous piecewise linear function.
-    Each increment would be very likely to produce long consecutive unidirectional
-    streaks of crossed levels, which would overestimate the number of crossings
-    with only 2 subcrossings by introducing excess number of artificial crossings
-    events.
-    \item A too large $\delta$ leads to a tree with fewer crossings and offspring,
-    which is insufficient for reliable estimates of tree features.
-\end{itemize}
-One approach to selection of $\delta$ is to consider the increments of the time
-series and measure either their standard deviation, or inter-quartile range, or
-compute the median of their absolute values. In fact the effect of the base scale
-decreases with the level of the tree, provided the tree is tall enough.
 
 % subsection crossing_tree_on_time_series_data (end)
 
