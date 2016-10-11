@@ -105,10 +105,9 @@ statistical properties of the crossing tree shared across different type of self
 monofractal processes. First, based on the results in \cite{ECP1673}, we make a
 conjecture on the distribution of the structure of the tree, and the average duration
 of crossings. The paper is structured as follows: the construction of a crossing tree
-is given in sec.~\ref{sec:the_crossing_tree}, and in sec.~\ref{sec:self_sim_processes}
-we review the self-similar processes used in the study. Sec.~\ref{sec:experiment}
-outlines the setup and discusses the results of the Monte Carlo experiment. We conclude
-with sec.~\ref{sec:conlusion_and_further_work}.
+is given in sec.~\ref{sec:the_crossing_tree}, in sec.~\ref{sec:self_sim_processes}
+we review the self-similar processes used in the study, and sec.~\ref{sec:experiment}
+outlines the setup and discusses the results of the Monte Carlo experiment.
 
 % section introduction (end)
 
@@ -123,7 +122,7 @@ the succession of hitting times of adjacent uniformly spaced lattices $(x_0 + \d
 with a fixed origin $x_0\in \Real$.
 
 The crossing times $(T_k^n)_{k\geq0}$ of the $\delta 2^n \mathbb{Z}$ lattice, the
-\emph{$n$-th level crossing time}, are defined iteratively: for any $k\geq 0$
+\emph{$n$-th level crossing times}, are defined iteratively: for any $k\geq 0$
 \begin{equation} \label{eq:xing_time}
   T_{k+1}^n = \inf\bigl\{t\geq T_k^n\,:\,
         X(t)\in x_0 + \delta 2^n \mathbb{Z}\,, X(t)\neq X(T^n_k)
@@ -148,8 +147,8 @@ which is a contradiction.
 Another property is that $|X(T_{k+1}^n) - X(T_k^n)| = \delta 2^n$ when $T_{k+1}^n$
 is finite. Indeed, the function $t \mapsto |X(t) - X(T_k^n)|$ is continuous at $T_{k+1}^n$,
 whence $|X(T_{k+1}^n) - X(T_k^n)| \geq \delta 2^n$. We proceed by contradiction:
-if $|X(T_{k+1}^n) - X(T_k^n)| > \delta 2^n$ then continuity implies that there is
-$t\in [T_k^n, T_{k+1}^n)$ with $|X(t) - X(T_k^n)| > \delta 2^n$, which contradicts
+if $|X(T_{k+1}^n) - X(T_k^n)| > \delta 2^n$, then continuity implies that there is
+$t\in (T_k^n, T_{k+1}^n)$ with $|X(t) - X(T_k^n)| > \delta 2^n$, which contradicts
 the definition of $T_{k+1}^n$.
 % not the greatest lower bound on all $s\geq T_k^n$ with $|X(s)-X(T_k^n)| \geq \delta 2^n$.
 
@@ -164,8 +163,7 @@ and $X(T_m^{n+1}) = X(T_k^n)$. Then for all $t \in [T_k^n, T_{k+1}^n)$ we have
 \end{equation*}
 which implies that $t \leq T_{m+1}^{n+1}$. Therefore $T_{k+1}^n \leq T_{m+1}^{n+1}$.
 Note that $T_{m+1}^{n+1} < +\infty$ implies $T_{k+1}^n < T_{m+1}^{n+1}$. Indeed,
-if this were otherwise, $X(T_m^{n+1}) = X(T_k^n)$, which with the path continuity
-would yield a contradiction:
+if this is otherwise, then $X(T_m^{n+1}) = X(T_k^n)$, which contradicts continuity:
 \begin{equation*}
     \delta 2^n = |X(T_{k+1}^n) - X(T_k^n)|
     = |X(T_{m+1}^{n+1}) - X(T_m^{n+1})| = \delta 2^{n+1}\,.
@@ -194,28 +192,6 @@ provided $X(T_m^{n+1}) = X(T_k^n)$, $T_k^n \in [T_m^{n+1}, T_{m+1}^{n+1})$ -- th
 lattices of adjacent resolutions are aligned and the $(m+1)$-st $n+1$-st level crossing
 takes place.
 
-This key observation is that within any $(n+1)$-st level crossing there must be an
-even number of the \emph{$n$-th level subcrossings} -- crossings of the adjacent
-finer $n$-th lattice. Indeed, there are two possibilities whenever $T_k^n = T_m^{n+1}$
-and $T_{m+1}^{n+1}<+\infty$:
-\begin{enumerate}
-    \item at $T_{k+2}^n$ the path crossed a level other than $X(T_k^n)$, thereby
-    inducing a crossing of $2^{n+1} \delta$ resolution grid;
-    \item the path returned to $X(T_k^n)$ level, in which case $X(T_{k+2}^n) = X(T_m^{n+1})$
-    and thus by the time $T_{k+2}^n$ no crossing of $(n+1)$-st resolution grid occurred.
-\end{enumerate}
-In the former case $T_{m+1}^{n+1} \leq T_{k+2}^n$ and there are exactly \emph{two}
-subcrossings (fig.~\ref{fig:xing_tree_structure}), while in the latter -- there are
-at least \emph{four}: along with (\ref{eq:duration_partition}) the ordering of crossing
-times entails
-\begin{equation}\label{eq:subxing_order}
-    \bigl[T_{k+2}^n, T_{k+3}^n\bigr) \cup \bigl[T_{k+3}^n, T_{k+4}^n\bigr)
-        \subseteq \bigl[T_m^{n+1}, T_{m+1}^{n+1}\bigr) \,.
-  % T_{k+2}^n < T_{k+3}^n < T_{k+4}^n \leq T_{m+1}^{n+1} \,.
-\end{equation}
-Since $T_{m+1}^{n+1}$ is finite iterative application of this argument implies that
-there is an even number of $n$-th level crossings during an $(n+1)$-st level crossing.
-
 %% A simple illustration of the movements within one crossing
 \begin{figure}
     \centering
@@ -232,8 +208,8 @@ there is an even number of $n$-th level crossings during an $(n+1)$-st level cro
     %% The anchor and labels
             \node [draw=none] [left = 0em of o.west, anchor = east] {$X(T_k^n)$};
             \node [draw=none] [right = 0em of ud.east, anchor = west] {$X(T_k^n) = X(T_{k+2}^n)$};
-            \node [draw=none] [right = 0em of uu.east, anchor = west] {$X(T_k^n) + \delta 2^{n+1}$};
-            \node [draw=none] [right = 0em of dd.east, anchor = west] {$X(T_k^n) - \delta 2^{n+1}$};
+            \node [draw=none] [right = 0em of uu.east, anchor = west] {$X(T_k^n) + 2 \delta 2^n$};
+            \node [draw=none] [right = 0em of dd.east, anchor = west] {$X(T_k^n) - 2 \delta 2^n$};
             \node [draw=none] [left = 0em of u.west, anchor = south east] {$X(T_k^n) + \delta 2^n$};
             \node [draw=none] [left = 0em of d.west, anchor = north east] {$X(T_k^n) - \delta 2^n$};
     %% Crossing times nodes at the bottom
@@ -259,19 +235,32 @@ there is an even number of $n$-th level crossings during an $(n+1)$-st level cro
         \end{tikzpicture}
     }
     %% A very informative caption
-    \caption{Possible movements over the $\bigl[T_k^n, T_{k+2}^n\bigr)$ interval.}
+    \caption{Possible traversals over $t\in \bigl[T_k^n, T_{k+2}^n\bigr)$ for a
+    continuous process.}
     \label{fig:xing_tree_structure}
 \end{figure}
 
-
-Thus the properties of crossing times of a continuous process permit a natural tree
-structure of crossings. If tree levels are enumerated from bottom up then
-\begin{itemize}
-	\item a node at the $(n+1)$-st tree level represents a crossing of the $2^{n+1} \delta \mathbb{Z}$;
-	\item $n$-th level children (offspring) of an $(n+1)$-st level node represent the
-	multiple crossings of a finer gird $\delta 2^n \mathbb{Z}$ that took place during
-	the larger crossing. 
-\end{itemize}
+The key observation is that within any $(n+1)$-st level crossing there is an even
+number of the \emph{$n$-th level subcrossings} -- crossings of the adjacent finer
+$n$-th level lattice. Indeed, suppose $T_k^n = T_m^{n+1}$, and $T_{m+1}^{n+1} < +\infty$.
+Thus there exists an integer $p > 0$ such that $T_{k+p}^n = T_{m+1}^{n+1}$. However,
+(\ref{eq:duration_partition}) implies that there are two possibilities at $T_{k+2}^n$:
+\begin{enumerate}
+    \item the path crossed a level other than $X(T_k^n)$, inducing a crossing of
+    $\delta 2^{n+1}\mathbb{Z}$ lattice;
+    \item the path returned to $X(T_k^n)$ level, in which case $X(T_{k+2}^n) = X(T_m^{n+1})$
+    and thus by the time $T_{k+2}^n$ no $(n+1)$-st level crossing occurred.
+\end{enumerate}
+In the former case $T_{m+1}^{n+1} \leq T_{k+2}^n$ and thus $p=2$, while in the latter
+case this argument can be repeated for $k \leftarrow k+2$. Thus there is a $q > 0$
+with $p = 2q + r$, $r \in \{0, 1\}$, and
+\begin{equation*} %\label{eq:subxing_order}
+    \bigcup_{j=0}^{q-1} \bigl[T_{k+2j}^n, T_{k+2j+1}^n\bigr)
+                   \cup \bigl[T_{k+2j+1}^n, T_{k+2j+2}^n\bigr)
+        \subseteq \bigl[T_m^{n+1}, T_{m+1}^{n+1}\bigr) \,.
+\end{equation*}
+Note, that $r\neq 1$, since over $\bigl[T_{k'}^n, T_{k'+1}^n\bigr)$, $k' = k + 2q$,
+a continuous process necessarily moves $\pm \delta 2^n$, (fig.~\ref{fig:xing_tree_structure}).
 
 The crossing tree reveals patterns of subcrossings within a parent crossing,
 conditional on the direction of the latter. Denote the crossing orientations by
@@ -555,12 +544,12 @@ to have stationary increments (\textbf{si}) if
 for any $s\geq 0$. If $(X(t))_{t\geq0}$ is $H$-ss then $X(t) \overset{\Dcal}{\sim} t^H X(1)$
 for any $t>0$, and if, in addition, it has zero mean and stationary increments, then
 its covariance function is given by
-\begin{align*}\label{eq:h_sssi_cov}
+\begin{align}\label{eq:h_sssi_cov}
     \ex X(t) X(s)
-        &= \frac{1}{2} \bigl(\ex X(s)^2 + \ex X(t)^2 - \ex(X(s) - X(t))^2 \bigr)\\
-        % &= \frac{1}{2} \bigl( s^{2H} \ex X(1)^2 + t^{2H}\ex X(1)^2 - \ex(X(|s-t|))^2 \bigr)\\
+        &= \frac{1}{2} \bigl(\ex X(s)^2 + \ex X(t)^2 - \ex(X(s) - X(t))^2 \bigr) \nonumber \\
+        % &= \frac{1}{2} \bigl( s^{2H} \ex X(1)^2 + t^{2H}\ex X(1)^2 - \ex(X(|s-t|))^2 \bigr) \\
         &= \frac{1}{2} (s^{2H}  + t^{2H} - |s-t|^{2H}) \ex X(1)^2 \,.
-\end{align*}
+\end{align}
 
 A stochastic process $(X(t))_{t\geq0}$ is Gaussian with mean $\mu(t)$ and covariance
 kernel $R(s,t)$ (positive definite function) if for any $n\geq 1$, $0 \leq t_i < t_{i+1}$
