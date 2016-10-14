@@ -125,6 +125,42 @@ def _align_crossing_times(real[:] t0, real[:] t1):
 
     return index
 
+def _align_next_lattice(real[:] x, real scale, real origin):
+    """Move from :math:`\\frac{1}{2} \\delta \\mathbb{Z}` to :math:`\\delta \\mathbb{Z}`.
+    """
+    # Find the alignment vector
+    cdef np.intp_t n_samples = x.shape[0]
+    # the binary structure necesarily implies that the number of parent
+    #  crossings is not more than half.
+    cdef np.intp_t[::1] tmp_index = _np.empty((n_samples + 1) // 2, dtype=_np.intp)
+    cdef double threshold_ = 0.75 * scale
+    cdef np.intp_t i0, i1
+    cdef double x0
+    with nogil:
+        ## Initialize the first crossing to the nearest level of the next-resolution lattice.
+        i1, i0, x0 =  0, 0, origin + scale * floor((x[0] - origin) / scale - 0.25)
+        ## The first crossing index can only be zero or one.
+        if fabs(x[0] - x0) < threshold_:
+            i0, x0 = 1, x[1]
+            tmp_index[i1] = i0
+            i1 += 1
+
+        while i0 < n_samples:
+            if -threshold_ < x[i0] - x0 < threshold_:
+            # if fabs(x[i0] - x0) < threshold_:
+                i0 += 2
+            else:
+                tmp_index[i1] = i0
+                i1 += 1
+                x0, i0 = x[i0], i0 + 2
+
+    cdef np.intp_t[::1] index = _np.empty(i1, dtype=_np.intp)
+    with nogil:
+        for i0 in range(i1):
+            index[i0] = tmp_index[i0]
+
+    return index
+
 def _get_statistics(np.intp_t[:] index1, real[:] x0):
     # Compute the level statistics
     cdef np.intp_t n_samples = index1.shape[0]
