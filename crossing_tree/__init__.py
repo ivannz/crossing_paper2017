@@ -6,7 +6,7 @@ from ._crossing import _align_crossing_times, _align_next_lattice
 
 from .processes import FractionalBrownianMotion, HermiteProcess, WeierstrassFunction
 
-def crossing_tree(X, T, scale, origin=0, low_memory=True):
+def crossing_tree(X, T, scale=1.0, origin=0.0, low_memory=True):
     """Return the crossing tree for thr process :math:`(X_t)_{t\\in T}`, with
     the finest grid originating from `orgigin` and its resolution set to `scale`.
     """
@@ -38,9 +38,9 @@ def crossing_tree(X, T, scale, origin=0, low_memory=True):
 
     return xi, ti, offspring, excursions, subcrossings, durations
 
-def structural_statistics(X, T, scale=1.0, percentiles=(0.1, 0.5, 1.0, 2.5, 5.0,
-                                                        10, 25, 50, 75, 90, 95,
-                                                        97.5, 99, 99.5, 99.9)):
+def structural_statistics(X, T, scale=1.0, origin=0.0, low_memory=True,
+                          percentiles=(0.1, 0.5, 1.0, 2.5, 5.0, 10, 25, 50,
+                                       75, 90, 95, 97.5, 99, 99.5, 99.9)):
     """Computes the structural statistics of the crossing tree for the sample path
     of a process :math:`(X_t)_{t\\in T}`. The crossing tree is constructed over 
     nested lattices :math:`\\delta 2^n \\mathbb{Z}` rooted at :math:`X_{t_0}`.
@@ -50,7 +50,8 @@ def structural_statistics(X, T, scale=1.0, percentiles=(0.1, 0.5, 1.0, 2.5, 5.0,
 
     The `percentiles` array determines which quantiles of the crossing durations to track.
     """
-    xi, ti, offspring, Vnk, Znk, Wnk = crossing_tree(X, T, scale=scale, origin=X[0])
+    output_ = crossing_tree(X, T, scale=scale, origin=origin, low_memory=low_memory)
+    xi, ti, offspring, Vnk, Znk, Wnk = output_
     # Sanity check.
     # for j in xrange(len(Znk)):
     #     assert np.allclose(2 * Vnk[j][:, :2].sum(axis=1) + 2, Znk[j])
