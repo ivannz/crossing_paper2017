@@ -143,7 +143,7 @@ give a one-to-one description of the underlying continuous random process in ter
 of the scale $\delta$, the crossing times $(T_k^n)_{k\geq 0}$, and the crossing
 orientations $(\alpha_k^n)_{k\geq 1}$ given by
 \begin{equation*} \label{eq:xing_orientations}
-    \alpha_{k+1}^n = \text{sign}\bigl( X(T_{k+1}^n) - X(T_k^n) \bigr) \,.
+    \alpha_k^n = \text{sign}\bigl( X(T_k^n) - X(T_{k-1}^n) \bigr) \,.
 \end{equation*}
 In the following we establish the emergent tree-structure.
 
@@ -211,7 +211,7 @@ Note that $T_{m+1}^{n+1} < +\infty$ implies $T_{k+1}^n < T_{m+1}^{n+1}$. Indeed,
 if this is otherwise, then $X(T_m^{n+1}) = X(T_k^n)$, which contradicts continuity:
 \begin{equation*}
     \delta 2^n = |X(T_{k+1}^n) - X(T_k^n)|
-    = |X(T_{m+1}^{n+1}) - X(T_m^{n+1})| = \delta 2^{n+1}\,.
+        = |X(T_{m+1}^{n+1}) - X(T_m^{n+1})| = \delta 2^{n+1}\,.
 \end{equation*}
 Furthermore $T_{k+2}^n \leq T_{m+1}^{n+1}$: the case $T_{m+1}^{n+1} = \infty$ is trivial,
 but when the $m$-th $n+1$-st level crossing is complete we proceed by contradiction.
@@ -222,10 +222,10 @@ $|X(T_{m+1}^{n+1}) - X(T_m^{n+1})| = \delta 2^{n+1}$. Hence the triangle inequal
 and $X(T_m^{n+1}) = X(T_k^n)$ imply
 \begin{align*}
     \delta 2^{n+1}
-    &\leq \bigl|X(T_{m+1}^{n+1}) - X(T_m^{n+1})\bigr| \\
-    &\leq \bigl|X(T_{m+1}^{n+1}) - X(T_{k+1}^n)\bigr|
-       + \bigl|X(T_{k+1}^n) - X(T_k^n)\bigr| \\
-    &< \delta 2^n + \delta 2^n \,.
+        &= \bigl|X(T_{m+1}^{n+1}) - X(T_m^{n+1})\bigr| \\
+        &\leq \bigl|X(T_{m+1}^{n+1}) - X(T_{k+1}^n)\bigr|
+           + \bigl|X(T_{k+1}^n) - X(T_k^n)\bigr| \\
+        &< \delta 2^n + \delta 2^n \,.
 \end{align*}
 Therefore $X(T_m^{n+1}) = X(T_k^n)$ and $T_k^n \in [T_m^{n+1}, T_{m+1}^{n+1})$ imply
 \begin{equation} \label{eq:duration_partition}
@@ -347,8 +347,8 @@ each level, which has insufficient number of levels to provide reliable estimate
 of scale invariance.
 
 The base scale $\delta$ can be picked adaptively: by either the standard deviation
-or the inter-quartile range of the increments $(\Delta_i)_{i=1}^m$, or the median
-or the mean of $(|\Delta_i|)_{i=1}^m$.
+or the inter-quartile range of the increments, or the mean or the median of their
+absolute values.
 
 % subsection practical_construction (end)
 
@@ -459,6 +459,50 @@ by $C(\lambda_0, H) |\Delta|^H$.
 
 % subsection weierstrass_function (end)
 
+\subsection{Simulation of the processes} % (fold)
+\label{sub:simulation_of_the_processes}
+
+The basic building block of the fBM and the Hermite processes is the fractional Gaussian
+noise with a particular correlation structure. All processes generated for this study were
+discrete versions of the corresponding continuous processes.
+
+Generation of the fractional Brownian motion for this study is based on the Circulant
+Embedding method, proposed in \cite{WRCR:WRCR6232}. In short, the method utilizes the structure of the correlation
+matrix of fGn to embed it into a larger circulant Toeplitz matrix, suitable for
+imposing the required covariance structure upon independent standard normal random
+variables via standard forward Discrete Fourier Transform. For details the reader
+is encouraged to refer to the original paper~\cite{WRCR:WRCR6232} and a more recent
+one~\cite{Perrin:1058211}.
+
+As for the Hermite processes, synthesis of their sample path was based on the fundamental
+theorem of Lamperti (see~\cite{embrechts2002}) which states that $H$-sssi
+processes are the only limiting law of normalized partial sum of a stationary random
+sequence. Formally, if $(X_i)_{i\geq1}$ is stationary and for some regularly varying
+function $a_n\to \infty$ and the following limiting exists
+\[ \frac{1}{a_n} \sum_{i=1}^{[nt]} X_i \overset{\Dcal}{\rightarrow} y(t) \,, \]
+where convergence is in finite-dimensional distributions, then the limiting process
+$(Y_t)_{t\geq0}$ is $H$-sssi for some $H>0$.
+
+For instance, if $(X_i)_{i\geq 1}$ is an independent and identically distributed,
+sequence, then the limit of normed partial sums is the Brownian motion, which is
+$\frac{1}{2}$-sssi. In case if the stationary sequence $X_i$ is \textbf{l}ong-
+\textbf{r}ange \textbf{d}ependent, i.e. with slowly decaying autocorrelation,
+the limit $Y(t)$ is often some $H$-sssi process with $H>\frac{1}{2}$ (see~\cite{embrechts2002}).
+In particular if $X_i = \xi_i^2 -1$ for some stationary Gaussian sequence with
+$\xi_i\sim\mathcal{N}(0,1)$, but $\ex(\xi_1\xi_{n+1}) = n^{H-1}L(n)$ as $n\to \infty$
+for some $H\in(\frac{1}{2},1)$ and some slowly varying function $L$, then the
+limiting process is a non-Gaussian $H$-ss process with strongly dependent, yet
+stationary increments corresponding to a Hermite process of order $2$ (see~\cite{embrechts2000introduction}).
+The transformation used to compute $(X_i)_{i\geq0}$ form $(\xi_i)_{i\geq0}$ is
+the $2$-nd order Hermite polynomial.
+
+Sample paths of the Weierstrass process were simulated on a uniformly spaced grid
+$(t_k)_{i=0}^N\in [0,1]$ with $0 = t_0< t_1 < \ldots < t_{N-1} < t_N = 1$. The spacing
+of the grid and the fundamental harmonic $\lambda_0$ were chosen so that the trigonometric
+functions are adequately sampled over the unit interval (see ~\cite{decrouez2013}).
+
+% subsection simulation_of_the_processes (end)
+
 % section self_sim_processes (end)
 
 \section{the Crossing tree and $H$-sssi processes} % (fold)
@@ -501,52 +545,6 @@ Numpy and FFTW, a standalone open source library dedicated to efficiently comput
 Fast Fourier Transforms using .\footnote{The source code of the experiment is available
 at \url{https://github.com/ivannz/crossing_paper2017}}
 
-\subsection{Generation of fBm, Hermite and Weierstrass processes} % (fold)
-\label{sub:generation_of_fbm_hermite_and_weierstrass_processes}
-
-The basic building block of the fBm and the Hermite processes is a Gaussian noise with a
-particular correlation structure, as evidenced by the stochastic integral representations
-of these processes. All processes generated for this study were discrete versions of
-the corresponding continuous processes.
-
-Generation of the fractional Brownian motion for this study is based on the Circulant
-Embedding method of Dietrich and Newsam for generating fractional Gaussian noise (fGn),
-\cite{WRCR:WRCR6232}. In short, the method utilizes the structure of the correlation
-matrix of fGn to embed it into a larger circulant Toeplitz matrix, suitable for
-imposing the required covariance structure upon independent standard normal random
-variables via standard forward Discrete Fourier Transform. For details the reader
-is encouraged to refer to the original paper~\cite{WRCR:WRCR6232} and a more recent
-one~\cite{Perrin:1058211}.
-
-As for the Hermite processes, synthesis of their sample path was based on the fundamental
-theorem of Lamperti (see~\cite{embrechts2002}) which states that $H$-sssi
-processes are the only limiting law of normalized partial sum of a stationary random
-sequence. Formally, if $(X_i)_{i\geq1}$ is stationary and for some regularly varying
-function $a_n\to \infty$ and the following limiting exists
-\[ \frac{1}{a_n} \sum_{i=1}^{[nt]} X_i \overset{\Dcal}{\rightarrow} y(t) \,, \]
-where convergence is in finite-dimensional distributions, then the limiting process
-$(Y_t)_{t\geq0}$ is $H$-sssi for some $H>0$.
-
-For instance, if $(X_i)_{i\geq 1}$ is an independent and identically distributed,
-sequence, then the limit of normed partial sums is the Brownian motion, which is
-$\frac{1}{2}$-sssi. In case if the stationary sequence $X_i$ is \textbf{l}ong-
-\textbf{r}ange \textbf{d}ependent, i.e. with slowly decaying autocorrelation,
-the limit $Y(t)$ is often some $H$-sssi process with $H>\frac{1}{2}$ (see~\cite{embrechts2002}).
-In particular if $X_i = \xi_i^2 -1$ for some stationary Gaussian sequence with
-$\xi_i\sim\mathcal{N}(0,1)$, but $\ex(\xi_1\xi_{n+1}) = n^{H-1}L(n)$ as $n\to \infty$
-for some $H\in(\frac{1}{2},1)$ and some slowly varying function $L$, then the
-limiting process is a non-Gaussian $H$-ss process with strongly dependent, yet
-stationary increments corresponding to a Hermite process of order $2$ (see~\cite{embrechts2000introduction}).
-The transformation used to compute $(X_i)_{i\geq0}$ form $(\xi_i)_{i\geq0}$ is
-the $2$-nd order Hermite polynomial.
-
-Sample paths of the Weierstrass process were simulated on a uniformly spaced grid
-$(t_k)_{i=0}^N\in [0,1]$ with $0 = t_0< t_1 < \ldots < t_{N-1} < t_N = 1$. The spacing
-of the grid and the fundamental harmonic $\lambda_0$ were chosen so that the trigonometric
-functions are adequately sampled over the unit interval (see ~\cite{decrouez2013}).
-
-% subsection generation_of_fbm_hermite_and_weierstrass_processes (end)
-
 \subsection{The crossing tree of Brownian motion} % (fold)
 \label{sub:the_crossing_tree_of_brownian_motion}
 
@@ -562,6 +560,8 @@ as a unique stochastic process $\bigl\{B(t)\bigr\}$ with the following four prop
 This process exhibits scale invariance properties, or self-similarity, since for any
 $a>0$, the process $\bigl\{a^{-\frac{1}{2}} B(at)\bigr\}$ and $\{B(t)\}$ are stochastically
 equivalent in the sense of equality of all their finite-dimensional joint distributions.
+
+% The statistical properties of the crossing tree features are know exactly for the
 
 The paper \cite{ECP1673} gives a rigorous proof of the statistical properties of
 the offspring distribution, crossing lengths and the excursions for crossing trees
@@ -685,7 +685,7 @@ different results from the median, except only that they tended to produce trees
 fewer levels and thus cover a narrower range of resolutions of the process.
 
 It seems natural to begin with the study of the fractional Brownian motion. To this end,
-$10^3$ Monte-Carlo simulations of sample paths of the fBm process were simulated. The
+$10^3$ Monte-Carlo simulations of sample paths of the fBM process were simulated. The
 process was confined to the unit interval and discretized to have $2^{21}$ sample points.
 
 Before proceeding to the evaluation of statistical properties of the crossing trees,
@@ -695,7 +695,7 @@ for which self-similarity is apparent.
     \includegraphics[width=6in]{images/fbm_fig_05_med_1000-21}
     \caption{The plot of the estimates of the Hurst index $H$ on the offspring data
     of a single level of the crossing tree based on $10^3$ Monte-Carlo simulations of
-    fBm.}
+    fBM.}
 \label{fig:fbm_hurst_crossing_tree}
 \end{center}\end{figure}
 
@@ -708,11 +708,11 @@ at levels from 7 to 8 (see table~\ref{tbl:chi_sq_test_for_fbm_only}).
 \begin{table}[h]\begin{center}
 	\begin{tabular}{l||c|c|c|c|c|c|}
 	Process 		&  $6-7$ &          $7-8$ & $8-9$ &  $6-8$ &  $7-9$ &  $6-9$ \\ \hline\hline
-	fBm-$0.50$ 		& $10.6$ & $\mathbf{8.2}$ & $9.1$ & $13.6$ & $12.2$ & $16.2$ \\ \hline 
-	fBm-$0.60$ 		& $10.9$ & $\mathbf{9.1}$ & $9.4$ & $14.2$ & $13.1$ & $16.4$ \\ \hline 
-	fBm-$0.70$ 		&  $9.4$ & $\mathbf{7.0}$ & $7.2$ & $12.6$ & $11.2$ & $15.8$ \\ \hline 
-	fBm-$0.80$ 		& $10.3$ & $\mathbf{6.1}$ & $6.7$ & $12.8$ & $10.7$ & $16.9$ \\ \hline 
-	fBm-$0.90$ 		& $11.1$ & $\mathbf{7.8}$ & $7.9$ & $18.0$ & $12.8$ & $27.7$ \\ \hline 
+	fBM-$0.50$ 		& $10.6$ & $\mathbf{8.2}$ & $9.1$ & $13.6$ & $12.2$ & $16.2$ \\ \hline 
+	fBM-$0.60$ 		& $10.9$ & $\mathbf{9.1}$ & $9.4$ & $14.2$ & $13.1$ & $16.4$ \\ \hline 
+	fBM-$0.70$ 		&  $9.4$ & $\mathbf{7.0}$ & $7.2$ & $12.6$ & $11.2$ & $15.8$ \\ \hline 
+	fBM-$0.80$ 		& $10.3$ & $\mathbf{6.1}$ & $6.7$ & $12.8$ & $10.7$ & $16.9$ \\ \hline 
+	fBM-$0.90$ 		& $11.1$ & $\mathbf{7.8}$ & $7.9$ & $18.0$ & $12.8$ & $27.7$ \\ \hline 
  	\end{tabular}
 	\caption{The table of empirical rejection rate at significance level of $\alpha = 5\%$
 	of the $\chi^2$ test for self-similarity between levels of the crossing tree. }
@@ -722,13 +722,13 @@ Since the self-similarity of the simulated fractional Brownian motion paths seem
 to become apparent at levels 7 and 8 on average, we pool the crossing tree data of
 these levels in order to obtain more reliable estimates.
 
-Restricting the attention to the Brownian motion case (fBm with $H=\frac{1}{2}$)
+Restricting the attention to the Brownian motion case (fBM with $H=\frac{1}{2}$)
 one can easily see that the numerical evidence is well aligned with the theoretical
 result of Jones and Rolls (fig.~\ref{fig:fbm_offspring_distribution}).
 \begin{figure}[htb]\begin{center}
     \includegraphics[width=6in]{images/fbm_fig_01_med_1000-21}
     \caption{The log-plot of the offspring distributions estimated on 1000 sample discrete paths
-    of the fBm process of length $2^{21}$ and Hurst exponents in the range from $0.5$ to $0.9$.}
+    of the fBM process of length $2^{21}$ and Hurst exponents in the range from $0.5$ to $0.9$.}
 \label{fig:fbm_offspring_distribution}
 \end{center}\end{figure}
 Similarly, the theoretical probability of an up-down crossing conditional on an upcrossing
@@ -756,7 +756,7 @@ of subcrossings (see tables~\ref{tbl:empirical_probs_01} for $H=0.6$
 and~\ref{tbl:empirical_probs_02} for $H=0.8$). However the failure of the conjectured
 crossing size distribution to match the empirical results closely, should not be
 considered as a serious evidence against it in this case. Indeed, the empirical
-offspring distribution for fBm with $H=0.5,0.6$ and $0.7$ is aligned quite well
+offspring distribution for fBM with $H=0.5,0.6$ and $0.7$ is aligned quite well
 with the conjecture, and since there is no theoretical reason as to why the
 dependence on $H$ should break down for values of $H$ closer to $1$, we attribute
 this discrepancy to numerical issues of discretizing continuous processes and
@@ -764,7 +764,7 @@ simulating fGn with long range dependence.
 
 Finally, the mean crossing durations, averaged for each replication across all detected
 crossings of a single level indeed demonstrate plausibility of the conjectured scaling
-between levels of the crossing tree, see fig.~\ref{fig:fbm_avg_crossing_durations} for fBm.
+between levels of the crossing tree, see fig.~\ref{fig:fbm_avg_crossing_durations} for fBM.
 \begin{figure}[htb]\begin{center}
     \includegraphics[width=6in]{images/fbm_fig_08_med_1000-21}
     \caption{The average crossing duration at each level of the crossing tree built
@@ -776,7 +776,7 @@ Now let's turn to the Hermite and Weierstrass processes. This time $10^4$ random
 replications of sample paths of size $2^{17}$ were generated for each process.
 This size limitation was dictated by deteriorating numerical accuracy of the procedure,
 responsible for generating sample paths of Hermite processes. Thus in order to produce
-comparable results, sample paths of fBm and Weierstrass processes were limited to $2^{17}$
+comparable results, sample paths of fBM and Weierstrass processes were limited to $2^{17}$
 points as well.
 
 Figure~\ref{fig:all_hurst_crossing_tree} suggests that the processes studied share common
@@ -794,11 +794,11 @@ header of the table.
 \begin{table}[h]\begin{center}
 	\begin{tabular}{l||c|c|c|c|c|c|}
 	Process 		& $6-7$ &  $7-8$ &  $8-9$ &  $6-8$ &  $7-9$ &  $6-9$ \\ \hline\hline
-	  fBm-$0.50$	& $9.7$ & $15.7$ &     -- & $13.8$ &  $\mathbf{3.6}$ &  $5.4$ \\ \hline
-	  fBm-$0.60$	& $8.8$ &  $9.3$ &  $\mathbf{5.6}$ & $14.2$ & $14.3$ & $16.5$ \\ \hline
-	  fBm-$0.70$	& $7.6$ &  $\mathbf{6.6}$ & $10.5$ & $13.4$ & $15.7$ & $17.8$ \\ \hline
-	  fBm-$0.80$	& $6.5$ &  $4.8$ &  $\mathbf{4.5}$ & $11.5$ & $13.1$ & $16.5$ \\ \hline
-	  fBm-$0.90$	& $\mathbf{4.5}$ &  $5.1$ &  $6.9$ & $11.7$ & $13.6$ & $19.8$ \\ \hline\hline
+	  fBM-$0.50$	& $9.7$ & $15.7$ &     -- & $13.8$ &  $\mathbf{3.6}$ &  $5.4$ \\ \hline
+	  fBM-$0.60$	& $8.8$ &  $9.3$ &  $\mathbf{5.6}$ & $14.2$ & $14.3$ & $16.5$ \\ \hline
+	  fBM-$0.70$	& $7.6$ &  $\mathbf{6.6}$ & $10.5$ & $13.4$ & $15.7$ & $17.8$ \\ \hline
+	  fBM-$0.80$	& $6.5$ &  $4.8$ &  $\mathbf{4.5}$ & $11.5$ & $13.1$ & $16.5$ \\ \hline
+	  fBM-$0.90$	& $\mathbf{4.5}$ &  $5.1$ &  $6.9$ & $11.7$ & $13.6$ & $19.8$ \\ \hline\hline
 
 	  WEI-$0.50$	& $9.6$ & $12.4$ &     -- & $13.9$ &  $\mathbf{2.2}$ &  $5.1$ \\ \hline
 	  WEI-$0.60$	& $\mathbf{8.2}$ &  $9.6$ & $11.1$ & $13.2$ & $14.8$ & $15.5$ \\ \hline
@@ -855,7 +855,7 @@ quite well with the hypothesised distribution.
 \begin{table}[h]\begin{center}
 	\begin{tabular}{l||l|l|l|l|}
 					$H=0.6$ & $Z_k = 2$ & $Z_k = 4$ & $Z_k = 6$ & $Z_k = 8$ \\ \hline\hline
-	\multirow{2}{*}{fBm} 	& $0.630$ & $0.233$ & $0.086$ & $0.032$ \\ \cline{2-5}
+	\multirow{2}{*}{fBM} 	& $0.630$ & $0.233$ & $0.086$ & $0.032$ \\ \cline{2-5}
 							& $0.644\pm0.033$ & $0.224\pm0.027$ & $0.083\pm0.017$ & $0.031\pm0.011$ \\ \hline\hline
 	\multirow{2}{*}{WEI} 	& $0.630$ & $0.233$ & $0.086$ & $0.032$ \\ \cline{2-5}
 							& $0.642\pm0.027$ & $0.226\pm0.026$ & $0.084\pm0.017$ & $0.031\pm0.010$ \\ \hline\hline
@@ -875,7 +875,7 @@ quite well with the hypothesised distribution.
 \begin{table}[h]\begin{center}
 	\begin{tabular}{l||l|l|l|l|}
 					$H=0.8$ & $Z_k = 2$ & $Z_k = 4$ & $Z_k = 6$ & $Z_k = 8$ \\ \hline\hline
-	\multirow{2}{*}{fBm} 	& $0.841$ & $0.134$ & $0.021$ & $0.003$ \\ \cline{2-5}
+	\multirow{2}{*}{fBM} 	& $0.841$ & $0.134$ & $0.021$ & $0.003$ \\ \cline{2-5}
  							& $0.855\pm0.023$ & $0.112\pm0.017$ & $0.026\pm0.006$ & $0.006\pm0.002$ \\ \hline\hline
 	\multirow{2}{*}{HRM-2} 	& $0.841$ & $0.134$ & $0.021$ & $0.003$ \\ \cline{2-5}
  							& $0.848\pm0.027$ & $0.118\pm0.022$ & $0.026\pm0.006$ & $0.005\pm0.002$ \\ \hline\hline
@@ -953,14 +953,14 @@ the base scale $\delta$) of the crossing durations' distribution among processes
 
 \begin{figure}[htb]\begin{center}
     \includegraphics[width=6in]{images/fig_09_med_FBM_080}
-    \caption{Similarly to figure~\ref{fig:fbm_quantiles_06} but for fBm with $H=0.8$.}
+    \caption{Similarly to figure~\ref{fig:fbm_quantiles_06} but for fBM with $H=0.8$.}
 \label{fig:fbm_quantiles_08}
 \end{center}\end{figure}
 
 \begin{figure}[htb]\begin{center}
     \includegraphics[width=6in]{images/fig_10_med_FBM}
     \caption{Empirical distributions of crossing durations estimated on levels 7-8
-    for the fBm ($2^{21}$ datapoints). Averaged across all Monte-Carlo realisations.}
+    for the fBM ($2^{21}$ datapoints). Averaged across all Monte-Carlo realisations.}
 \label{fig:fbm_quantiles_durations}
 \end{center}\end{figure}
 
