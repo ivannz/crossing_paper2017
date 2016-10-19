@@ -47,7 +47,7 @@ class FractionalGaussianNoise(BaseGenerator):
 ##  and the size sample are fixed. "Synthese de la covariance du fGn", Synthesise
 ##  the covariance of the fractional Gaussian noise. This autocorrelation function
 ##  models long range (epochal) dependence.
-        R = np.arange(N, dtype=np.float64)
+        R = np.arange(N, dtype=np.float128)
 ## The noise autocorrelation structure is directly derivable from the autocorrelation
 ##  of the time-continuous fBM:
 ##     r(s,t) = .5 * ( |s|^{2H}+|t|^{2H}-|s-t|^{2H} )
@@ -60,9 +60,11 @@ class FractionalGaussianNoise(BaseGenerator):
             + np.abs(R + 1) ** (2.0 * self.hurst)
             - 2 * np.abs(R) ** (2.0 * self.hurst))
 ## Generate the first row of the 2Mx2M Toeplitz matrix, where 2M = N + N-2: it should
-##  be [ r_0, ..., r_{N-1}, r_{N-2}, ..., r_1 ]
+##  be [ r_0, r_1, ..., r_{N-1}, r_{N-2}, ..., r_1 ]
         self.fft_in_[:N] = R
         self.fft_in_[:N-1:-1] = R[1:-1]
+        del R
+
 ## The circulant matrix, defined by the autocorrelation structure above is necessarily
 ##  positive definite, which is equivalent to the FFT of any its row being non-negative.
         self.fftw_()
