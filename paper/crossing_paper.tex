@@ -131,6 +131,7 @@ origin $X(0)=x_0=0$. In this case for continuous processes this definition is eq
 to the first hitting time $t\geq T_k^n$ with $|X(t) - X(T^n_k)| \geq \delta 2^n$.
 Thus we define the \emph{$n$-th level crossing} as the slice of the process over
 $[T_k^n, T_{k+1}^n)$, $k\geq 0$, during which it moves at least $\pm \delta 2^n$.
+The duration of the $k$-th $n$-the level crossing, $n\geq0$, is $W_{k+1}^n = T_{k+1}^n - T_k^n$.
 
 The crossing tree naturally emerges from the alignment between the crossings of
 lattices with adjacent resolutions $\delta 2^n \mathbb{Z}$ and $\delta 2^{n+1} \mathbb{Z}$.
@@ -145,7 +146,7 @@ orientations $(\alpha_k^n)_{k\geq 1}$ given by
 \begin{equation*} \label{eq:xing_orientations}
     \alpha_k^n = \text{sign}\bigl( X(T_k^n) - X(T_{k-1}^n) \bigr) \,.
 \end{equation*}
-In the following we establish the emergent tree-structure.
+% In the following we establish the emergent tree-structure.
 
 \begin{figure}[ht]
     \centering
@@ -199,6 +200,11 @@ with $J_0^{n+1} = \emptyset$. Furthermore, there necessarily is $k\geq 0$ such t
 $T_m^{n+1} = T_k^n$, since $\delta 2^{n+1} \mathbb{Z} \subset \delta 2^n \mathbb{Z}$.
 Note, that the parent crossing does not have to be complete ($T_{m+1}^{n+1} < \infty$)
 for it to have subcrossings.
+
+Let the number of complete $n$-he level crossings be $N_n = |\{k\geq 1\,:\, T_k^n < +\infty\}|$,
+and $Z_k^n = \bigl| J_k^n \bigr|$ for $n\geq1$ and $k = 1,\ldots, N_n$ be the number
+of subcrossings of the $k$-th complete $n$-th level crossing. Then $\sum_{k=1}^{N_{n+1}} Z_k^{n+1} \leq N_n$,
+since there might be incomplete crossings.
 
 There is a finer structure to the set of subcrossings of the $m$-th $(n+1)$-st level
 crossing. If $k\geq 0$ is such that $T_k^n \in [T_m^{n+1}, T_{m+1}^{n+1})$ and
@@ -307,6 +313,13 @@ Note, that $r\neq 1$, since over $\bigl[T_{k'}^n, T_{k'+1}^n\bigr)$, $k' = k + 2
 a continuous process necessarily moves $\pm \delta 2^n$, (fig.~\ref{fig:xing_tree_structure}).
 Therefore $\bigl| J_{m+1}^{n+1} \bigr| = p = 2q$.
 
+By (\ref{eq:subcrossing_partition}) subcrossings of a complete crossing are paired,
+and the last pair always has the same orientation, which concludes the parent crossing
+by hitting $\delta 2^{n+1} \mathbb{Z}$. Thus complete crossings can be broken into
+a series of \emph{excursions} -- pairs of oppositely oriented subcrossings within
+$\pm\delta 2^n$ levels. Define $V_k^n$ as the movement pattern of the $k$-th $n$-th
+level excursion: either `+-' for up-down, or `-+' for down-up.
+
 % subsection theoretical_construction (end)
 
 \subsection{Practical construction} % (fold)
@@ -354,6 +367,75 @@ absolute values.
 
 % section the_crossing_tree (end)
 
+\section{Characterization with the crossing tree} % (fold)
+\label{sec:characterization_with_the_crossing_tree}
+
+The crossing tree produces a set of characteristics, which in some cases uniquely
+identify certain continuous stochastic processes, \cite{ECP1673}. One such process
+in the Brownian Motion (BM) -- a unique zero-mean Gaussian process with covariance
+kernel $R(s,t)=\min\{s, t\}$ and almost surely continuous paths starting at the origin.
+In \cite{ECP1673} it is shown that BM is a unique continuous process starting at
+the origin with the following properties:
+\begin{itemize}
+    \item each level has infinitely many offspring ($N_n = +\infty$);
+    \item the scaled crossing durations $(\delta 2^n)^{-\frac{1}{H}} W_k^n$
+    are independent within each level and identically distributed with mean $1$
+    and finite variance;
+    \item the number of subcrossings $Z_k^n$ is iid with
+    \begin{equation}\label{conj:subcross}
+        \pr(Z_k^n = 2m) = \theta_H (1 - \theta_H)^{m-1} \,,
+    \end{equation}
+    with $\theta_H = 2^{1 - H^{-1}}$ for integer $m\geq 1$;
+    \item the excursion directions $V_k^n$ are independent of the crossing
+    directions and iid with $\pr(V_k^n=\text{`+-'}) = 2^{-2 H^{-1}}$;
+\end{itemize}
+where $H = \frac{1}{2}$. This characterisation is based on the construction of the
+BM on a nested fractal in \cite{BarlowPerkins88}. Furthermore the BM is an example
+of an $H$-self similar process with stationary increments having $H=\frac{1}{2}$.
+
+It seems plausible that parts of this characterisation can be extended to Gaussian
+$H$-sssi processes with $H \in(\frac{1}{2}, 1)$. Indeed, \cite{jonesshen2005} show
+that if the process is continuous, self-similar and has stationary and ergodic increments,
+then the sequences of the number of subcrossings $Z^n = (Z_k^n)_{k\geq 0}$ are identically
+distributed across levels, and stationary and ergodic within each level. The same
+result holds for scaled crossing durations. Therfore, we conjecture that for $H$-sssi
+(sec.~\ref{sec:self_sim_processes}) processes the crossing tree has these statistical
+properties:
+\begin{itemize}
+    \item the excursion patterns $V_k^n$ are identically distributed with
+    \begin{equation*}
+        \pr_+(\text{`+-'}) = \pr_-(\text{`-+'}) = 2^{-2 H^{-1}} \,,
+    \end{equation*}
+    where $\pr_+$ and $\pr_-$ are conditional probabilities with respect to the
+    orientation of the parent crossing;
+    \item $Z_k^n$ are possibly correlated but identically distributed according
+    to (\ref{conj:subcross});
+    \item $(\delta 2^n)^{-\frac{1}{H}} W_k^n$ are identically distributed with mean $1$.
+\end{itemize}
+With this conjecture it could be possible to use the crossing tree to estimate $H$
+based on these properties implied by the conjecture: $H^{-1} \approx \log_2 \ex Z^n$,
+or $H^{-1} \approx \log_2 \frac{\ex W^{n+1}}{\ex W^n}$. 
+
+Intuitively, if we one scales the time of an $H$-sssi process by $\ex Z^n$, then
+it is necessary to scale down its range on average by $\frac{1}{2}$ -- the resolution
+multiplier.
+Now, if the process is scale-invariant then the distribution of crossing sizes does
+not depend on the level of the tree, and thus it is possible to pool the sample data
+of $Z^n_k$ across several levels, over which the hypothesis of common distribution
+cannot be rejected.
+
+% The rationale behind the scaling in the crossing duration case is given below. By
+% definition, the duration of a crossing of grid $\delta 2^n \mathbb{Z}$ (level-
+% $n$ crossing duration, denoted here by $\tau_n$) is the time needed for the process
+% $\{X(t)\}$ to move from some value $X(t)$ to $X(t+\tau_n) = 2^n X(t)$. Therefore one
+% can use self-similarity for the following chain of thought:
+% \[ X(\tau_n) \overset{\Dcal}{\sim} 2^n X(\tau_1) \overset{\Dcal}{\sim} 2^n \tau_1^H X(\tau_1) \,, \]
+% whence follows that $\tau_n^H X(1) \overset{\Dcal}{\sim} 2^n \tau_1^H X(\tau_1)$. This
+% observation gives an idea of how should the crossing durations between different
+% tree level be related.
+
+% section characterization_with_the_crossing_tree (end)
+
 \section{Typical self-similar processes} % (fold)
 \label{sec:self_sim_processes}
 
@@ -387,7 +469,7 @@ A stochastic process $(X(t))_{t\geq0}$ is Gaussian with mean $\mu(t)$ and covari
 kernel $R(s,t)$ (positive definite function) if for any $n\geq 1$, $0 \leq t_i < t_{i+1}$
 with $i=1,\ldots,n$, the vector $(X(t_i))_{i=1}^n\in \Real^{n\times1}$ is $n$-dimensional
 Normal with mean $(\mu(t_i))_{i=1}^n$ and covariance matrix $(R(t_i, t_j))_{i,j=1}^n\in \Real^{n\times n}$.
-Now, the Brownian motion (BM) process $(B(t))_{t\geq0}$ is a zero-mean Gaussian process
+Now, the Brownian Motion (BM) process $(B(t))_{t\geq0}$ is a zero-mean Gaussian process
 with $X(0)=0$ and almost surely continuous paths such that its covariance kernel is
 $R(s,t)=\min\{s, t\}$. Gaussianity and covariance structure imply that BM is an $H$-sssi
 process for $H=\frac{1}{2}$, since for any $a>0$ the process $(a^{-\frac{1}{2}} W_{at})_{t\geq0}$
@@ -500,35 +582,6 @@ that the harmonics are adequately sampled over the grid, \cite{decrouez2013}.
 
 \section{the Crossing tree and $H$-sssi processes} % (fold)
 \label{sec:experiment}
-% This is the section of the numerical study.
-
-Inspired by the simplicity of the statistical properties of the crossing tree for
-Brownian motions we formulate the following conjecture: whenever $\{X(t)\}$ is a
-continuous $H$-sssi process, then $X(0)= 0$ almost surely and the process is uniquely
-identified by the statistical properties of the crossing tree, namely the crossing
-durations, the excursion and the offspring distributions in the following way:\\
-\noindent \textbf{Conjecture}\begin{itemize}
-    \item The random variables $Z_k^n$ are possibly correlated, but nevertheless
-    identically distributed, with probability distribution
-    \[ \pr\bigl(Z_k^n=2m\bigr) = 2^{1-H^{-1}}\bigl(1-2^{1-H^{-1}}\bigr)^{m-1} \,,\]
-    for all $m\geq 1$;
-    \item The distribution of excursion directions $V_k^n$ (orientation patterns),
-    conditional on the orientation of the parent crossing, is:
-    \[ \pr\bigl( +- \bigr.\bigl\lvert ++ \bigr)
-	= \pr\bigl( -+ \bigr.\bigl\lvert -- \bigr)
-	= 2^{-2H^{-1}} \,.; \]
-	\item The properly scaled crossing durations $4^{-\frac{n}{2H}} W_k^n$
-	are identically distributed with finite variance;
-\end{itemize}
-% The rationale behind the scaling in the crossing duration case is given below. By
-% definition, the duration of a crossing of grid $\delta 2^n \mathbb{Z}$ (level-
-% $n$ crossing duration, denoted here by $\tau_n$) is the time needed for the process
-% $\{X(t)\}$ to move from some value $X(t)$ to $X(t+\tau_n) = 2^n X(t)$. Therefore one
-% can use self-similarity for the following chain of thought:
-% \[ X(\tau_n) \overset{\Dcal}{\sim} 2^n X(\tau_1) \overset{\Dcal}{\sim} 2^n \tau_1^H X(\tau_1) \,, \]
-% whence follows that $\tau_n^H X(1) \overset{\Dcal}{\sim} 2^n \tau_1^H X(\tau_1)$. This
-% observation gives an idea of how should the crossing durations between different
-% tree level be related.
 
 In order to gather empirical evidence either supporting or refuting this claim,
 extensive numerical study was in order. The Monte-Carlo simulation was performed
@@ -538,60 +591,12 @@ Numpy and FFTW, a standalone open source library dedicated to efficiently comput
 Fast Fourier Transforms using .\footnote{The source code of the experiment is available
 at \url{https://github.com/ivannz/crossing_paper2017}}
 
-\subsection{The crossing tree of Brownian motion} % (fold)
-\label{sub:the_crossing_tree_of_brownian_motion}
-
-One of most well studied processes is the Brownian motion. Usually it is axiomatically
-as a unique stochastic process $\bigl\{B(t)\bigr\}$ with the following four properties:
-\begin{itemize}
-    \item $B(t)$ is almost surely $0$ at $t=0$;
-    \item $\{B(t)\}$ has independent and stationary increments;
-    \item for all $t\geq 0$ the random variable $B(t)$ has Gaussian distribution with
-    parameters mean $0$ and variance $t$;
-    \item the sample paths of $\{B(t)\}$ are almost surely continuous functions.
-\end{itemize}
-This process exhibits scale invariance properties, or self-similarity, since for any
-$a>0$, the process $\bigl\{a^{-\frac{1}{2}} B(at)\bigr\}$ and $\{B(t)\}$ are stochastically
-equivalent in the sense of equality of all their finite-dimensional joint distributions.
-
-% The statistical properties of the crossing tree features are know exactly for the
-
-The paper \cite{ECP1673} gives a rigorous proof of the statistical properties of
-the offspring distribution, crossing lengths and the excursions for crossing trees
-built over paths of Brownian motion. Theorem 1 of~\cite{ECP1673}, p.~640, states
-that the Brownian motion is the unique continuous process $\{B(t)\}$ for which the
-crossing tree has infinitely many offspring at each level ($N_n = +\infty$), and:
-\begin{description}
-    \item[BM0] $B(0) = 0$;
-    \item[BM1] scaled crossing durations $(\delta 2^n)^{-\frac{1}{H}} W_k^n$ for
-    $H = \frac{1}{2}$ are mutually independent within each level $n$ and identically
-    distributed with mean 1 and finite variance;
-    \item[BM2] the random variables $Z_k^n$ are iid with probability distribution
-    \[ \pr\bigl(Z_k^n=2m\bigr) = 2^{1-H^{-1}}\bigl(1-2^{1-H^{-1}}\bigr)^{m-1} \,,\]
-    for all $m=1,2,\ldots$;
-    \item[BM3] the excursions $V_k^n$ are also iid random variables with 
-    $\pr( V_k^n = 1 ) = 2^{-2H^{-1}}$, for $H = \frac{1}{2}$.
-    $\text{Bern}(\frac{1}{2})$.
-\end{description}
-This theorem crucially depends on the strong Markov property of Bm, which makes $Z_k^n$
-independent random variables. The characterisation of Brownian motion in terms of
-the properties of its crossing tree is based on ideas used in the construction of
-Brownian motion on a nested fractal (see~\cite{BarlowPerkins88}).
-
-% subsection the_crossing_tree_of_brownian_motion (end)
-
 \subsection{Analysis using the crossing tree} % (fold)
 \label{sub:analysis_using_the_crossing_tree}
 
-Let $Z_k^n$ be the number of subcrossings of a grid $\delta 2^{n-1}$ that occurs
-during the $k$-th crossing of grid $\delta 2^n$, and $N_n$ be the total number
-of crossings of level $n$, defined as the last $k\geq0$ such that
-$T_k^n < +\infty$. Since it is possible that the last $n$-th level crossing is
-incomplete, $T_{N_n}^n = +\infty$, the following inequality holds:
-\[ \sum_{k=1}^{N_{n+1}} Z_k^{n+1} \leq N_n \,.\]
-
 The sequence of numbers of subcrossings, given by $(Z_k)_{k=1}^{N_n}$, can be used to
-estimate the offspring distribution.
+estimate the offspring distribution. 
+
 If the process is scale invariant and is ergodic, \cite{ECP1673}, it is reasonable to
 expect that the offspring distributions of crossings of consecutive
 levels of the tree are identical, provided the levels are well sampled.
@@ -599,7 +604,7 @@ levels of the tree are identical, provided the levels are well sampled.
 To this end one
 can use a standard $\chi^2$ squared test:
 \begin{enumerate}
-    \item Take $h$ bins $\{2m\}$ for $m = 1,h-1$ and $\{2h, 2h+2,\ldots\}$ and compute
+    \item Take $h$ bi ns $\{2m\}$ for $m = 1,h-1$ and $\{2h, 2h+2,\ldots\}$ and compute
     the empirical probabilities $\hat{p}_k^n$ of the number of offspring $(Z_k^n)$ on
     each level $n=p, p+1, \ldots, q$ falling into each bin;
     \item Pool all the offspring together into one pool $Z$, and compute the empirical
@@ -615,51 +620,10 @@ Another characteristic of the process is the distribution of excursion patterns 
 a parent crossing, conditional on its direction. Indeed, subcrossing orientations
 of a complete crossing come in
 
-If the process is continuous, self-similar and has stationary and ergodic increments,
-\cite{jonesshen2005}, then the sequences of the number of subcrossings $Z^n = (Z_k^n)_{k\geq 0}$
-are identically distributed, stationary and ergodic. The same result holds for
-scaled crossing durations $((\delta 2^n)^{-H^{-1}} W_k^n)_{k\geq0}$, where $W_k^n$
-is the duration of the $k$-th $n$-th level crossing, $W_{k+1}^n = T_{k+1}^n - T_k^n$.
-
-If $(X(t))_{t\geq 0}$ is $H$-sssi, then the crossing tree can be used to the Hurst
-index $H$ by the following heuristic:
-\begin{equation*}
-    \hat{H} = \frac{\log 2}{\log \mu_n} \,,
-\end{equation*}
-where $\mu_n = \ex Z^n$. Intuitively, if we one scales the time of an $H$-sssi
-process by $\mu_n$, then it is necessary to scale down its range on average
-by $\frac{1}{2}$ -- the resolution multiplier. Now, if the process is scale-invariant
-then the distribution of crossing sizes does not depend on the level of the tree,
-and thus it is possible to pool the sample data of $Z^n_k$ across several levels,
-over which the hypothesis of common distribution cannot be rejected.
-
 % subsection analysis_using_the_crossing_tree (end)
 
 \subsection{Results} % (fold)
 \label{sub:results}
-
-
-By (\ref{eq:subcrossing_partition}) subcrossings of a complete parent crossing are
-paired, which is why it is possible to break up complete crossings into series of
-excursions, i.e. pairs of oppositely oriented subcrossings within $\pm\delta 2^n$
-levels, followed by a direct crossing, which concludes the parent crossing by hitting
-$\delta 2^{n+1} \mathbb{Z}$.
-
-Let $V_k^n$ be $0$ if the $k$-th $n$-level excursion (movements within a finer $(n-1)$-st
-gird) is up-down: if $\alpha_{2k}^{n-1} = +$ and $\alpha_{2k+1}^{n-1} = -$, --
-and $1$ if it is down-up (``$-+$'').
-
-The crossing tree reveals patterns of subcrossings within a parent crossing,
-conditional on the direction of the latter.
-
-Pairs of oppositely oriented crossings are
-\emph{excursions}, and sign pairs ``$-+$'' and ``$+-$'' correspond to down-up
-and up-down excursions, respectively, whereas pairs ``$--$'' or ``$++$'' constitute
-direct upward and downward crossings, respectively.
-In order to study the empirical support of the hypothesised statistical properties of
-the crossing tree as well as see how accurate in practice the crossing tree methodology
-confirms the theoretical result in \cite{ECP1673}, an extensive Monte-Carlo experiment
-was preformed.
 
 The crossing trees were constructed for a base scale $\delta$ dependent on each particular
 sample realisation of the process, but in such a way as to enable meaningful comparisons
