@@ -189,7 +189,7 @@ $|X(T_{k+1}^n) - X(T_k^n)| = \delta 2^n$ for all $k\geq0$ with $T_{k+1}^n < +\in
 The halving of spatial resolution of any adjacent lattices permits a parent-child
 relation between the corresponding crossings. Indeed, a child of an $m$-th $(n+1)$-st
 level crossing is any $n$-th level crossing, a \emph{subcrossing}, which takes place
-during it. The set of all offspring subcrossings is given by
+during it. The set of all \emph{offspring} subcrossings is given by
 \begin{equation} \label{eq:crossing_offspring}
     J_{m+1}^{n+1}
         = \bigl\{ k \geq 0 \,:\,
@@ -355,8 +355,8 @@ affects its depth and how well each level is populated by crossings. For relativ
 small $\delta$ the crossing tree will be quite deep, but its lower levels will be
 overcrowded by short crossings, since at high resolutions the path is a series of
 direct upward or downward movements. On the other hand, a large $\delta$ produces
-a shallow tree with less biased crossing size, \emph{offspring} distribution within
-each level, which has insufficient number of levels to provide reliable estimates
+a shallow tree with less discretization bias, but underpopulated \emph{offspring}
+distribution within each level, which could lead to provide less reliable estimates
 of scale invariance.
 
 The base scale $\delta$ can be picked adaptively: by either the standard deviation
@@ -580,27 +580,39 @@ at \url{https://github.com/ivannz/crossing_paper2017}}
 \subsection{Analysis using the crossing tree} % (fold)
 \label{sub:analysis_using_the_crossing_tree}
 
-The sequence of numbers of subcrossings, given by $(Z_k)_{k=1}^{N_n}$, can be used to
-estimate the offspring distribution. 
-
-If the process is scale invariant and is ergodic, \cite{ECP1673}, it is reasonable to
+For each sample path of the process we construct the crossing tree, which yields
+the offspring $(Z_k^n)$, excursions $(V_k^n)$ and duration $(W_k^n)$ observations.
+Provided the levels are well sampled, we can test the offspring distribution properties:
+\cite{ECP1673}, it is reasonable to
 expect that the offspring distributions of crossings of consecutive
-levels of the tree are identical, provided the levels are well sampled.
+levels of the tree are identical.
 
-To this end one
-can use a standard $\chi^2$ squared test:
 \begin{enumerate}
-    \item Take $h$ bi ns $\{2m\}$ for $m = 1,h-1$ and $\{2h, 2h+2,\ldots\}$ and compute
-    the empirical probabilities $\hat{p}_k^n$ of the number of offspring $(Z_k^n)$ on
-    each level $n=p, p+1, \ldots, q$ falling into each bin;
-    \item Pool all the offspring together into one pool $Z$, and compute the empirical
-    probabilities $\bar{p}_i$ of the pooled offspring $Z_k$ being in each of the bins;
-    \item Provided each bin has sufficiently many observations, the following statistic
-    \[ t^{p,q} = \sum_{j=p}^q \sum_{i=1}^h N_i \frac{(\hat{p}_i^n-\bar{p}_i)^2}{\bar{p}_i} \]
-    tests the hypothesis that the offspring distributions on all levels from $p$ to $q$
-    have the same distribution. The test statistic has asymptotic $\chi^2$ distribution
-    with $(q-p)(h-1)$ degrees of freedom.
+    \item consider $h$ bins: $\{2m\}_{m=1}^{h-1}$ and $\{2h, 2h+2,\ldots\}$;
+    \item compute the empirical probabilities $\hat{p}_k^n$ of the number of
+    offspring $(Z_k^n)$ in each bin at every level from $p$ to $q$;
+    \item pool all the offspring $Z_k^n$ at levels from $p$ to $q$ and compute
+    the empirical distribution $\bar{p}_i$ over the bins;
+    \item provided each bin is sufficiently populated, the hypothesis of identical
+    distribution across levels can be tested with a standard $\chi^2$ test:
+    \begin{equation*}
+        t^{(p,q)} = \sum_{n=p}^q \sum_{k=1}^h N_n
+            \frac{(\hat{p}_k^n - \bar{p}_k)^2}{\bar{p}_k}
+            \sim \chi^2_{(q-p)(h-1)}
+            \,.
+    \end{equation*}
 \end{enumerate}
+
+
+    % \item the excursion patterns $V_k^n$ are identically distributed with
+    % \begin{equation*}
+    %     \pr_+(\text{`+-'}) = \pr_-(\text{`-+'}) = 2^{-2 H^{-1}} \,,
+    % \end{equation*}
+    % where $\pr_+$ and $\pr_-$ are conditional probabilities with respect to the
+    % orientation of the parent crossing;
+    % \item $Z_k^n$ are possibly correlated but identically distributed according
+    % to (\ref{conj:subcross});
+    % \item $(\delta 2^n)^{-\frac{1}{H}} W_k^n$ are identically distributed with mean $1$.
 
 Another characteristic of the process is the distribution of excursion patterns within
 a parent crossing, conditional on its direction. Indeed, subcrossing orientations
