@@ -412,36 +412,22 @@ properties:
     to (\ref{conj:subcross});
     \item $(\delta 2^n)^{-\frac{1}{H}} W_k^n$ are identically distributed with mean $1$.
 \end{itemize}
-With this conjecture it could be possible to use the crossing tree to estimate $H$
-based on these properties implied by the conjecture: $H^{-1} \approx \log_2 \ex Z^n$,
+This conjecture makes it possible to use the crossing tree to estimate $H$ based
+on the offspring distribution and mean durations: $H^{-1} \approx \log_2 \ex Z^n$,
 or $H^{-1} \approx \log_2 \frac{\ex W^{n+1}}{\ex W^n}$. 
 
-Intuitively, if we one scales the time of an $H$-sssi process by $\ex Z^n$, then
-it is necessary to scale down its range on average by $\frac{1}{2}$ -- the resolution
-multiplier.
-Now, if the process is scale-invariant then the distribution of crossing sizes does
-not depend on the level of the tree, and thus it is possible to pool the sample data
-of $Z^n_k$ across several levels, over which the hypothesis of common distribution
-cannot be rejected.
-
-% The rationale behind the scaling in the crossing duration case is given below. By
-% definition, the duration of a crossing of grid $\delta 2^n \mathbb{Z}$ (level-
-% $n$ crossing duration, denoted here by $\tau_n$) is the time needed for the process
-% $\{X(t)\}$ to move from some value $X(t)$ to $X(t+\tau_n) = 2^n X(t)$. Therefore one
-% can use self-similarity for the following chain of thought:
-% \[ X(\tau_n) \overset{\Dcal}{\sim} 2^n X(\tau_1) \overset{\Dcal}{\sim} 2^n \tau_1^H X(\tau_1) \,, \]
-% whence follows that $\tau_n^H X(1) \overset{\Dcal}{\sim} 2^n \tau_1^H X(\tau_1)$. This
-% observation gives an idea of how should the crossing durations between different
-% tree level be related.
+In sec.~\ref{sec:experiment} we conduct an extensive simulation study on Gaussian
+and non-Gaussian $H$-sssi processes, reviewed in sec.~\ref{sec:self_sim_processes},
+to test plausibility of the conjecture.
 
 % section characterization_with_the_crossing_tree (end)
 
 \section{Typical self-similar processes} % (fold)
 \label{sec:self_sim_processes}
 
-In the experiment we study continuous monofractal real-valued stochastic processes:
-Gaussian and Hermite $H$-sssi processes (sec.~\ref{sub:h_sssi_proc}), and the Weierstrass
-function (sec.~\ref{sub:weierstrass_function}).
+In the simulation study we consider continuous monofractal real-valued stochastic
+processes: Gaussian and Hermite $H$-sssi processes (sec.~\ref{sub:h_sssi_proc}),
+and the Weierstrass function (sec.~\ref{sub:weierstrass_function}).
 
 \subsection{Gaussian and Hermite $H$-sssi processes} % (fold)
 \label{sub:h_sssi_proc}
@@ -580,7 +566,7 @@ that the harmonics are adequately sampled over the grid, \cite{decrouez2013}.
 
 % section self_sim_processes (end)
 
-\section{the Crossing tree and $H$-sssi processes} % (fold)
+\section{Setup and results} % (fold)
 \label{sec:experiment}
 
 In order to gather empirical evidence either supporting or refuting this claim,
