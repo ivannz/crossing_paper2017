@@ -17,7 +17,7 @@ setup(
     cmdclass={"build_ext": build_ext},
     packages=["crossing_tree","crossing_tree/processes",],
     author='Ivan Nazarov',
-    version='0.9.0',
+    version='0.9.2',
     description="A library for experimentation with crossing trees for analysis of self-similarity",
     install_requires=[str(ir.req) for ir in install_reqs],
 )

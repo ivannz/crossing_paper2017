@@ -1,5 +1,8 @@
 """"""
 import numpy as np
+from numpy.lib.stride_tricks import broadcast_to
+
+from scipy.sparse import coo_matrix
 
 from ._crossing import crossings, _get_statistics
 from ._crossing import _align_crossing_times, _align_next_lattice
@@ -61,10 +64,25 @@ def structural_statistics(X, T, scale=1.0, origin=0.0, low_memory=True,
 
     # Dnk[n, k] -- the number of crossings of grid \delta 2^{n+1}
     #  with exactly 2(k+1) subcrossings of grid \delta 2^n.
-    freq = [np.bincount(Zk)[2::2] for Zk in Znk]
-    Dnk = np.zeros((len(Znk), max(len(f) for f in freq)), np.int)
-    for l, f in enumerate(freq):
-        Dnk[l, :len(f)] = f
+    Dnk_ = [np.bincount(Zk)[2::2] for Zk in Znk]
+    n_pairs = max(len(Dk_) for Dk_ in Dnk_)
+    Dnk = np.zeros((len(Dnk_), n_pairs), dtype=np.int)
+    for level, Dk_ in enumerate(Dnk_):
+        Dnk[level, :len(Dk_)] = Dk_
+
+    # Cnkk[n, k, k'] -- the count of crossings of grid \delta 2^{n+1} with
+    #  2(k+1) subcrossings followed by a crossing with 2(k'+1) subcrossings.
+    Cnkk_ = list()
+    for Zk in Znk:
+        if len(Zk) <= 1:
+            Cnkk_.append(np.empty((0, 0), dtype=np.int))
+        else:
+            Ckk_ = coo_matrix((broadcast_to(1, len(Zk[1:])), (Zk[:-1], Zk[1:])))
+            Cnkk_.append(Ckk_.toarray()[2::2, 2::2])
+
+    Cnkk = np.zeros((len(Cnkk_), n_pairs, n_pairs), dtype=np.int)
+    for level, Ckk_ in enumerate(Cnkk_):
+        Cnkk[level, :Ckk_.shape[0], :Ckk_.shape[1]] = Ckk_
 
     # Vnde[n, d, e] -- the total number of up-down(e=0) and down-up(e=1)
     #  excursions in a downward (d=0) or upward (d=1) crossing of level
@@ -81,7 +99,7 @@ def structural_statistics(X, T, scale=1.0, origin=0.0, low_memory=True,
     # The average crossing duration and its standard deviation
     Wavgn = np.array([np.mean(Wk) if len(Wk) > 0 else np.nan for Wk in Wnk])
     Wstdn = np.array([np.std(Wk) if len(Wk) > 0 else np.nan for Wk in Wnk])
-    return scale, Nn, Dnk, Vnde, Wnp, Wavgn, Wstdn
+    return scale, Nn, Dnk, Cnkk, Vnde, Wnp, Wavgn, Wstdn
 
 def collect_structural_statistics(tree_statistics):
     """Collects the structural statistics of the crossing trees .
@@ -90,10 +108,10 @@ def collect_structural_statistics(tree_statistics):
     tree_statistics = list(tree_statistics)
 
     # scale_m is an array of length M of $\delta_m$.
-    scale_m = np.array([scale for scale, Nn, Dnk, Vnde, Wnp, Wavgn, Wstdn in tree_statistics])
+    scale_m = np.array([scale for scale, Nn, Dnk, Cnkk, Vnde, Wnp, Wavgn, Wstdn in tree_statistics])
 
     # Nmn is an MxL matrix of numbers of complete crossings.
-    Nmn = [Nn for scale, Nn, Dnk, Vnde, Wnp, Wavgn, Wstdn in tree_statistics]
+    Nmn = [Nn for scale, Nn, Dnk, Cnkk, Vnde, Wnp, Wavgn, Wstdn in tree_statistics]
     n_levels = max(Nn.shape[0] for Nn in Nmn)
 
     Nmn = np.stack([np.pad(Nn, (0, n_levels - Nn.shape[0]), mode="constant").astype(np.float)
@@ -101,32 +119,40 @@ def collect_structural_statistics(tree_statistics):
 
     # Dmnk is an MxLxK tensor of offspring frequencies (# of crossings with the
     # specified number of subcrossings).
-    Dmnk = [Dnk for scale, Nn, Dnk, Vnde, Wnp, Wavgn, Wstdn in tree_statistics]
+    Dmnk = [Dnk for scale, Nn, Dnk, Cnkk, Vnde, Wnp, Wavgn, Wstdn in tree_statistics]
     n_pairs = max(Dnk.shape[1] for Dnk in Dmnk)
 
-    Dmnk = np.stack([np.pad(Dnk, ((0, n_levels - 1 - Dnk.shape[0]), (0, n_pairs - Dnk.shape[1])),
+    Dmnk = np.stack([np.pad(Dnk, ((0, n_levels - 1 - Dnk.shape[0]),
+                                  (0, n_pairs - Dnk.shape[1])),
                             mode="constant").astype(np.float)
                      for Dnk in Dmnk])
+
+    # Cmnkk is an MxLxKxK tensor of offspring pair frequencies
+    Cmnkk = np.stack([np.pad(Cnkk, ((0, n_levels - 1 - Cnkk.shape[0]),
+                                    (0, n_pairs - Cnkk.shape[1]),
+                                    (0, n_pairs - Cnkk.shape[2])),
+                             mode="constant").astype(np.float)
+                      for scale, Nn, Dnk, Cnkk, Vnde, Wnp, Wavgn, Wstdn in tree_statistics])
 
     # Wmnp is an MxLxP tensor of empirical quantiles of the crossing durations.
     Wmnp = np.stack([np.pad(Wnp.astype(np.float), ((0, n_levels - 1 - Wnp.shape[0]), (0, 0)),
                             mode="constant", constant_values=np.nan)
-                     for scale, Nn, Dnk, Vnde, Wnp, Wavgn, Wstdn in tree_statistics])
+                     for scale, Nn, Dnk, Cnkk, Vnde, Wnp, Wavgn, Wstdn in tree_statistics])
 
     # Vmnde is an MxLx2x2 tensor of excursion frequencies.
     Vmnde = np.stack([np.pad(Vnde.astype(np.float), ((0, n_levels - 1 - Vnde.shape[0]),
                                                      (0, 0), (0, 0)),
                              mode="constant", constant_values=np.nan)
-                      for scale, Nn, Dnk, Vnde, Wnp, Wavgn, Wstdn in tree_statistics])
+                      for scale, Nn, Dnk, Cnkk, Vnde, Wnp, Wavgn, Wstdn in tree_statistics])
 
     # Wavgmn is an MxL matrix of within level average of the crossing durations.
     Wavgmn = np.stack([np.pad(Wavgn.astype(np.float), (0, n_levels - 1 - Wavgn.shape[0]),
                               mode="constant", constant_values=np.nan)
-                       for scale, Nn, Dnk, Vnde, Wnp, Wavgn, Wstdn in tree_statistics])
+                       for scale, Nn, Dnk, Cnkk, Vnde, Wnp, Wavgn, Wstdn in tree_statistics])
 
     # Wstdmn is an MxL matrix of within level standard devision of the crossing durations.
     Wstdmn = np.stack([np.pad(Wstdn.astype(np.float), (0, n_levels - 1 - Wstdn.shape[0]),
                               mode="constant", constant_values=np.nan)
-                       for scale, Nn, Dnk, Vnde, Wnp, Wavgn, Wstdn in tree_statistics])
+                       for scale, Nn, Dnk, Cnkk, Vnde, Wnp, Wavgn, Wstdn in tree_statistics])
 
-    return scale_m, Nmn, Dmnk, Vmnde, Wmnp, Wavgmn, Wstdmn
+    return scale_m, Nmn, Dmnk, Cmnkk, Vmnde, Wmnp, Wavgmn, Wstdmn
