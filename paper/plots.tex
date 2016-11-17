@@ -1,0 +1,185 @@
+\documentclass[a4paper]{extarticle}
+\usepackage[utf8]{inputenc}
+
+\usepackage{geometry}
+\usepackage{fullpage}
+
+% \usepackage{subfigure} <-- this is not necessary at all!
+
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+
+\usepackage[mathcal]{euscript}
+
+\usepackage{graphicx, url}
+
+\usepackage{amsmath, amsfonts, amssymb, amsthm}
+\usepackage{mathptmx}
+
+\usepackage{grffile}
+
+\graphicspath{{../plots/20161117_130619/}}
+
+\title{Plots for the crossing paper 2017}
+
+\author{Nazarov I. N.}
+\begin{document}
+\maketitle
+\tableofcontents
+\listoffigures
+\clearpage
+
+\section{Offspring size distribution} % (fold)
+\label{sec:offspring_size_distribution}
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{fig_01-6_10-FBM-33554432-334x3-med.pdf}
+  \end{subfigure}\hspace{-2.em}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{fig_01-6_10-WEI_1.2-8388608-125x8-med.pdf}
+  \end{subfigure}\vspace{-.5em}
+
+  \caption{Offspring distribution (levels $6-10$).
+  \emph{Left}: fBM $N = 2^{25}$, $M=1002$.
+  \emph{Right}: random Weierstrass function $\lambda_0=1.2$, $N = 2^{23}$, $M=1000$.}
+  \label{fig:fbm_wei1_2_offspring}
+\end{figure}
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_01-6_10-HRP2_1-8388608-125x8-med.pdf}
+  \end{subfigure}\hspace{-2.em}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_01-6_10-HRP3_1-8388608-125x8-med.pdf}
+  \end{subfigure}\hspace{-2.em}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_01-6_10-HRP4_1-8388608-125x8-med.pdf}
+  \end{subfigure}\vspace{-1.0em}
+
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_01-6_10-HRP2_16-524288-125x8-med.pdf}
+  \end{subfigure}\hspace{-2.em}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_01-6_10-HRP3_16-524288-125x8-med.pdf}
+  \end{subfigure}\hspace{-2.em}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_01-6_10-HRP4_16-524288-125x8-med.pdf}
+  \end{subfigure}\vspace{-.5em}
+
+  \caption{Offspring distribution (levels $6-10$) for the Hermite process ($N = 2^{23}$, $M=1000$).
+  \emph{Top row}: paths with no downsampling; \emph{bottom row}: paths with downsampling $16$.
+  \emph{Left column} degree $m=2$; \emph{Middle column} -- $m=3$; \emph{Right column} -- $m=4$.}
+  \label{fig:hrp_offspring}
+\end{figure}
+
+\clearpage
+
+% section offspring_size_distribution (end)
+
+\section{Self-similarity exponent estimate} % (fold)
+\label{sec:self_similarity_exponent_estimate}
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{fig_04-0_X-FBM-33554432-334x3-med.pdf}
+  \end{subfigure}\hspace{-2.em}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{fig_04-0_X-WEI_1.2-8388608-125x8-med.pdf}
+  \end{subfigure}\vspace{-.5em}
+
+  \caption{$H$ exponent estimate at each level of the crossing tree.
+  \emph{Left}: fBM $N = 2^{25}$, $M=1002$.
+  \emph{Right}: random Weierstrass function $\lambda_0=1.2$, $N = 2^{23}$, $M=1000$.}
+  \label{fig:fbm_wei1_2_h_estimate}
+\end{figure}
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_04-0_X-HRP2_1-8388608-125x8-med.pdf}
+  \end{subfigure}\hspace{-2.em}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_04-0_X-HRP3_1-8388608-125x8-med.pdf}
+  \end{subfigure}\hspace{-2.em}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_04-0_X-HRP4_1-8388608-125x8-med.pdf}
+  \end{subfigure}\vspace{-1.0em}
+
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_04-0_X-HRP2_16-524288-125x8-med.pdf}
+  \end{subfigure}\hspace{-2.em}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_04-0_X-HRP3_16-524288-125x8-med.pdf}
+  \end{subfigure}\hspace{-2.em}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_04-0_X-HRP4_16-524288-125x8-med.pdf}
+  \end{subfigure}\vspace{-.5em}
+
+  \caption{Hurst exponent estimate at each level of the crossing tree for the Hermite process
+  ($N = 2^{23}$, $M=1000$). \emph{Top row}: paths with no downsampling; \emph{bottom row}: paths with
+  downsampling $16$. \emph{Left column} degree $m=2$; \emph{Middle column} -- $m=3$;
+  \emph{Right column} -- $m=4$.}
+  \label{fig:hrp_hurst}
+\end{figure}
+
+\clearpage
+
+% section self_similarity_exponent_estimate (end)
+
+\section{Scaled mean crossing durations} % (fold)
+\label{sec:scaled_mean_crossing_durations}
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{fig_08-FBM-33554432-334x3-med.pdf}
+  \end{subfigure}\hspace{-2.em}
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{fig_08-WEI_1.2-8388608-125x8-med.pdf}
+  \end{subfigure}\vspace{-.5em}
+
+  \caption{Scaled mean crossing durations at each level of the crossing tree.
+  \emph{Left}: fBM $N = 2^{25}$, $M=1002$.
+  \emph{Right}: random Weierstrass function $\lambda_0=1.2$, $N = 2^{23}$, $M=1000$.}
+  \label{fig:fbm_wei1_2_durations}
+\end{figure}
+
+\begin{figure}[ht]
+  \centering
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_08-HRP2_1-8388608-125x8-med.pdf}
+  \end{subfigure}\hspace{-2.em}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_08-HRP3_1-8388608-125x8-med.pdf}
+  \end{subfigure}\hspace{-2.em}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_08-HRP4_1-8388608-125x8-med.pdf}
+  \end{subfigure}\vspace{-1.0em}
+
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_08-HRP2_16-524288-125x8-med.pdf}
+  \end{subfigure}\hspace{-2.em}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_08-HRP3_16-524288-125x8-med.pdf}
+  \end{subfigure}\hspace{-2.em}
+  \begin{subfigure}[b]{0.3\textwidth}
+    \includegraphics[width=0.95\textwidth]{fig_08-HRP4_16-524288-125x8-med.pdf}
+  \end{subfigure}\vspace{-.5em}
+
+  \caption{Scaled mean crossing durations at each level of the crossing tree for the Hermite process
+  ($N = 2^{23}$, $M=1000$). \emph{Top row}: paths with no downsampling; \emph{bottom row}: paths with
+  downsampling $16$. \emph{Left column} degree $m=2$; \emph{Middle column} -- $m=3$;
+  \emph{Right column} -- $m=4$.}
+  \label{fig:hrp_durations}
+\end{figure}
+
+\clearpage
+
+% section scaled_mean_crossing_durations (end)
+
+\end{document}
