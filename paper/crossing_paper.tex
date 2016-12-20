@@ -290,9 +290,9 @@ Therefore $X(T_m^{n+1}) = X(T_k^n)$ and $T_k^n \in [T_m^{n+1}, T_{m+1}^{n+1})$ i
 \end{figure}
 
 Another important observation is that any complete crossing has an even number of
-subcrossings in (\ref{eq:crossing_offspring}). Indeed, if $T_k^n = T_m^{n+1}$ and
+subcrossings in \eqref{eq:crossing_offspring}. Indeed, if $T_k^n = T_m^{n+1}$ and
 $T_{m+1}^{n+1} < +\infty$, then there is an integer $p > 0$ with $T_{k+p}^n = T_{m+1}^{n+1}$.
-However, (\ref{eq:duration_partition}) implies that there are two possibilities at
+However, \eqref{eq:duration_partition} implies that there are two possibilities at
 $T_{k+2}^n$:
 \begin{enumerate}
     \item the path crossed a level other than $X(T_k^n)$, inducing a crossing of
@@ -313,12 +313,13 @@ Note, that $r\neq 1$, since over $\bigl[T_{k'}^n, T_{k'+1}^n\bigr)$, $k' = k + 2
 a continuous process necessarily moves $\pm \delta 2^n$, (fig.~\ref{fig:xing_tree_structure}).
 Therefore $\bigl| J_{m+1}^{n+1} \bigr| = p = 2q$.
 
-By (\ref{eq:subcrossing_partition}) subcrossings of a complete crossing are paired,
+By \eqref{eq:subcrossing_partition} subcrossings of a complete crossing are paired,
 and the last pair always has the same orientation, which concludes the parent crossing
 by hitting $\delta 2^{n+1} \mathbb{Z}$. Thus complete crossings can be broken into
 a series of \emph{excursions} -- pairs of oppositely oriented subcrossings within
-$\pm\delta 2^n$ levels. Define $V_k^n$ as the movement pattern of the $k$-th $n$-th
-level excursion: either `+-' for up-down, or `-+' for down-up.
+$\pm\delta 2^n$ levels, followed by a psir of indentically oriented subcrossings.
+Let $V_k^n$ be the movement pattern of the $k$-th $n$-th level excursion: either
+`+-' for up-down, or `-+' for down-up movements.
 
 % subsection theoretical_construction (end)
 
@@ -329,20 +330,20 @@ The tree is built from the crossings at the finest scale $\delta > 0$ by gradual
 halving the resolution, until no complete crossings occur. To this end the univariate
 time series $(t_i, x_i)_{i=1}^m$ is interpolated by a piecewise linear continuous
 trajectory $X(t)$, with static values outside of $[t_1, t_m]$. This interpolation
-implies that the $n$-th level crossing times (\ref{eq:xing_time}) by the intersections
+implies that the $n$-th level crossing times \eqref{eq:xing_time} by the intersections
 of the linear segments with lines of the lattice $\delta 2^n \mathbb{Z}$, which
 are not immediately preceded by a crossing of the same lattice line. This procedure
 has linear time and memory complexity in output size: $\mathcal{O}(N_n)$ where $N_n$
 is the number of complete crossings $N_n = |\{k\geq 1\,:\, T_k^n < +\infty\}|$.
 
 Once the crossing times for all resolutions are computed, the offspring of level
-$n+1$ crossings is determined directly by (\ref{eq:crossing_offspring}). For this
+$n+1$ crossings is determined directly by \eqref{eq:crossing_offspring}. For this
 its sufficient to find locations, at which the times $(T_k^n)_{k=1}^{N_n}$ should
 be inserted into $(T_m^{n+1})_{m=1}^{N_{n+1}}$ to keep the latter sorted, up to
 numerical accuracy. In fact this alignment can be done in a single pass through
 the $n$-th level crossing times, and thus has complexity $\mathcal{O}(N_n)$.
 
-Since (\ref{eq:subcrossing_partition}) implies that each new level of the tree has
+Since \eqref{eq:subcrossing_partition} implies that each new level of the tree has
 no more than half of the crossings of the preceding level, and each level is visited
 only once, the complexity of the crossing tree construction is $\mathcal{O}(N_0)$,
 where $N_0$ is the number of crossings of the finest lattice $\delta \mathbb{Z}$.
@@ -386,7 +387,7 @@ the origin with the following properties:
         \pr(Z_k^n = 2m) = \theta_H (1 - \theta_H)^{m-1} \,,
     \end{equation}
     with $\theta_H = 2^{1 - H^{-1}}$ for integer $m\geq 1$;
-    \item the excursion directions $V_k^n$ are independent of the crossing
+    \item the excursion directions $V_k^n$ are independent of the parent crossing
     directions and iid with $\pr(V_k^n=\text{`+-'}) = 2^{-2 H^{-1}}$;
 \end{itemize}
 where $H = \frac{1}{2}$. This characterisation is based on the construction of the
@@ -401,17 +402,12 @@ distributed across levels, and stationary and ergodic within each level. The sam
 result holds for scaled crossing durations. Therfore, we conjecture that for $H$-sssi
 (sec.~\ref{sec:self_sim_processes}) processes the crossing tree has these statistical
 properties:
-\begin{itemize}
-    \item the excursion patterns $V_k^n$ are identically distributed with
-    \begin{equation*}
-        \pr_+(\text{`+-'}) = \pr_-(\text{`-+'}) = 2^{-2 H^{-1}} \,,
-    \end{equation*}
-    where $\pr_+$ and $\pr_-$ are conditional probabilities with respect to the
-    orientation of the parent crossing;
-    \item $Z_k^n$ are possibly correlated but identically distributed according
-    to (\ref{conj:subcross});
-    \item $(\delta 2^n)^{-\frac{1}{H}} W_k^n$ are identically distributed with mean $1$.
-\end{itemize}
+\begin{description}
+    \item[C1] conditioning on the parent crossing, $V_k^n$ have distribution
+    $\pr(V_k^n = \text{`+-'}|\text{`+'}) = \pr(V_k^n = \text{`-+'}|\text{`-'}) = 2^{-2 H^{-1}}$;
+    \item[C2] $Z_k^n$ are distributed as \eqref{conj:subcross}, but possibly correlated;
+    \item[C3] $(\delta 2^n)^{-\frac{1}{H}} W_k^n$ are identically distributed with mean $1$.
+\end{description}
 This conjecture makes it possible to use the crossing tree to estimate $H$ based
 on the offspring distribution and mean durations: $H^{-1} \approx \log_2 \ex Z^n$,
 or $H^{-1} \approx \log_2 \frac{\ex W^{n+1}}{\ex W^n}$. 
@@ -458,18 +454,18 @@ Normal with mean $(\mu(t_i))_{i=1}^n$ and covariance matrix $(R(t_i, t_j))_{i,j=
 Now, the Brownian Motion (BM) process $(B(t))_{t\geq0}$ is a zero-mean Gaussian process
 with $X(0)=0$ and almost surely continuous paths such that its covariance kernel is
 $R(s,t)=\min\{s, t\}$. Gaussianity and covariance structure imply that BM is an $H$-sssi
-process for $H=\frac{1}{2}$, since for any $a>0$ the process $(a^{-\frac{1}{2}} W_{at})_{t\geq0}$
-is just another version of the Brownian Motion.
+process for $H=\frac{1}{2}$, since for any $a>0$ the process $(a^{-\frac{1}{2}} B_{at})_{t\geq0}$
+is just another version of the BM.
 
 Fractional Brownian motion (fBM) -- a generalization of the BM to an $H$-sssi Gaussian
 process for $H \in (\frac{1}{2}, 1)$, -- was introduced in \cite{doi:10.1137/1010093}.
 Formally, fBM, denoted by $(B_H(t))_{t\geq0}$, is a continuous zero-mean Gaussian
-process with stationary increments and the covariance kernel given by (\ref{eq:h_sssi_cov}).
+process with stationary increments and the covariance kernel given by \eqref{eq:h_sssi_cov}.
 This class of processes exhausts all Gaussian $H$-sssi processes, \cite{embrechts2002},
-and has the following time-domain integral representation: for some constant $C(H)$
+and has an It\^o intergral representation with respect to the BM $(W_t)_{t\in\Real}$
 \begin{equation}\label{eq:fbm_int_repr}
-    B_H(t) = C(H) \int_{[0,+\infty)} \biggl(
-            \int_0^t (u-s)^{H-\frac{3}{2}} du
+    B_H(t) = \int_{\Real} \biggl(
+            \int_0^t (u-x)^{H-\frac{3}{2}} du
         \biggr) dW_x \,.
 \end{equation}
 
@@ -477,8 +473,8 @@ FBM processes, are a particular instance of a class of generally non-Gaussian $H
 processes, called the \textbf{Hermite} processes, named after the stochastic integral
 kernel used in its definition. It is an important class of non-Gaussian self-similar
 processes, \cite{maejima2007}. The $H$-sssi Hermite process $(Z_H^m(t))_{t\geq 0}$
-of order $m$, $H \in (\frac{1}{2}, 1)$, is defined as multiple Wiener-It\^o intergral
-of order $m$ with respect to the standard Browninan Motion $(W_t)_{t\geq0}$:
+of order $m$, $H \in (\frac{1}{2}, 1)$, is defined as % multiple Wiener-It\^o intergral
+% of order $m$ with respect to the standard BM $(W_t)_{t\geq0}$:
 \begin{equation}\label{eq:def_hermite}
     Z_H^m(t) = \int_{\Real^m}' \Biggl(
             \int_0^t \prod_{k=1}^m (u - x_k)_+^{H_0-\frac{3}{2}} du
@@ -556,9 +552,9 @@ then
 as $n\to\infty$, where $H_m(x) = (-1)^m e^\frac{x^2}{2}\frac{d^m}{dx^m}e^{-\frac{x^2}{2}}$
 is the Hermite polynomial of degree $m$. The sequence $(\xi_k)_{k\geq0}$ can be sampled
 from the fractional Gaussian Noise with Hurst index $H_0 = \frac{H-1}{m}+1$ as in
-(\ref{eq:def_hermite}), \cite{embrechts2000introduction}.
+\eqref{eq:def_hermite}, \cite{embrechts2000introduction}.
 
-Sample paths of the Weierstrass function are approximated by truncating (\ref{eq:def_weir})
+Sample paths of the Weierstrass function are approximated by truncating \eqref{eq:def_weir}
 at $|k| \leq 1+\bigl\lfloor \log_{\lambda_0} \frac{N}{2} \bigr\rfloor$, which ensures
 that the harmonics are adequately sampled over the grid, \cite{decrouez2013}.
 
@@ -611,7 +607,7 @@ levels of the tree are identical.
     % where $\pr_+$ and $\pr_-$ are conditional probabilities with respect to the
     % orientation of the parent crossing;
     % \item $Z_k^n$ are possibly correlated but identically distributed according
-    % to (\ref{conj:subcross});
+    % to \eqref{conj:subcross};
     % \item $(\delta 2^n)^{-\frac{1}{H}} W_k^n$ are identically distributed with mean $1$.
 
 Another characteristic of the process is the distribution of excursion patterns within
