@@ -462,28 +462,30 @@ process for $H \in (\frac{1}{2}, 1)$, -- was introduced in \cite{doi:10.1137/101
 Formally, fBM, denoted by $(B_H(t))_{t\geq0}$, is a continuous zero-mean Gaussian
 process with stationary increments and the covariance kernel given by \eqref{eq:h_sssi_cov}.
 This class of processes exhausts all Gaussian $H$-sssi processes, \cite{embrechts2002},
-and has an It\^o intergral representation with respect to the BM $(W_t)_{t\in\Real}$
+and has an It\^o integral representation with respect to the BM $(W_x)_{x\in\Real}$
 \begin{equation}\label{eq:fbm_int_repr}
-    B_H(t) = \int_{\Real} \biggl(
-            \int_0^t (u-x)^{H-\frac{3}{2}} du
-        \biggr) dW_x \,.
+    B_H(t) = C \int_\Real \biggl(
+            \int_0^t (u-x)_+^{H-\frac{3}{2}} {du}
+        \biggr) {dW_x} \,,
 \end{equation}
+for a normalising constant $C$, which depends on $H$.
 
-FBM processes, are a particular instance of a class of generally non-Gaussian $H$-sssi
+fBM processes, are a particular instance of a class of generally non-Gaussian $H$-sssi
 processes, called the \textbf{Hermite} processes, named after the stochastic integral
 kernel used in its definition. It is an important class of non-Gaussian self-similar
 processes, \cite{maejima2007}. The $H$-sssi Hermite process $(Z_H^m(t))_{t\geq 0}$
-of order $m$, $H \in (\frac{1}{2}, 1)$, is defined as % multiple Wiener-It\^o intergral
+of order $m$, $H \in (\frac{1}{2}, 1)$, is defined as % multiple Wiener-It\^o integral
 % of order $m$ with respect to the standard BM $(W_t)_{t\geq0}$:
 \begin{equation}\label{eq:def_hermite}
-    Z_H^m(t) = \int_{\Real^m}' \Biggl(
+    Z_H^m(t) = C \int_{\Real^m}' \Biggl(
             \int_0^t \prod_{k=1}^m (u - x_k)_+^{H_0-\frac{3}{2}} du
         \Biggr) dW_{x_1} \ldots dW_{x_m}\,,
 \end{equation}
-where $H = m (H_0-1)+1$, and $\int_{\Real^m}'$ is an $m$-dimensional integral over
-$\Real^m$ excluding the diagonals. For $m=1$ the Hermite process becomes the fractional
-Brownian Motion, but for $m\geq 1$ higher order Hermite processes correspond to
-non-Gaussian $H$-sssi, \cite{Bai20141710,Chronopoulou:1114288,embrechts2000introduction}.
+where $H = m (H_0-1)+1$, $C$ is a normalising constant, and $\int_{\Real^m}'$ is an
+$m$-dimensional integral over $\Real^m$ excluding the diagonals. For $m=1$ the Hermite
+process is the fBM \eqref{eq:fbm_int_repr}, but for $m\geq 1$ higher order Hermite
+processes correspond to non-Gaussian $H$-sssi,
+\cite{Bai20141710,Chronopoulou:1114288,embrechts2000introduction}.
 % http://samm.univ-paris1.fr/Sofwares-Logiciels
 
 % subsection h_sssi_proc (end)
@@ -598,17 +600,6 @@ levels of the tree are identical.
             \,.
     \end{equation*}
 \end{enumerate}
-
-
-    % \item the excursion patterns $V_k^n$ are identically distributed with
-    % \begin{equation*}
-    %     \pr_+(\text{`+-'}) = \pr_-(\text{`-+'}) = 2^{-2 H^{-1}} \,,
-    % \end{equation*}
-    % where $\pr_+$ and $\pr_-$ are conditional probabilities with respect to the
-    % orientation of the parent crossing;
-    % \item $Z_k^n$ are possibly correlated but identically distributed according
-    % to \eqref{conj:subcross};
-    % \item $(\delta 2^n)^{-\frac{1}{H}} W_k^n$ are identically distributed with mean $1$.
 
 Another characteristic of the process is the distribution of excursion patterns within
 a parent crossing, conditional on its direction. Indeed, subcrossing orientations
