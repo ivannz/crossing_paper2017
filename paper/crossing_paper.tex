@@ -53,10 +53,10 @@
 
 \title{Numerical study of the Crossing Tree for Self-similar Processes}
 \twoauthors
-  {Geoffrey Decrouez}
-    {National Research University\\ Higher School of Economics\\ Moscow, Russia}
   {Ivan Nazarov}
     {IITP RAS, Skoltech\\ Moscow, Russia}
+  {Geoffrey Decrouez}
+    {National Research University\\ Higher School of Economics\\ Moscow, Russia}
 
 \begin{document}
 \maketitle
@@ -151,11 +151,11 @@ orientations $(\alpha_k^n)_{k\geq 1}$ given by
 \begin{figure}[ht]
     \centering
     \begin{subfigure}{\linewidth}
-        \includegraphics[width=\linewidth]{../plots/sample_path.pdf}
+        \includegraphics[draft,width=\linewidth]{../plots/sample_path.pdf}
     \end{subfigure}\\
     \vspace{-20pt}
     \begin{subfigure}{\linewidth}
-        \includegraphics[width=\linewidth]{../plots/sample_tree.pdf}
+        \includegraphics[draft,width=\linewidth]{../plots/sample_tree.pdf}
     \end{subfigure}
     \vspace{-10pt}
     \caption{\emph{top}: the crossing times and levels of a sample trajectory of
@@ -634,7 +634,7 @@ Before proceeding to the evaluation of statistical properties of the crossing tr
 it is necessary to determine the range of tree levels (grid scales, or resolutions)
 for which self-similarity is apparent.
 \begin{figure}[htb]\begin{center}
-    \includegraphics[width=6in]{images/fbm_fig_05_med_1000-21}
+    \includegraphics[draft,width=6in]{images/fbm_fig_05_med_1000-21}
     \caption{The plot of the estimates of the Hurst index $H$ on the offspring data
     of a single level of the crossing tree based on $10^3$ Monte-Carlo simulations of
     fBM.}
@@ -668,7 +668,7 @@ Restricting the attention to the Brownian motion case (fBM with $H=\frac{1}{2}$)
 one can easily see that the numerical evidence is well aligned with the theoretical
 result of Jones and Rolls (fig.~\ref{fig:fbm_offspring_distribution}).
 \begin{figure}[htb]\begin{center}
-    \includegraphics[width=6in]{images/fbm_fig_01_med_1000-21}
+    \includegraphics[draft,width=6in]{images/fbm_fig_01_med_1000-21}
     \caption{The log-plot of the offspring distributions estimated on 1000 sample discrete paths
     of the fBM process of length $2^{21}$ and Hurst exponents in the range from $0.5$ to $0.9$.}
 \label{fig:fbm_offspring_distribution}
@@ -678,14 +678,14 @@ is matched very closely by the numerical evidence (fig.~\ref{fig:fbm_offspring_u
 The results are similar in the down-up excursions case (fig.~\ref{fig:fbm_offspring_down_up}).
 
 \begin{figure}[htb]\begin{center}
-    \includegraphics[width=6in]{images/fbm_fig_03_up-down_med_1000-21}
+    \includegraphics[draft,width=6in]{images/fbm_fig_03_up-down_med_1000-21}
     \caption{The estimated conditional probability of an up-down excursion given upward
     orientation of the parent crossing.}
 \label{fig:fbm_offspring_up_down}
 \end{center}\end{figure}
 
 \begin{figure}[htb]\begin{center}
-    \includegraphics[width=6in]{images/fbm_fig_03_down-up_med_1000-21}
+    \includegraphics[draft,width=6in]{images/fbm_fig_03_down-up_med_1000-21}
     \caption{The box-plot of the estimates of the probability of an down-up excursion
     conditional on the orientation of the parent crossing being downward.}
 \label{fig:fbm_offspring_down_up}
@@ -708,7 +708,7 @@ Finally, the mean crossing durations, averaged for each replication across all d
 crossings of a single level indeed demonstrate plausibility of the conjectured scaling
 between levels of the crossing tree, see fig.~\ref{fig:fbm_avg_crossing_durations} for fBM.
 \begin{figure}[htb]\begin{center}
-    \includegraphics[width=6in]{images/fbm_fig_08_med_1000-21}
+    \includegraphics[draft,width=6in]{images/fbm_fig_08_med_1000-21}
     \caption{The average crossing duration at each level of the crossing tree built
     for fractional Brownian motion processes.}
 \label{fig:fbm_avg_crossing_durations}
@@ -724,7 +724,7 @@ points as well.
 Figure~\ref{fig:all_hurst_crossing_tree} suggests that the processes studied share common
 statistical properties of the crossing tree.
 \begin{figure}[htb]\begin{center}
-    \includegraphics[width=6in]{images/fig_05_med_10000-17}
+    \includegraphics[draft,width=6in]{images/fig_05_med_10000-17}
     \caption{Estimates of the Hurst exponent $H$ based on a single level of the crossing tree for
     the all studied $H$-sssi processes.}
 \label{fig:all_hurst_crossing_tree}
@@ -781,7 +781,7 @@ probability of a crossing of a particular size (in the number of subcrossings) a
 increases to $1$, there is still evidence for similarity of the statistical properties
 of the crossing tree across different self-similar processes.
 \begin{figure}[htb]\begin{center}
-    \includegraphics[width=6in]{images/fig_02_med_10000-17}
+    \includegraphics[draft,width=6in]{images/fig_02_med_10000-17}
     \caption{Empirical probabilities of the crossing sizes against the hypothesized
     theoretical probabilities for $10^4$ sample paths of length $2^{17}$ points.}
 \label{fig:all_xing_probs}
@@ -844,49 +844,49 @@ the base scale $\delta$) of the crossing durations' distribution among processes
 (see fig.~\ref{fig:fbm_quantiles_06}, \ref{fig:fbm_quantiles_08} and \ref{fig:fbm_quantiles_durations}).
 
 \begin{figure}[htb]\begin{center}
-    \includegraphics[width=6in]{images/fig_03_up-down_med_10000-17}
+    \includegraphics[draft,width=6in]{images/fig_03_up-down_med_10000-17}
     \caption{The empirical estimates of the probability of an up-down excursion conditional on
     the upward orientation of the parent crossing.}
 \label{fig:all_offspring_up_down}
 \end{center}\end{figure}
 
 \begin{figure}[htb]\begin{center}
-    \includegraphics[width=6in]{images/fig_03_down-up_med_10000-17}
+    \includegraphics[draft,width=6in]{images/fig_03_down-up_med_10000-17}
     \caption{The same figure as~\ref{fig:all_offspring_up_down} but for down-up excursions
     conditional on the orientation of the parent crossing being downward.}
 \label{fig:all_offspring_down_up}
 \end{center}\end{figure}
 
 \begin{figure}[htb]\begin{center}
-    \includegraphics[width=6in]{images/fig_08_med_WEI_10000-17}
+    \includegraphics[draft,width=6in]{images/fig_08_med_WEI_10000-17}
     \caption{The average crossing duration at each level of the crossing tree built
     for the Weierstrass processes.}
 \label{fig:wei_durations}
 \end{center}\end{figure}
 
 \begin{figure}[htb]\begin{center}
-    \includegraphics[width=6in]{images/fig_08_med_HRM-2_10000-17}
+    \includegraphics[draft,width=6in]{images/fig_08_med_HRM-2_10000-17}
     \caption{The average crossing duration at each level of the crossing tree built
     for the Hermite processes of order $2$.}
 \label{fig:hrm_2_durations}
 \end{center}\end{figure}
 
 \begin{figure}[htb]\begin{center}
-    \includegraphics[width=6in]{images/fig_08_med_HRM-3_10000-17}
+    \includegraphics[draft,width=6in]{images/fig_08_med_HRM-3_10000-17}
     \caption{The average crossing duration at each level of the crossing tree built
     for the Hermite processes of order $3$.}
 \label{fig:hrm_3_durations}
 \end{center}\end{figure}
 
 \begin{figure}[htb]\begin{center}
-    \includegraphics[width=6in]{images/fig_08_med_HRM-4_10000-17}
+    \includegraphics[draft,width=6in]{images/fig_08_med_HRM-4_10000-17}
     \caption{The average crossing duration at each level of the crossing tree built
     for the Hermite processes of order $4$.}
 \label{fig:hrm_4_durations}
 \end{center}\end{figure}
 
 \begin{figure}[htb]\begin{center}
-    \includegraphics[width=6in]{images/fig_09_med_FBM_060}
+    \includegraphics[draft,width=6in]{images/fig_09_med_FBM_060}
     \caption{The empirical distribution of crossing durations at each level of the
     crossing tree built for the fractional Brownian motion ($2^{21}$ datapoints) with $H = 0.6$.
     Averaged across all Monte-Carlo realisations.}
@@ -894,13 +894,13 @@ the base scale $\delta$) of the crossing durations' distribution among processes
 \end{center}\end{figure}
 
 \begin{figure}[htb]\begin{center}
-    \includegraphics[width=6in]{images/fig_09_med_FBM_080}
+    \includegraphics[draft,width=6in]{images/fig_09_med_FBM_080}
     \caption{Similarly to figure~\ref{fig:fbm_quantiles_06} but for fBM with $H=0.8$.}
 \label{fig:fbm_quantiles_08}
 \end{center}\end{figure}
 
 \begin{figure}[htb]\begin{center}
-    \includegraphics[width=6in]{images/fig_10_med_FBM}
+    \includegraphics[draft,width=6in]{images/fig_10_med_FBM}
     \caption{Empirical distributions of crossing durations estimated on levels 7-8
     for the fBM ($2^{21}$ datapoints). Averaged across all Monte-Carlo realisations.}
 \label{fig:fbm_quantiles_durations}
