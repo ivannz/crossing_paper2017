@@ -1,25 +1,31 @@
 from setuptools import setup, Extension
 from Cython.Build import cythonize
-from Cython.Distutils import build_ext
-from pip.req import parse_requirements
-from pip.download import PipSession
 
 import numpy
 
-install_reqs = parse_requirements("requirements.txt",
-                                  session=PipSession())
-
-# python setup.py build_ext [--inplace]
 setup(
     name="crossing_tree",
-    ext_modules=cythonize([Extension("crossing_tree._crossing",
-                                     ["crossing_tree/_crossing.pyx"],
-                                     include_dirs=[numpy.get_include()],)]),
-    cmdclass={"build_ext": build_ext},
-    packages=["crossing_tree", "crossing_tree/processes"],
-    author='Ivan Nazarov',
-    version='0.9.2',
+    version="0.9.3",
     description="""A library for experimentation with crossing trees """
                 """for analysis of self-similarity.""",
-    install_requires=[str(ir.req) for ir in install_reqs],
+    license="MIT License",
+    author="Ivan Nazarov",
+    author_email="ivan.nazarov@skolkovotech.ru",
+    ext_modules=cythonize([
+        Extension(
+            "crossing_tree._crossing",
+            ["crossing_tree/_crossing.pyx"],
+            include_dirs=[numpy.get_include()],
+            extra_compile_args=["-std=c99", "-O3", "-Ofast"]
+        )
+    ]),
+    packages=[
+        "crossing_tree",
+        "crossing_tree.processes"
+    ],
+    install_requires=[
+        "numpy>=1.11.1",
+        "pyfftw>=0.10.4",
+        "cython>=0.24.1"
+    ]
 )
