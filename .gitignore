@@ -1,8 +1,8 @@
 # Experiment result blobs
 results/*.gz
 
-# Created by https://www.gitignore.io/api/macos,python
-# Edit at https://www.gitignore.io/?templates=macos,python
+# Created by https://www.gitignore.io/api/macos,python,jupyternotebooks
+# Edit at https://www.gitignore.io/?templates=macos,python,jupyternotebooks
 
 ### macOS ###
 # General
@@ -31,6 +31,17 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+
+### JupyterNotebooks ###
+# gitignore template for Jupyter Notebooks
+# website: http://jupyter.org/
+
+.ipynb_checkpoints
+*/.ipynb_checkpoints/*
+
+# Remove previous ipynb_checkpoints
+#   git rm -r .ipynb_checkpoints/
+#
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
@@ -109,7 +120,6 @@ docs/_build/
 target/
 
 # Jupyter Notebook
-.ipynb_checkpoints
 
 # IPython
 profile_default/
@@ -158,4 +168,4 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# End of https://www.gitignore.io/api/macos,python
+# End of https://www.gitignore.io/api/macos,python,jupyternotebooks
